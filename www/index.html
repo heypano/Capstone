@@ -26,6 +26,13 @@
 
         <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
         <title>Hello World</title>
+            <script type="text/javascript" src="js/jquery/jquery-1.9.0.js"></script>
+            <!-- <script type="text/javascript" src="js/jquery/jquery.mobile-1.2.0.js"></script> -->
+            <script type="text/javascript" src="cordova-2.3.0.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+            <script type="text/javascript" src="js/jgestures.js"></script>
+            <script type="text/javascript" src="js/kinetic/kinetic.js"></script>
+
         <script type="text/javascript">
             window.addEventListener('load', function() {
                                     document.body.addEventListener('touchmove', function(e) {
@@ -34,101 +41,97 @@
                                     }, false);
             </script>
             <script >
-                
-                window.onload = function() {
-                    document.ontouchmove = function(e){ e.preventDefault(); }
+                $(document).ready(function(){
                     
-                    var canvas  = document.getElementById('main');
-                    canvas.width = document.width;
-                    canvas.height = document.height;
-                    var canvastop = canvas.offsetTop
-                    
-                    var context = canvas.getContext("2d");
-                    
-                    var lastx;
-                    var lasty;
-                    
-                    context.strokeStyle = "#000000";
-                    context.lineCap = 'round';
-                    context.lineJoin = 'round';
-                    context.lineWidth = 5;
-                    
-                    function clear() {
-                        context.fillStyle = "#ffffff";
-                        context.rect(0, 0, canvas.width, canvas.height);
-                        context.fill();
-                    }
-                    
-                    function dot(x,y) {
-                        context.beginPath();
-                        context.fillStyle = "#000000";
-                        context.arc(x,y,1,0,Math.PI*2,true);
-                        context.fill();
-                        context.stroke();
-                        context.closePath();
-                    }
-                    
-                    function line(fromx,fromy, tox,toy) {
-                        context.beginPath();
-                        context.moveTo(fromx, fromy);
-                        context.lineTo(tox, toy);
-                        context.stroke();
-                        context.closePath();
-                    }
-                    
-                    canvas.ontouchstart = function(event){                   
-                        event.preventDefault();                 
-                        
-                        lastx = event.touches[0].clientX;
-                        lasty = event.touches[0].clientY - canvastop;
-                        
-                        dot(lastx,lasty);
-                    }
-                    
-                    canvas.ontouchmove = function(event){                   
-                        event.preventDefault();                 
-                        
-                        var newx = event.touches[0].clientX;
-                        var newy = event.touches[0].clientY - canvastop;
-                        
-                        line(lastx,lasty, newx,newy);
-                        
-                        lastx = newx;
-                        lasty = newy;
-                    }
-                    
-                    
-                    var clearButton = document.getElementById('clear')
-                    clearButton.onclick = clear
-                    
-                    clear()
-                }
+                                  var stage = new Kinetic.Stage({
+                                                                container: 'stage',
+                                                                width: 600,
+                                                                height: 600
+                                                                });
+                                  
+                                  var layer = new Kinetic.Layer();
+                                  
+                                  var rect = new Kinetic.Rect({
+                                                              x: 0,
+                                                              y: 0,
+                                                              width: 600,
+                                                              height: 600,
+                                                              fill: 'none',
+                                                              stroke: 'black',
+                                                              strokeWidth: 4
+                                                              });
+                                  
+                                  line = new Kinetic.Line({
+                                                          points: [0, 0, 50, 50],
+                                                          stroke: "red"
+                                                          });
+                                  layer.add(line);
+                                  layer.add(rect);
+                                  
+                                  points = new Array();
+                                  moving = false;
+                                  
+                                  stage.on("touchstart",startmove);
+                                  stage.on("mousedown",startmove);
+                                  
+                                  function startmove(event){
+                                    if (moving){
+                                      moving = false;layer.draw();
+                                    } else {
+                                      var mousePos = stage.getMousePosition();
+                                      console.log(mousePos);
+                                    
+                                      //start point and end point are the same
+                                      line.getPoints()[0].x = mousePos.x;
+                                      line.getPoints()[0].y = mousePos.y;
+                                      line.getPoints()[1].x = mousePos.x;
+                                      line.getPoints()[1].y = mousePos.y;
+                                      moving = true;
+                                      layer.drawScene();
+                                    }
+                                  }
+                                  
+                                  stage.on("touchmove", function(event){
+                                           if (moving) {
+                                           var mousePos = stage.getMousePosition();
+                                           var x = mousePos.x;
+                                           var y = mousePos.y;
+                                           line.getPoints()[1].x = mousePos.x;
+                                           line.getPoints()[1].y = mousePos.y;
+                                           moving = true;
+                                           layer.drawScene();
+                                           }
+                                           });
+                                  
+                                  stage.on("touchend", function(event){
+                                           moving = false; 
+                                           });
+                                  // add the shape to the layer
+                                  //layer.add(line);
+                                  
+                                  // add the layer to the stage
+                                  stage.add(layer);
+                                  
+                                  
+                                  
+                                  
+                                  
+                });
                 
                 
                 </script>
-            <script>
-                /*window.onload = function(event){
-                    $('#gesturedetector')).bind('swipeone',hif);
-                };
-                
-                function hif(e){
-                    alert("hi");
-                }*/
-                
-            </script>
+
+
     </head>
     <body >
         
        <div class="app">
-           <button id="clear" style="width:80px;height:80px;">clear</button><br>
+           <div id="stage"></div>
+           <!-- <button id="clear" style="width:80px;height:80px;">clear</button><br> -->
            <!--<div id="gesturedetector" style="margin-top:200px;margin-left:200px;width:300px;height:300px;background-color:#FF0000;"></div>-->
-           <canvas id="main" ></canvas>
+           <!-- <canvas id="main" ></canvas> -->
         </div>
-        <script type="text/javascript" src="cordova-2.3.0.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/jgestures.js"></script>
-        <script type="text/javascript" src="js/jquery/jquery-1.9.0.js"></script>
-        <script type="text/javascript" src="js/jquery/jquery.mobile-1.2.0.js"></script>
+
         <script type="text/javascript">
             app.initialize();
         </script>
