@@ -45,8 +45,8 @@
                     
                                   var stage = new Kinetic.Stage({
                                                                 container: 'stage',
-                                                                width: 600,
-                                                                height: 600
+                                                                width: 700,
+                                                                height: 730
                                                                 });
                                   
                                   var layer = new Kinetic.Layer();
@@ -54,16 +54,16 @@
                                   var rect = new Kinetic.Rect({
                                                               x: 0,
                                                               y: 0,
-                                                              width: 600,
-                                                              height: 600,
+                                                              width: 700,
+                                                              height: 730,
                                                               fill: 'none',
                                                               stroke: 'black',
                                                               strokeWidth: 4
                                                               });
                                   
                                   line = new Kinetic.Line({
-                                                          points: [0, 0, 50, 50],
-                                                          stroke: "red"
+                                                          points: [0, 0],
+                                                          stroke: "black"
                                                           });
                                   layer.add(line);
                                   layer.add(rect);
@@ -71,41 +71,61 @@
                                   points = new Array();
                                   moving = false;
                                   
-                                  stage.on("touchstart",startmove);
-                                  stage.on("mousedown",startmove);
+                                  stage.on("touchstart",startMove);
+                                  stage.on("mousedown",startMove);
                                   
-                                  function startmove(event){
+                                  function startMove(event){
                                     if (moving){
                                       moving = false;layer.draw();
                                     } else {
-                                      var mousePos = stage.getMousePosition();
-                                      console.log(mousePos);
-                                    
-                                      //start point and end point are the same
-                                      line.getPoints()[0].x = mousePos.x;
-                                      line.getPoints()[0].y = mousePos.y;
-                                      line.getPoints()[1].x = mousePos.x;
-                                      line.getPoints()[1].y = mousePos.y;
+                                      //Remove previous line
+                                      removeLine(line,points);
+                                      //Get new point
+                                      var newPoint = stage.getUserPosition();
+                                      //Put it in array
+                                      points.push(newPoint);
+                                      //Print the line
+                                      line.setPoints(points);
+                                      //Start moving
                                       moving = true;
+                                      //Refresh screen
                                       layer.drawScene();
                                     }
                                   }
                                   
-                                  stage.on("touchmove", function(event){
-                                           if (moving) {
-                                           var mousePos = stage.getMousePosition();
-                                           var x = mousePos.x;
-                                           var y = mousePos.y;
-                                           line.getPoints()[1].x = mousePos.x;
-                                           line.getPoints()[1].y = mousePos.y;
-                                           moving = true;
-                                           layer.drawScene();
-                                           }
-                                           });
+                                  stage.on("touchmove", continueMove);
+                                  stage.on("mousemove", continueMove);
                                   
-                                  stage.on("touchend", function(event){
-                                           moving = false; 
-                                           });
+                                  function removeLine(line,points){
+                                     points.splice(0, points.length);
+                                     line.setPoints(points);
+                                  }
+                                  
+                                  
+                                  function continueMove(event){
+                                    if (moving) {
+                                  //Get new point
+                                  var newPoint = stage.getUserPosition();
+                                  //Put it in array
+                                  points.push(newPoint);
+                                  //Print the line
+                                  line.setPoints(points);
+                                  //Start moving
+                                  moving = true;
+                                  //Refresh screen
+                                  layer.drawScene();
+                                    }
+                                  }
+                                  
+                                  
+                                  stage.on("touchend", endMove);
+                                  stage.on("mouseup", endMove);
+                                  
+                                  
+                                  function endMove(event){
+                                      moving = false;
+                                  }
+                                  
                                   // add the shape to the layer
                                   //layer.add(line);
                                   
