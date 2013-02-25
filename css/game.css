@@ -1,0 +1,41 @@
+/* Right side*/
+
+#controls{
+	float: left;
+	width: 250px;
+}
+
+#controls > *{
+	float: left;
+	margin-left:50px;
+	font-size:30px;
+	clear:left;
+}
+
+#pageTitle{
+	font-size:50px;
+}
+
+#speakerButton{
+	margin-top:50px;
+	cursor:pointer;
+}
+
+#stars{
+	margin-top:20px;
+}
+#stars img{
+	vertical-align: middle;
+}
+
+/*On Stage*/
+
+#stage{
+	float:left;
+}
+
+canvas{
+	cursor:default;
+}
+
+
