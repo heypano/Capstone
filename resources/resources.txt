@@ -1,4 +1,0 @@
-http://www.html5canvastutorials.com/kineticjs/html5-canvas-drag-and-drop-a-line-with-kineticjs/
-http://jawsjs.com/
-http://gamequeryjs.com/documentation/first-tutorial/first-tutorial-step-1/
-http://www.limejs.com/
