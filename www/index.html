@@ -75,7 +75,7 @@ under the License.
 				function makeLevel1() {
 					//Create the line for moving the robot -- the one that is drawn
 					line = new Kinetic.Line({
-						points : [0, 0],
+						points : [100, 100],
 						stroke : "black"
 					});
 					layer.add(line);
@@ -138,7 +138,9 @@ under the License.
 					//Remove line
 					function removeLine() {
 						if(!points)return; // If points isn't defined
-						points.splice(1, points.length); //Empty the array
+						delete points;
+						points = new Array({x:100,y:100});
+						//points.splice(1, points.length); //Empty the array
 						line.setPoints(points); //Clear the line
 						//layer.drawScene(); //Redraw stage
 					}
@@ -189,7 +191,7 @@ under the License.
 								robotMoving = false;
 								return;
 							}
-							if(frame.time-prevTime>50){// every 50ms;
+							if(frame.time-prevTime>20){// every 20ms;
 								prevTime = frame.time;
 								robotObj.setX(points[pointNo].x-xoffset);
 								robotObj.setY(points[pointNo].y-yoffset);
