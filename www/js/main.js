@@ -7,7 +7,6 @@
 
 //TODO Images should not be draggable, text should not be selectable
 //TODO If line gets dragged out of the field, start moving
-//TODO Optimize line construction by not using touchmove (do setInterval and check)
 //TODO Why are there more than one layers
 //TODO: Make sure line started on robot
 //TODO: Make bounding boxes? maybe
@@ -71,8 +70,9 @@ function makeLevel1() {
 	//Set touch events for line
 	stage.on("touchstart", startMove);
 	stage.on("mousedown", startMove);
+	/*
 	stage.on("touchmove", continueMove);
-	stage.on("mousemove", continueMove);
+	stage.on("mousemove", continueMove);*/
 	stage.on("touchend", endMove);
 	stage.on("mouseup", endMove);
 
@@ -86,7 +86,7 @@ function makeLevel1() {
 
 //Start drawing line (touch down)
 function startMove(event) {
-	if (robotMoving)
+	if (robotMoving) // If the robot is moving, do nothing
 		return;
 	if (moving) {
 		moving = false;
@@ -104,6 +104,9 @@ function startMove(event) {
 		moving = true;
 		//Refresh screen
 		layer.drawScene();
+		//Start collecting information on line every second
+		lineDrawTimer = setInterval(continueMove,50);
+		
 	}
 }
 
@@ -123,13 +126,14 @@ function removeLine() {
 	//layer.drawScene(); //Redraw stage
 }
 
-//Continue drawing line (touch move)
+//Continue drawing line 
 function continueMove(event) {
 	if (robotMoving)
 		return;
 	if (moving) {
 		//Get new point
 		var newPoint = stage.getUserPosition();
+		if(!newPoint)return;
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
@@ -157,6 +161,7 @@ function endMove(event) {
 	if (robotMoving)
 		return;
 	moving = false;
+	clearInterval(lineDrawTimer);
 	moveRobot();
 }
 
