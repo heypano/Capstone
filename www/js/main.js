@@ -5,11 +5,15 @@
 //.twidth
 //.theight
 
-//TODO Images should not be draggable, text should not be selectable
 //TODO If line gets dragged out of the field, start moving
 //TODO Why are there more than one layers
 //TODO: Make sure line started on robot
 //TODO: Make bounding boxes? maybe
+//TODO get robot coordinate variables (l1,r1,b1,t1) only once per iteration
+//TODO optimize code if getting slow
+//TODO if get all stars give gift
+//TODO Images should not be draggable, text should not be selectable -- not an actual problem for mobile
+
 
 levelState = "Level1";
 playerStars = 0;
@@ -18,6 +22,8 @@ goingUp = false;
 goingLeft = false;
 stageWidth = 700;
 stageHeight = 730;
+starsarray = new Array();
+
 $(document).ready(function() {
 
 	/* Initialization */
@@ -61,7 +67,6 @@ function makeLevel1() {
 	addPlugToStage();
 	//Draw the maze
 	drawMaze();
-
 	//Make the new line
 	points = new Array();
 	//The robot is not moving
@@ -172,6 +177,14 @@ function drawMaze() {
 		stroke : "black"
 	});
 	layer.add(mazeline);
+	
+	//Draw stars
+	addStar(250,50);
+	addStar(50,500);
+	addStar(50,250);
+	addStar(250,300);
+	addStar(500,100);
+	
 }
 
 //Add robot to stage
@@ -239,7 +252,8 @@ function moveRobot() {
 			robotObj.setX(points[pointNo].x - xoffset);
 			robotObj.setY(points[pointNo].y - yoffset);
 			pointNo++;
-			//console.log(collides(robotObj));
+			collides(robotObj);
+			starsHit();
 		}
 	}, layer);
 	anim.start();
@@ -282,7 +296,7 @@ function collides(obj1) {
 	}
 
 	//Collides with plug
-	if (intersecting(l1, r1, t1, b1, plugX, plugX + plugWidth, plugY, plugY + plugWidth, false)) {
+	if (hitTest(l1, r1, t1, b1, plugX, plugX + plugWidth, plugY, plugY + plugWidth)) {
 		return 3;
 		// TODO change this later -- 3 means plug
 	}
@@ -291,27 +305,11 @@ function collides(obj1) {
 	//nothing
 }
 
-function intersecting(l1, r1, t1, b1, l2, r2, t2, b2, isline) {
-	if (isline == "v") {//check with vertical line
-		if (l1 <= l2 && r1 >= r2) {//is it contained within the left and right side
-			if (t1 >= t2 && t1 <= b2)//is the top of it between the top and the bottom of the line
-				return true;
-			else
-				return false;
-		}
-	} else if (isline == "h") {
-		if (t1 <= t2 && b1 >= b2) {//is it contained within the top and bottom side
-			if (l1 >= l2 && l1 <= r2)//is the top of it between the top and the bottom of the line
-				return true;
-			else
-				return false;
-		}
-	} else {
-		if (r1 >= l2 && r1 <= r2 && b1 >= t2 && b1 <= b2)
+function hitTest(l1, r1, t1, b1, l2, r2, t2, b2) {
+		if (r1 >= l2 && l1 <= r2 && b1 >= t2 && t1 <= b2)
 			return true;
 		else
 			return false;
-	}
 }
 
 function getChunk(r1, t1) {// Gets which chunk we are at in the maze(down to right)
@@ -326,4 +324,51 @@ function getChunk(r1, t1) {// Gets which chunk we are at in the maze(down to rig
 		return 4;
 	else
 		return 5;
+}
+
+//Adds a star to x,y
+function addStar(x,y){
+	//The robot
+	var starImageObj = new Image();
+	// The Kinetic.Image object
+	starImageObj.onload = function() {
+		var starObj = new Kinetic.Image({
+			x : x,
+			y : y,
+			image : starImageObj,
+		});
+		layer.add(starObj);
+		layer.drawScene();
+		starsarray.push(starObj);
+	}
+	starImageObj.src = "img/star.png";
+}
+
+//Handles hitting stars -- this will run on every move
+function starsHit(){
+	obj1 = robotObj;
+	l1 = obj1.getX();
+	r1 = l1 + obj1.twidth;
+	t1 = obj1.getY();
+	b1 = t1 + obj1.theight;
+	for(var i=0;i<starsarray.length;i++){
+		var star = starsarray[i];
+		if(hitTest(l1,r1,t1,b1,star.attrs.x,star.attrs.x+star.attrs.width,star.attrs.y,star.attrs.y+star.attrs.height)){
+			//Remove from array
+			starsarray.splice(i,1);
+			//Add points
+			addStarPoint();
+			//Remove from view
+			star.remove();
+			//delete star;
+			delete star;
+			//return;
+		}
+		
+	}
+}
+
+function addStarPoint(){
+	playerStars++;
+	$("#numStars").html(playerStars);
 }
