@@ -40,6 +40,10 @@ function continueMove(event) {
 		//Get new point
 		var newPoint = stage.getUserPosition();
 		if(!newPoint)return;
+		
+		
+		
+		
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
@@ -48,7 +52,7 @@ function continueMove(event) {
 			currentChunk = newChunk;
 		if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
 			return;
-
+		
 		prevPoint = newPoint;
 		//Put it in array
 		points.push(newPoint);
@@ -86,3 +90,31 @@ function removeLine() {
 	//Clear the line
 	//layer.drawScene(); //Redraw stage
 }
+
+
+/*
+//returns whether two line segments intersect or not
+function getIntersect(pointa, pointb, pointc, pointd){
+	var slope1 = getSlope(pointa,pointb);
+	var slope2 = getSlope(pointb,pointc);
+	var intercept1 = getIntercept(pointa,slope1);
+	var intercept2 = getIntercept(pointc,slope2);
+	if(slope1 == slope2) return false;
+	
+	var ix = (intercept2-intercept1)/(slope1-slope2);
+	var iy = (intercept2*slope1 - intercept1*slope2)/(slope1-slope2);
+	if((ix <= Math.max(pointa.x,pointb.x)) && (ix >= Math.min(pointa.x,pointb.x)) && (iy <= Math.max(pointa.y,pointb.y)) && (iy >= Math.min(pointa.y,pointb.y)))return true;
+	else return false;
+}
+
+//get slope given two points
+function getSlope(pointa,pointb){
+	return (pointb.y-pointa.y)/(pointb.x-pointa.x);
+}
+
+//get y intercept given a point and a slope
+function getIntercept(pointa,slope){
+	return (pointa.y - (slope*pointa.x));
+}
+
+*/

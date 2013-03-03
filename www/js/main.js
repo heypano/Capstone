@@ -6,9 +6,14 @@
 //.theight
 
 //TODO Separate things that happen for all levels 
+//TODO Fix problem with finishing drawing outside of line
+//TODO Make sure sounds don't play on top of each other
+//TODO Make collision with plug smoother
+//TODO Make robot talk when you click it (or flick it? or when you talk to it?)
 //TODO If touch up happens out of the field, start moving
 //TODO Why are there more than one layers
 //TODO Look at intersection of previous point -> newpoint line with existing maze lines instead of using chunks
+//TODO OR: limit chunks more
 //TODO: Make sure line started on robot
 //TODO: Make bounding boxes? maybe
 //TODO get robot coordinate variables (l1,r1,b1,t1) only once per iteration
@@ -55,7 +60,7 @@ $(document).ready(function() {
 	});
 	layer.draw();
 	generalInit();
-	makeLevel1();
+	makeLevel0();
 	//Redraw the layer
 	//Add the layer to the stage
 	stage.add(layer);
@@ -66,15 +71,14 @@ $(document).ready(function() {
 function generalInit(){
 	//Create the line for moving the robot -- the one that is drawn
 	line = new Kinetic.Line({
-		points : new Array(),
+		points : [100,100],
 		stroke : "black"
 	});
+	points = new Array();
 	layer.add(line);
 	layer.add(rect);
 	//Add the Robot to the stage
 	addRobotToStage();
-	//Add the Plug to the stage
-	addPlugToStage();
 	//Set touch events for line
 	stage.on("touchstart", startMove);
 	stage.on("mousedown", startMove);

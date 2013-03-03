@@ -1,14 +1,15 @@
 function makeLevel1() {
 	levelState = "Level1"; //Keeps track of what level we are on
 	delete currentSound;
-	currentSound = new Audio("sounds/canyouhelptherobotgettotheplug.mp3");
+	currentSound = new Audio("sounds/drawaline.mp3");
+	robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;
 	//Draw the maze
 	drawMaze();
+	//Add the Plug to the stage
+	addPlugToStage();
 	//The robot is not moving
 	moving = false;
-
-
 }
 
 
