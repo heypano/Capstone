@@ -1,7 +1,7 @@
 function makeLevel1() {
 	delete currentSound;
 	currentSound = new Audio("sounds/canyouhelptherobotgettotheplug.mp3");
-	
+	attemptCounter = 0;
 	//Create the line for moving the robot -- the one that is drawn
 	line = new Kinetic.Line({
 		points : [100, 100],

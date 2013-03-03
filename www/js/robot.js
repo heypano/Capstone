@@ -39,8 +39,12 @@ function moveRobot() {
 		if (!points.length || pointNo >= points.length - 1) {//Animation end condition (scanned entire line or line doesn't exist)
 			resetRobot();
 			removeLine();
+			attemptCounter++;
 			anim.stop();
 			robotMoving = false;
+			if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
+					loadInstruction1();
+			}
 			return;
 		} else if (frame.time - prevTime > 20) {// Animation continues:
 			prevTime = frame.time;

@@ -5,7 +5,8 @@
 //.twidth
 //.theight
 
-//TODO If line gets dragged out of the field, start moving
+//TODO Separate things that happen for all levels 
+//TODO If touch up happens out of the field, start moving
 //TODO Why are there more than one layers
 //TODO Look at intersection of previous point -> newpoint line with existing maze lines instead of using chunks
 //TODO: Make sure line started on robot
