@@ -19,7 +19,7 @@
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
-levelState = "Level1"; //Keeps track of what level we are on
+levelState = "Level0"; //Keeps track of what level we are on
 playerStars = 0; //Keeps track of how many stars a player has
 stageWidth = 700; //Global variable that keeps track of the stage width
 stageHeight = 730; //Global variable that keeps track of the stage height
@@ -53,9 +53,32 @@ $(document).ready(function() {
 	$("#speakerButton").click(function(){
 		currentSound.play();
 	});
+	layer.draw();
+	generalInit();
 	makeLevel1();
+	//Redraw the layer
+	//Add the layer to the stage
+	stage.add(layer);
 	//removeLevel1();
 });
 
-
+//Initalizes things that are useful for (almost) all pages
+function generalInit(){
+	//Create the line for moving the robot -- the one that is drawn
+	line = new Kinetic.Line({
+		points : new Array(),
+		stroke : "black"
+	});
+	layer.add(line);
+	layer.add(rect);
+	//Add the Robot to the stage
+	addRobotToStage();
+	//Add the Plug to the stage
+	addPlugToStage();
+	//Set touch events for line
+	stage.on("touchstart", startMove);
+	stage.on("mousedown", startMove);
+	stage.on("touchend", endMove);
+	stage.on("mouseup", endMove);
+}
 

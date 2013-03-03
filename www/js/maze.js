@@ -22,8 +22,10 @@ function drawMaze() {
 }
 
 function removeMaze(){
-	mazeline.remove();
-	delete mazeline;
+	if(mazeline){
+		mazeline.remove();
+		delete mazeline;
+	}
 }
 
 function getChunk(r1, t1) {// Gets which chunk we are at in the maze(down to right)
