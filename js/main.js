@@ -6,9 +6,14 @@
 //.theight
 
 //TODO Separate things that happen for all levels 
+//TODO Fix problem with finishing drawing outside of line
+//TODO Make sure sounds don't play on top of each other
+//TODO Make collision with plug smoother
+//TODO Make robot talk when you click it (or flick it? or when you talk to it?)
 //TODO If touch up happens out of the field, start moving
 //TODO Why are there more than one layers
 //TODO Look at intersection of previous point -> newpoint line with existing maze lines instead of using chunks
+//TODO OR: limit chunks more
 //TODO: Make sure line started on robot
 //TODO: Make bounding boxes? maybe
 //TODO get robot coordinate variables (l1,r1,b1,t1) only once per iteration
@@ -19,7 +24,7 @@
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
-levelState = "Level1"; //Keeps track of what level we are on
+levelState = "Level0"; //Keeps track of what level we are on
 playerStars = 0; //Keeps track of how many stars a player has
 stageWidth = 700; //Global variable that keeps track of the stage width
 stageHeight = 730; //Global variable that keeps track of the stage height
@@ -53,9 +58,31 @@ $(document).ready(function() {
 	$("#speakerButton").click(function(){
 		currentSound.play();
 	});
-	makeLevel1();
+	layer.draw();
+	generalInit();
+	makeLevel0();
+	//Redraw the layer
+	//Add the layer to the stage
+	stage.add(layer);
 	//removeLevel1();
 });
 
-
+//Initalizes things that are useful for (almost) all pages
+function generalInit(){
+	//Create the line for moving the robot -- the one that is drawn
+	line = new Kinetic.Line({
+		points : [100,100],
+		stroke : "black"
+	});
+	points = new Array();
+	layer.add(line);
+	layer.add(rect);
+	//Add the Robot to the stage
+	addRobotToStage();
+	//Set touch events for line
+	stage.on("touchstart", startMove);
+	stage.on("mousedown", startMove);
+	stage.on("touchend", endMove);
+	stage.on("mouseup", endMove);
+}
 

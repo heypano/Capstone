@@ -18,8 +18,14 @@ function addRobotToStage() {
 		layer.drawScene();
 		robotObj.twidth = robotImageObj.width;
 		robotObj.theight = robotImageObj.height;
-		robotObj.noidea = new Audio("sounds/noidea.mp3");
-		robotObj.noidea.play();
+		robotObj.loadandplay = function(sound){
+			if(typeof robotObj.sound != undefined)delete robotObj.sound;
+			robotObj.sound = new Audio (sound);
+			robotObj.sound.play();
+			setTimeout(null,robotObj.sound.duration);
+		}
+		robotObj.loadandplay("sounds/outofpower.mp3");
+		//$.trigger("robotloaded");
 	}
 	robotImageObj.src = "img/robot.png";
 }
@@ -57,9 +63,14 @@ function moveRobot() {
 				removeLine();
 				anim.stop();
 				robotMoving = false;
-				removeMaze();
-				removeAllStars();
-				removePlug();
+				robotObj.loadandplay("sounds/yay.mp3");
+				$(robotObj.sound).bind("ended",function(){
+					$(robotObj.sound).unbind("ended");
+					removeMaze();
+					removeAllStars();
+					removePlug();
+					layer.drawScene();
+					if(levelState=="Level0")makeLevel1();});
 			}
 		}
 	}, layer);

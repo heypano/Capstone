@@ -30,6 +30,8 @@ function addPlugToStage() {
 
 //Remove plug
 function removePlug(){
-	plugObj.remove();
-	delete plugObj;
+	if(typeof plugObj != 'undefined'){
+		plugObj.remove();
+		delete plugObj;
+	}
 }
