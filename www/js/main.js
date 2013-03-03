@@ -7,11 +7,13 @@
 
 //TODO If line gets dragged out of the field, start moving
 //TODO Why are there more than one layers
+//TODO Look at intersection of previous point -> newpoint line with existing maze lines instead of using chunks
 //TODO: Make sure line started on robot
 //TODO: Make bounding boxes? maybe
 //TODO get robot coordinate variables (l1,r1,b1,t1) only once per iteration
 //TODO optimize code if getting slow
 //TODO if get all stars give gift
+//TODO add Animation before with robot saying hi
 //TODO Images should not be draggable, text should not be selectable -- not an actual problem for mobile
 
 
@@ -53,6 +55,9 @@ $(document).ready(function() {
 });
 
 function makeLevel1() {
+	var hithere = new Audio("mp3/hi.mp3");
+	
+	$("#speakerButton").click(function(e){hithere.play();})
 	//Create the line for moving the robot -- the one that is drawn
 	line = new Kinetic.Line({
 		points : [100, 100],
@@ -75,9 +80,6 @@ function makeLevel1() {
 	//Set touch events for line
 	stage.on("touchstart", startMove);
 	stage.on("mousedown", startMove);
-	/*
-	stage.on("touchmove", continueMove);
-	stage.on("mousemove", continueMove);*/
 	stage.on("touchend", endMove);
 	stage.on("mouseup", endMove);
 
@@ -368,6 +370,7 @@ function starsHit(){
 	}
 }
 
+//Adds a star point and refreshes the variable on the screen
 function addStarPoint(){
 	playerStars++;
 	$("#numStars").html(playerStars);
