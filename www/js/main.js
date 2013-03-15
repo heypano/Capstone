@@ -7,7 +7,9 @@
 
 //TODO Separate things that happen for all levels 
 //TODO Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc
+//TODO Add sound for getting star
 //TODO make fucntion "Play program"
+//TODO add a lot of audio feedback for everything and wait for it to play
 //TODO Fix problem with finishing drawing outside of line
 //TODO Make sure sounds don't play on top of each other
 //TODO Make collision with plug smoother
@@ -86,9 +88,7 @@ function generalInit(){
 	//Add the Robot to the stage
 	addRobotToStage();
 	//Set touch events for line
-	stage.on("touchstart", startMove);
-	stage.on("mousedown", startMove);
-	stage.on("touchend", endMove);
-	stage.on("mouseup", endMove);
+	enableDraw();
 }
+
 

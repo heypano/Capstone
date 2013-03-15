@@ -66,14 +66,12 @@ function moveRobot() {
 				saveProgram();
 				$(robotObj.sound).bind("ended",function(){
 					$(robotObj.sound).unbind("ended");
-					if(levelState==0){
-						//Save the "program"
-						removePlug();
-						removeAllStars();
-						removeMaze();
-						removeLine();
-						makeLevel1();
-						}
+					//Save the "program"
+					removePlug();
+					removeAllStars();
+					removeMaze();
+					removeLine();
+					nextLevel();
 					layer.drawScene();
 					});
 			}
@@ -114,4 +112,10 @@ function saveProgram(){
 		program[levelState].robotObj = null;
 		}
 		
+}
+
+//Loads the next level
+function nextLevel(){
+	if(levelState==0)makeLevel1();
+	else if(levelState==1)makeLevel2();
 }

@@ -4,9 +4,12 @@
 //points
 
 prevPoint = null;  //Global variable that keeps track of the previous point drawn on the line
+drawingDisabled=false //If drawing is disabled these will fail
+
 
 //Start drawing line (touch down)
 function startMove(event) {
+	if(drawingDisabled) return;
 	if (robotMoving) // If the robot is moving, do nothing
 		return;
 	if (moving) {
@@ -50,8 +53,23 @@ function continueMove(event) {
 			currentChunk = getChunk(prevPoint.x, prevPoint.y);
 		else
 			currentChunk = newChunk;
-		if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
-			return;
+		
+		if(levelState==0 || levelState==1){
+			if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
+			return;			
+		}
+		else if(levelState==2){
+			if(currentChunk==4){ //Intersection
+				if(newChunk != 4 && newChunk != 5 && newChunk != 6 && newChunk != 3)return;
+			}
+			else if(currentChunk==5){//Deadend
+				if(newChunk!=5 && newChunk!=4) return;
+			}
+			else {
+				if(newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
+				return;
+			}
+		}
 		
 		prevPoint = newPoint;
 		//Put it in array
@@ -68,6 +86,7 @@ function continueMove(event) {
 
 //Stop moving (touch down)
 function endMove(event) {
+	if(drawingDisabled)return;
 	if (robotMoving)
 		return;
 	moving = false;

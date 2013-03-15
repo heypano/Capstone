@@ -17,6 +17,7 @@ function makeLevel1() {
 function removeLevel1() {
 	//Remove event listeners
 	removeAllStars();
+	removePlug();
 	/*layer.remove(line);
 	delete line;*/
 	/*stage.off("touchstart");
