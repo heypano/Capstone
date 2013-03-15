@@ -1,5 +1,5 @@
 function makeLevel1() {
-	levelState = "Level1"; //Keeps track of what level we are on
+	levelState = 1; //Keeps track of what level we are on
 	delete currentSound;
 	currentSound = new Audio("sounds/drawaline.mp3");
 	robotObj.loadandplay("sounds/noidea.mp3");

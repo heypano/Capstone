@@ -1,4 +1,4 @@
-
+program = new Array(); //Contains all of the saved "programs"
 
 //Add robot to stage
 function addRobotToStage() {
@@ -60,17 +60,22 @@ function moveRobot() {
 			starsHit();
 			if(collides(robotObj) == 3){ // If it hits the plug -- stop
 				resetRobot();
-				removeLine();
 				anim.stop();
 				robotMoving = false;
 				robotObj.loadandplay("sounds/yay.mp3");
+				saveProgram();
 				$(robotObj.sound).bind("ended",function(){
 					$(robotObj.sound).unbind("ended");
-					removeMaze();
-					removeAllStars();
-					removePlug();
+					if(levelState==0){
+						//Save the "program"
+						removePlug();
+						removeAllStars();
+						removeMaze();
+						removeLine();
+						makeLevel1();
+						}
 					layer.drawScene();
-					if(levelState=="Level0")makeLevel1();});
+					});
 			}
 		}
 	}, layer);
@@ -85,4 +90,28 @@ function resetRobot() {
 		x : 20,
 		y : 10
 	};
+}
+
+//Saves program based on level
+function saveProgram(){
+	program[levelState] = new Object();
+	if(typeof points != 'undefined'){
+		program[levelState].points= points.clone();
+		}
+	else{
+		program[levelState].points= null;
+		}	
+	if(typeof mazeline != 'undefined'){
+		program[levelState].maze = mazeline.clone();
+		}
+	else{
+		program[levelState].maze = null;
+		}
+	if(typeof robotObj != 'undefined'){
+		program[levelState].robotObj = $.extend({}, robotObj); // Cloning object
+		}
+	else{
+		program[levelState].robotObj = null;
+		}
+		
 }

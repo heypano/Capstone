@@ -6,6 +6,8 @@
 //.theight
 
 //TODO Separate things that happen for all levels 
+//TODO Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc
+//TODO make fucntion "Play program"
 //TODO Fix problem with finishing drawing outside of line
 //TODO Make sure sounds don't play on top of each other
 //TODO Make collision with plug smoother
@@ -24,7 +26,7 @@
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
-levelState = "Level0"; //Keeps track of what level we are on
+levelState = 0; //Keeps track of what level we are on
 playerStars = 0; //Keeps track of how many stars a player has
 stageWidth = 700; //Global variable that keeps track of the stage width
 stageHeight = 730; //Global variable that keeps track of the stage height
@@ -69,6 +71,10 @@ $(document).ready(function() {
 
 //Initalizes things that are useful for (almost) all pages
 function generalInit(){
+	//Cloning Arrays
+	Array.prototype.clone = function() {
+		return this.slice(0);
+	};
 	//Create the line for moving the robot -- the one that is drawn
 	line = new Kinetic.Line({
 		points : [100,100],

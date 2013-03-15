@@ -2,7 +2,7 @@
 
 //Draw maze
 function drawMaze() {
-	if(levelState=="Level1"){
+	if(levelState==1){
 		mazeline = new Kinetic.Line({
 			points : [0, 0, 200, 0, 200, 500, 200, 0, 0, 0, 0, 732, 400, 732, 400, 200],
 			stroke : "black"
@@ -29,7 +29,7 @@ function removeMaze(){
 }
 
 function getChunk(r1, t1) {// Gets which chunk we are at in the maze(down to right)
-	if(levelState=="Level1"){
+	if(levelState==1){
 		//[0, 0, 200, 0, 200, 500, 200, 0, 0, 0, 0, 732, 400, 732, 400, 200],
 		if (r1 < 200 && t1 < 500)
 			return 1;
