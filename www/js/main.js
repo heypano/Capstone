@@ -5,11 +5,16 @@
 //.twidth
 //.theight
 
-//TODO Separate things that happen for all levels 
-//TODO for level 3 make sure drawing starts at green line
-
-//TODO add time to show robot ON plug (maybe replace image?)
-//TODO Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc
+//TODO LOW Separate things that happen for all levels 
+//DONE for level 3 make sure drawing starts at green line
+//TODO make sure plug / stars don't get hit from the wrong chunk
+//DONE add time to show robot ON plug 
+//TODO sound for hitting balls
+//TODO different animated gif based on the level
+//TODO change condition to not hit plug too easily
+//TODO LOW Show image connecting robot to plug maybe replace image?
+//TODO add remove previous level
+//TODO HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
 //TODO Add sound for getting star
 //TODO make fucntion "Play program"
 //TODO add a lot of audio feedback for everything and wait for it to play

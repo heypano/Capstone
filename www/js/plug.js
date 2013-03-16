@@ -8,17 +8,16 @@
 
 //Add plug to stage
 function addPlugToStage() {
-	//The robot
 	plugImageObj = new Image();
 	// The Kinetic.Image object
 	
 	plugImageObj.onload = function() {
-		if(levelState==0 ||levelState==1){
+		if(levelState==0 ||levelState==1 ||levelState==3){
 			plugX = 500;
 			plugY = 500;
 		}
 		else if(levelState==2){
-			plugX = 300;
+			plugX = 250;
 			plugY = 250;
 		}
 		plugObj = new Kinetic.Image({

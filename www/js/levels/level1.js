@@ -1,6 +1,7 @@
 function makeLevel1() {
 	levelState = 1; //Keeps track of what level we are on
 	delete currentSound;
+	$('#pageTitle').html("Level 1");
 	currentSound = new Audio("sounds/drawaline.mp3");
 	robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;

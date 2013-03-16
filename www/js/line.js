@@ -20,6 +20,7 @@ function startMove(event) {
 		removeLine(line, points);
 		//Get new point
 		var newPoint = stage.getUserPosition();
+		if(levelState==2 && getChunk(newPoint.x,newPoint.y)<4)return;
 		//Put it in array
 		points.push(newPoint);
 		//Print the line
@@ -41,9 +42,8 @@ function continueMove(event) {
 		return;
 	if (moving) {
 		//Get new point
-		var newPoint = stage.getUserPosition();
+		newPoint = stage.getUserPosition();
 		if(!newPoint)return;
-		
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
@@ -56,14 +56,18 @@ function continueMove(event) {
 			return;			
 		}
 		else if(levelState==2){
+			line.setStrokeWidth(10);
 			if(currentChunk<4 || newChunk<4)return; //No interaction at this point
 			if(currentChunk==4){ //Intersection
 				if(newChunk != 4 && newChunk != 5 && newChunk != 6 && newChunk != 3)return;
+				line.setStroke("green");
 			}
 			else if(currentChunk==5){//Deadend
 				if(newChunk!=5 && newChunk!=4) return;
+				line.setStroke("red");
 			}
 			else {
+				line.setStroke("green");
 				if(newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
 				return;
 			}
@@ -88,7 +92,14 @@ function endMove(event) {
 	if (robotMoving)
 		return;
 	moving = false;
-	if(typeof lineDrawTimer != undefined){
+	if(levelState==2){
+		line.setStrokeWidth(10);	
+	}
+	else{
+		line.setStroke("black");
+		line.setStrokeWidth(2);
+	} 
+	if(typeof lineDrawTimer != "undefined"){
 		clearInterval(lineDrawTimer);
 	}
 	moveRobot();
@@ -96,6 +107,8 @@ function endMove(event) {
 
 //Remove line
 function removeLine() {
+	line.setStrokeWidth(2);
+	line.setStroke("black");
 	if (!points)
 		return;
 	// If points isn't defined

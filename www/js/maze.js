@@ -28,8 +28,14 @@ function drawMaze() {
 		addStar(600,500);
 		layer.add(mazeline);
 	}
-	
-	
+	else if (levelState ==3){
+		//Draw stars
+		addStar(80,500);
+		addStar(20,240);
+		addStar(210,220);
+		addStar(250,360);
+		addStar(612,500);		
+	}
 	
 }
 
@@ -84,4 +90,5 @@ function getChunk(r1, t1) {// Gets which chunk we are at in the maze(down to rig
 			return 11;
 
 	}
+	else if (levelState==3)return 1;
 }

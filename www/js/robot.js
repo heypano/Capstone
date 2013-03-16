@@ -42,7 +42,7 @@ function moveRobot() {
 	var xoffset = robotObj.getWidth() / 2;
 	var yoffset = robotObj.getHeight() / 2;
 	var anim = new Kinetic.Animation(function(frame) {
-		if (!points.length || pointNo >= points.length - 1) {//Animation end condition (scanned entire line or line doesn't exist)
+		if (!points.length || pointNo >= points.length - 1 || (levelState == 3 && collides(robotObj) == 4)) {//Animation end condition (scanned entire line or line doesn't exist)
 			resetRobot();
 			removeLine();
 			attemptCounter++;
@@ -58,8 +58,8 @@ function moveRobot() {
 			robotObj.setY(points[pointNo].y - yoffset);
 			pointNo++;
 			starsHit();
-			if(collides(robotObj) == 3){ // If it hits the plug -- stop
-				resetRobot();
+			var collidesR=collides(robotObj);
+			if( collidesR == 3){ // If it hits the plug -- stop
 				anim.stop();
 				robotMoving = false;
 				robotObj.loadandplay("sounds/yay.mp3");
@@ -71,7 +71,14 @@ function moveRobot() {
 					removeAllStars();
 					removeMaze();
 					removeLine();
+					if(levelState==2)removeGuidelines();
+					if(levelState==3){
+						anim2.stop();
+						ballObj1.remove();
+						ballObj2.remove();
+						}
 					nextLevel();
+					resetRobot();
 					layer.drawScene();
 					});
 			}
@@ -111,12 +118,15 @@ function saveProgram(){
 	else{
 		program[levelState].robotObj = null;
 		}
-		
+	//TODO save plug
+	//TODO save balls?
+	//TODO save whatever else needs to be saveds
 }
 
 //Loads the next level
 function nextLevel(){
 	if(levelState==0)makeLevel1();
 	else if(levelState==1)makeLevel2();
+	else if(levelState==2)makeLevel3();
 	moving=false;
 }

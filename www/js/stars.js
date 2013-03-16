@@ -45,8 +45,6 @@ function starsHit(){
 function removeAllStars(){
 	for(var i=0;i<starsarray.length;i++){
 		var star = starsarray[i];
-			//Remove from array
-			starsarray.splice(i,1);
 			//Remove from view
 			star.remove();
 			//delete star;

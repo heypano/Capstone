@@ -18,6 +18,14 @@ function collides(obj1) {
 		// TODO change this later -- 3 means plug
 	}
 
+	//Collides with ball
+	if (levelState==3){
+		if(hitTest(l1, r1, t1, b1, bl1, br1, bt1, bb1) || hitTest(l1, r1, t1, b1, bl2, br2, bt2, bb2)){
+			
+			return 4; //Collides with either ball
+		}
+	}
+
 	return 0;
 	//nothing
 }

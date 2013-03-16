@@ -1,6 +1,7 @@
 function makeLevel2() {
 	levelState = 2; //Keeps track of what level we are on
 	delete currentSound;
+	$('#pageTitle').html("Level 2");
 	currentSound = new Audio("sounds/drawaline.mp3");
 	robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;
@@ -35,7 +36,8 @@ function guidelines(){
 }
 
 function removeGuidelines(){
-	redLine.remove();
+	if(typeof greenLine!= "undefined")greenLine.remove();
+	if(typeof redLine!= "undefined")redLine.remove();
 	layer.drawScene();
 }
 
@@ -58,7 +60,7 @@ function debugFind(){
 		}
 		else{
 			if(x>=500 && x<=600){
-				removeGuidelines();
+				redLine.remove();
 				disableTouch();
 				enableDraw();
 			}
