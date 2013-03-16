@@ -118,4 +118,5 @@ function saveProgram(){
 function nextLevel(){
 	if(levelState==0)makeLevel1();
 	else if(levelState==1)makeLevel2();
+	moving=false;
 }

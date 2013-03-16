@@ -44,21 +44,19 @@ function continueMove(event) {
 		var newPoint = stage.getUserPosition();
 		if(!newPoint)return;
 		
-		
-		
-		
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
 			currentChunk = getChunk(prevPoint.x, prevPoint.y);
 		else
 			currentChunk = newChunk;
-		
-		if(levelState==0 || levelState==1){
+		//console.log("Current Chunk: "+currentChunk+". New Chunk: "+newChunk);
+		if(levelState==0 || levelState==1){ //Level 0 and 1
 			if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
 			return;			
 		}
 		else if(levelState==2){
+			if(currentChunk<4 || newChunk<4)return; //No interaction at this point
 			if(currentChunk==4){ //Intersection
 				if(newChunk != 4 && newChunk != 5 && newChunk != 6 && newChunk != 3)return;
 			}
@@ -84,13 +82,15 @@ function continueMove(event) {
 	}
 }
 
-//Stop moving (touch down)
+//Stop moving (touch up)
 function endMove(event) {
 	if(drawingDisabled)return;
 	if (robotMoving)
 		return;
 	moving = false;
-	clearInterval(lineDrawTimer);
+	if(typeof lineDrawTimer != undefined){
+		clearInterval(lineDrawTimer);
+	}
 	moveRobot();
 }
 
@@ -100,12 +100,19 @@ function removeLine() {
 		return;
 	// If points isn't defined
 	delete points;
+	
+	if(levelState==0 || levelState==1){startx=100;starty=100;}
+	else if(levelState==2){startx=600;starty=500;}
+	else{
+		startx=100;starty=100;
+	}
 	points = new Array({
-		x : 100,
-		y : 100
+		x : startx,
+		y : starty
 	});
 	//points.splice(1, points.length); //Empty the array
 	line.setPoints(points);
+	prevPoint=null;
 	//Clear the line
 	//layer.drawScene(); //Redraw stage
 }

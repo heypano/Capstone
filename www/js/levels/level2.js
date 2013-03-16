@@ -60,6 +60,7 @@ function debugFind(){
 			if(x>=500 && x<=600){
 				removeGuidelines();
 				disableTouch();
+				enableDraw();
 			}
 		}
 	}

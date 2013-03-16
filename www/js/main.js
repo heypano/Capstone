@@ -6,6 +6,9 @@
 //.theight
 
 //TODO Separate things that happen for all levels 
+//TODO for level 3 make sure drawing starts at green line
+
+//TODO add time to show robot ON plug (maybe replace image?)
 //TODO Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc
 //TODO Add sound for getting star
 //TODO make fucntion "Play program"
