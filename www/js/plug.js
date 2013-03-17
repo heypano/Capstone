@@ -20,6 +20,10 @@ function addPlugToStage() {
 			plugX = 250;
 			plugY = 250;
 		}
+		else if(levelState==4){
+			plugX = 580;
+			plugY = 230;
+		}
 		plugObj = new Kinetic.Image({
 			x : plugX,
 			y : plugY,

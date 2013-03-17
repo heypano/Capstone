@@ -89,3 +89,12 @@ function animateBalls(){
 		}, layer);
 		anim2.start();
 }
+
+function removeBalls(){
+	if(typeof ballObj1 != "undefined"){
+		ballObj1.remove();
+	}
+	if(typeof ballObj2 != "undefined"){
+		ballObj2.remove();
+	}
+}

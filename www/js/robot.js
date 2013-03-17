@@ -74,8 +74,7 @@ function moveRobot() {
 					if(levelState==2)removeGuidelines();
 					if(levelState==3){
 						anim2.stop();
-						ballObj1.remove();
-						ballObj2.remove();
+						removeBalls();
 						}
 					nextLevel();
 					resetRobot();
@@ -89,12 +88,23 @@ function moveRobot() {
 
 //Puts robot in original position
 function resetRobot() {
-	robotObj.setX(20);
-	robotObj.setY(10);
-	prevPoint = {
-		x : 20,
-		y : 10
-	};
+	if(levelState==2 && debugged==true){
+		robotObj.setX(510);
+		robotObj.setY(400);
+		prevPoint = {
+			x : 510,
+			y : 400
+		};
+	}
+	else{
+		robotObj.setX(20);
+		robotObj.setY(10);
+		prevPoint = {
+			x : 20,
+			y : 10
+		};
+		
+	}
 }
 
 //Saves program based on level
@@ -128,5 +138,6 @@ function nextLevel(){
 	if(levelState==0)makeLevel1();
 	else if(levelState==1)makeLevel2();
 	else if(levelState==2)makeLevel3();
+	else if(levelState==3)makeLevel4();
 	moving=false;
 }

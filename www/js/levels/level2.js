@@ -15,6 +15,7 @@ function makeLevel2() {
 	guidelines();
 	//Enable debugging
 	enableDebug();
+	debugged = false;
 	moving = false;
 }
 
@@ -60,7 +61,9 @@ function debugFind(){
 		}
 		else{
 			if(x>=500 && x<=600){
+				debugged = true;
 				redLine.remove();
+				resetRobot();
 				disableTouch();
 				enableDraw();
 			}

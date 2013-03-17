@@ -9,7 +9,14 @@
 //DONE for level 3 make sure drawing starts at green line
 //TODO make sure plug / stars don't get hit from the wrong chunk
 //DONE add time to show robot ON plug 
-//TODO sound for hitting balls
+//TODO say "Argument Control Buttons"
+//TODO improve debug line usability
+//TODO make balls say they're executing software (trail of numbers? if then else?)
+//TODO subtitles
+//TODO fix chunks in dodgeball level
+//TODO move bottom right star lower in level "2"
+//TODO mention robot returning to its original state
+//TODO sound for hitting balls (ouch + ball sound)
 //TODO different animated gif based on the level
 //TODO change condition to not hit plug too easily
 //TODO LOW Show image connecting robot to plug maybe replace image?
@@ -19,6 +26,7 @@
 //TODO make fucntion "Play program"
 //TODO add a lot of audio feedback for everything and wait for it to play
 //TODO Fix problem with finishing drawing outside of line
+//TODO "Can you find the mistake? Please help me debug my program"
 //TODO Make sure sounds don't play on top of each other
 //TODO Make collision with plug smoother
 //TODO Make robot talk when you click it (or flick it? or when you talk to it?)
@@ -33,6 +41,7 @@
 //TODO if get all stars give gift
 //TODO add Animation before with robot saying hi
 //TODO Images should not be draggable, text should not be selectable -- not an actual problem for mobile
+//TODO Move robot to top
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
@@ -99,4 +108,9 @@ function generalInit(){
 	enableDraw();
 }
 
+function skipToLevel(level){
+	for(var i=0;i<level;i++){
+		removeMaze();removePlug();removeGuidelines();removeAllStars();removeBalls();nextLevel();
+	}
+}
 

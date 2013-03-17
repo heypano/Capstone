@@ -24,7 +24,7 @@ function drawMaze() {
 		addStar(50,500);
 		addStar(50,250);
 		addStar(250,620);
-		addStar(250,300);
+		addStar(200,300);
 		addStar(600,500);
 		layer.add(mazeline);
 	}
@@ -32,7 +32,7 @@ function drawMaze() {
 		//Draw stars
 		addStar(80,500);
 		addStar(20,240);
-		addStar(210,220);
+		addStar(180,220);
 		addStar(250,360);
 		addStar(612,500);		
 	}
