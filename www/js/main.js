@@ -11,6 +11,7 @@
 //DONE add time to show robot ON plug 
 //TODO say "Argument Control Buttons"
 //TODO improve debug line usability
+//TODO highlight command being executed
 //TODO make balls say they're executing software (trail of numbers? if then else?)
 //TODO subtitles
 //TODO fix chunks in dodgeball level

@@ -19,6 +19,9 @@ function makeLevel4() {
 		}
 		return count;
 	}*/
+	commandList = new Array();
+	gridX = 0;
+	gridY = 0;
 	drawMaze();
 	makeGrid();
 	Buttons();
@@ -40,7 +43,7 @@ function Buttons(){
 	loadImage("img/downButton.png",130,600,downB);
 	loadImage("img/rightButton.png",230,600,rightB);
 	buttonBorder = new Kinetic.Line({
-        points: [5,450,350,450,350,725],
+        points: [5,450,350,450,350,725,350,450,695,450],
         stroke: '#ababab',
         strokeWidth: 5,
         lineCap: 'round',
@@ -49,13 +52,33 @@ function Buttons(){
     attentionText = new Kinetic.Text({
         x: 100,
         y: 460,
-        text: 'Attention!',
+        text: 'ATTENTION!',
         fontSize: 35,
         fontWeight: 100,
         fontFamily: 'Impact',
         fill: 'red'
       });
     layer.add(attentionText);
+    programText = new Kinetic.Text({
+        x: 420,
+        y: 460,
+        text: 'PROGRAM CODE',
+        fontSize: 35,
+        fontWeight: 100,
+        fontFamily: 'Impact',
+        fill: 'Black'
+      });
+    layer.add(programText);
+    codeText = new Kinetic.Text({
+        x: 400,
+        y: 480,
+        text: "",
+        fontSize: 32,
+        fontWeight: 100,
+        fontFamily: 'Arial',
+        fill: 'Black'
+      });
+    layer.add(codeText);
     layer.add(buttonBorder);
 }
 
@@ -120,6 +143,41 @@ function connectorGrid(){
         strokeWidth: 1,
       }));
       //Vertical
+	connectorGrid.push(new Kinetic.Line({
+        points: [100,180,100,220],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [100,320,100,360],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [300,140,300,210],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [300,320,300,360],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [500,140,500,210],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [500,330,500,360],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
+	connectorGrid.push(new Kinetic.Line({
+        points: [650,160,650,230],
+        stroke: 'black',
+        strokeWidth: 1,
+      }));
     for(var i = 0 ; i<connectorGrid.length ; i++){
     	layer.add(connectorGrid[i]);
     }
@@ -155,6 +213,88 @@ function buttonFunctionality(reference){
 }
 
 function control(){
-	var n = this.name;
-	
+		var n = this.name; //u d l r
+		commandList.push(n);
+		//Add codelines
+		if(n=="u")addCodeLine("GO UP");
+		else if(n=="d")addCodeLine("GO DOWN");
+		else if(n=="l")addCodeLine("GO LEFT");
+		else if(n=="r")addCodeLine("GO RIGHT");
+	if(commandList.length==6){
+		//Execute the animation
+		gridMove();
+		//empty the commandList
+		delete commandList;
+		commandList = new Array();
+	}
+}
+
+function gridMove(){
+	var newGridX = 0;
+	var newGridY = 0;
+	var commandsToExecute = new Array();
+	var movement = new Array();
+	for(var i=0;i<commandList.length;i++){
+		var commandType = commandList[i];
+		if(commandType=="u"){
+			if(newGridY>0){
+				commandsToExecute.push(commandType);
+				newGridY--;
+				console.log("Moving up");
+				}
+			else{
+				commandsToExecute.push("n");
+				console.log("Not moving up");	
+			}
+		}
+		else if(commandType=="d"){
+			if((newGridY<2 && newGridX<3)||(newGridY<1)){
+				commandsToExecute.push(commandType);	
+				newGridY++;
+				console.log("Moving down");
+			}
+			else{
+				commandsToExecute.push("n");
+				console.log("Not moving down");	
+			}
+		}
+		else if(commandType=="l"){
+			if(newGridX>0){
+				commandsToExecute.push(commandType);	
+				newGridX--;
+				console.log("Moving left");
+			}
+			else{
+				commandsToExecute.push("n");
+				console.log("Not moving left");	
+			}
+		}
+		else if(commandType=="r"){
+			if((newGridX<3 && newGridY<2)||(newGridX<2)){
+				commandsToExecute.push(commandType);	
+				newGridX++;
+				console.log("Moving right");
+			}
+			else{
+				commandsToExecute.push("n");
+				console.log("Not moving right");	
+			}
+		}
+		//Store X,Y
+		movement.push({x:newGridX,y:newGridY});
+	}
+	console.log(commandsToExecute,movement);
+}
+
+function playAnimation(codeArray,movement){
+	//for(var i=0;i<codeArray)
+}
+
+function addCodeLine(line){
+	var cur = codeText.getText();
+	codeText.setText(cur+"\n"+line);
+}
+
+function clearCodeText(){
+	codeText.setText('');
 }
