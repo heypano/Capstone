@@ -405,7 +405,7 @@ function clearCodeText(){
 }
 
 function isCloseTo(x,y){
-	return ((x < (y+2))&&(x > (y-2)));
+	return ((x < (y+5))&&(x > (y-5)));
 }
 
 function removeLevel4(){
