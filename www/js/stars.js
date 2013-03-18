@@ -43,13 +43,16 @@ function starsHit(){
 
 //Removes all stars (for new levels)
 function removeAllStars(){
-	for(var i=0;i<starsarray.length;i++){
+	var l = starsarray.length;
+	if (l<=0)return;
+	for(var i=l-1;i>=0;i--){
 		var star = starsarray[i];
-			//Remove from view
-			star.remove();
-			//delete star;
-			delete star;
+		//Remove from view
+		star.remove();
+		//delete star;
+		delete star;
 	}
+	starsarray = new Array();
 }
 
 //Adds a star point and refreshes the variable on the screen

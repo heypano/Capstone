@@ -36,7 +36,14 @@ function drawMaze() {
 		addStar(250,360);
 		addStar(612,500);		
 	}
-	
+	else if (levelState ==4){
+		//Draw stars
+		addStar(200,100);
+		addStar(380,100);
+		addStar(180,220);
+		addStar(380,220);
+		addStar(530,220);		
+	}
 }
 
 function removeMaze(){

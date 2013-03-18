@@ -5,6 +5,7 @@ function makeLevel4() {
 	currentSound = new Audio("sounds/drawaline.mp3");
 	robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;
+	soundCounter = 0;
 	//Add the Plug to the stage
 	addPlugToStage();
 	//Stars
@@ -240,54 +241,158 @@ function gridMove(){
 			if(newGridY>0){
 				commandsToExecute.push(commandType);
 				newGridY--;
-				console.log("Moving up");
+				//console.log("Moving up");
 				}
 			else{
 				commandsToExecute.push("n");
-				console.log("Not moving up");	
+				//console.log("Not moving up");	
 			}
 		}
 		else if(commandType=="d"){
 			if((newGridY<2 && newGridX<3)||(newGridY<1)){
 				commandsToExecute.push(commandType);	
 				newGridY++;
-				console.log("Moving down");
+				//console.log("Moving down");
 			}
 			else{
 				commandsToExecute.push("n");
-				console.log("Not moving down");	
+				//console.log("Not moving down");	
 			}
 		}
 		else if(commandType=="l"){
 			if(newGridX>0){
 				commandsToExecute.push(commandType);	
 				newGridX--;
-				console.log("Moving left");
+				//console.log("Moving left");
 			}
 			else{
 				commandsToExecute.push("n");
-				console.log("Not moving left");	
+				//console.log("Not moving left");	
 			}
 		}
 		else if(commandType=="r"){
 			if((newGridX<3 && newGridY<2)||(newGridX<2)){
 				commandsToExecute.push(commandType);	
 				newGridX++;
-				console.log("Moving right");
+				//console.log("Moving right");
 			}
 			else{
 				commandsToExecute.push("n");
-				console.log("Not moving right");	
+				//console.log("Not moving right");	
 			}
 		}
 		//Store X,Y
 		movement.push({x:newGridX,y:newGridY});
 	}
-	console.log(commandsToExecute,movement);
+	playAnimation(commandsToExecute,movement);
 }
 
-function playAnimation(codeArray,movement){
-	//for(var i=0;i<codeArray)
+function playAnimation(commandsToExecute,movement){
+	//console.log(commandsToExecute,movement);
+	prevTime = 0;
+	movementState = 0;
+	anim3 = new Kinetic.Animation(function(frame) {
+			var timePassed = prevTime - frame.time ;
+			if (timePassed > 20) {// Animation continues:
+				if(movementState>=commandsToExecute.length){//Out of things to do
+					resetAnim4();
+				}
+				var toGridX = movement[movementState].x;
+				var toGridY = movement[movementState].y;
+
+				realRobX = robotObj.getX();
+				realRobY = robotObj.getY();
+				//console.log("("+realRobX+", "+realRobY+")");
+				prevTime = frame.time;
+				if(commandsToExecute[movementState]=="u"){
+					robotObj.setY(realRobY-1);
+				}
+				else if(commandsToExecute[movementState]=="d"){
+					robotObj.setY(realRobY+1);
+				}
+				else if(commandsToExecute[movementState]=="l"){
+					robotObj.setX(realRobX-1);
+				}
+				else if(commandsToExecute[movementState]=="r"){
+					robotObj.setX(realRobX+1);
+				}
+				else if(commandsToExecute[movementState]=="n"){
+					//PLAY SOUND
+					if(soundCounter==0)robotObj.loadandplay("sounds/accessdenied.mp3");
+					else if(soundCounter==100){
+						movementState++;
+						soundCounter=0;
+						return;
+					}
+					soundCounter++;
+					return;
+				}
+				starsHit();
+				//When have we reached our destination
+				if(toGridX==0 && toGridY==0){
+					if(isCloseTo(realRobX,20) && isCloseTo(realRobY,10))movementState++;
+				}
+				else if(toGridX==1 && toGridY==0){
+					if(isCloseTo(realRobX,210) && isCloseTo(realRobY,10))movementState++;
+				}
+				else if(toGridX==2 && toGridY==0){
+					if(isCloseTo(realRobX,430) && isCloseTo(realRobY,10))movementState++;
+				}
+				else if(toGridX==3 && toGridY==0){
+					if(isCloseTo(realRobX,560) && isCloseTo(realRobY,10))movementState++;
+				}
+				
+				else if(toGridX==0 && toGridY==1){
+					if(isCloseTo(realRobX,20) && isCloseTo(realRobY,150))movementState++;
+				}
+				else if(toGridX==1 && toGridY==1){
+					if(isCloseTo(realRobX,210) && isCloseTo(realRobY,150))movementState++;
+				}
+				else if(toGridX==2 && toGridY==1){
+					if(isCloseTo(realRobX,430) && isCloseTo(realRobY,150))movementState++;
+				}
+				else if(toGridX==3 && toGridY==1){
+					if(isCloseTo(realRobX,560) && isCloseTo(realRobY,150)){
+						//If we reached the plug
+						if(soundCounter==0){
+							robotObj.loadandplay("sounds/yay.mp3");
+							soundCounter++;
+							commandsToExecute[movementState]="x";
+							return;
+						}
+						else if(soundCounter==200){
+							soundCounter=0;
+							removeLevel4();
+						}
+						else{
+							soundCounter++;
+							return;
+						}
+					}
+					else if(soundCounter!=0){
+						return;
+					}
+				}
+				
+				else if(toGridX==0 && toGridY==2){
+					if(isCloseTo(realRobX,20) && isCloseTo(realRobY,280))movementState++;
+				}
+				else if(toGridX==1 && toGridY==2){
+					if(isCloseTo(realRobX,210) && isCloseTo(realRobY,280))movementState++;
+				}
+				else if(toGridX==2 && toGridY==2){
+					if(isCloseTo(realRobX,430) && isCloseTo(realRobY,280))movementState++;
+				}
+			}
+		}, layer);
+	anim3.start();
+}
+
+function resetAnim4(){
+	movementState =0;
+	anim3.stop();
+	resetRobot();
+	clearCodeText();
 }
 
 function addCodeLine(line){
@@ -297,4 +402,16 @@ function addCodeLine(line){
 
 function clearCodeText(){
 	codeText.setText('');
+}
+
+function isCloseTo(x,y){
+	return ((x < (y+2))&&(x > (y-2)));
+}
+
+function removeLevel4(){
+	var length=layer.children.length;
+	for(var i=length-1;i>2;i--){//i=2 to skip rectangle,line and robot
+		layer.children[i].remove();
+	}
+	resetRobot();
 }

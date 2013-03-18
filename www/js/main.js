@@ -24,6 +24,7 @@
 //TODO add remove previous level
 //TODO HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
 //TODO Add sound for getting star
+//TODO Attempt counter for all levels
 //TODO make fucntion "Play program"
 //TODO add a lot of audio feedback for everything and wait for it to play
 //TODO Fix problem with finishing drawing outside of line
