@@ -5,8 +5,6 @@
 //.twidth
 //.theight
 
-//TODO explain why access denied
-//TODO LOW Separate things that happen for all levels 
 //TODO explain why access denied (I can't go right!)
 //DONE disable touch when robot moving level 5
 //TODO try to reproduce and fix bug level 5
@@ -21,6 +19,7 @@
 //TODO highlight command being executed
 //TODO make balls say they're executing software (trail of numbers? if then else?)
 //TODO subtitles
+//TODO Move robot to top
 //TODO fix chunks in level before dodgeball level
 //TODO move bottom right star lower in level "2"
 //TODO mention robot returning to its original state
@@ -50,7 +49,7 @@
 //TODO if get all stars give gift
 //TODO add Animation before with robot saying hi
 //TODO Images should not be draggable, text should not be selectable -- not an actual problem for mobile
-//TODO Move robot to top
+//TODO LOW Separate things that happen for all levels 
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
