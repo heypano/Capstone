@@ -303,8 +303,8 @@ function playAnimation(commandsToExecute,movement){
 	//console.log(commandsToExecute,movement);
 	prevTime = 0;
 	movementState = 0;
-	console.log(commandsToExecute);
-	console.log(movement);
+	//console.log(commandsToExecute);
+	//console.log(movement);
 	anim3 = new Kinetic.Animation(function(frame) {
 			var timePassed = frame.time - prevTime ;
 			if(timePassed < 0)timePassed = -timePassed;
