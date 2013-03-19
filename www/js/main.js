@@ -5,20 +5,23 @@
 //.twidth
 //.theight
 
+//TODO explain why access denied
 //TODO LOW Separate things that happen for all levels 
 //TODO explain why access denied (I can't go right!)
-//TODO disable touch when robot moving level 5
+//DONE disable touch when robot moving level 5
 //TODO try to reproduce and fix bug level 5
 //TODO free moving level (surprise)
 //DONE for level 3 make sure drawing starts at green line
 //TODO make sure plug / stars don't get hit from the wrong chunk
 //DONE add time to show robot ON plug 
+//TODO animal sounds
 //TODO say "Argument Control Buttons"
+//TODO try to reproduce and fix bug level 5
 //TODO improve debug line usability
 //TODO highlight command being executed
 //TODO make balls say they're executing software (trail of numbers? if then else?)
 //TODO subtitles
-//TODO fix chunks in level before dodgeball level / and first maze
+//TODO fix chunks in level before dodgeball level
 //TODO move bottom right star lower in level "2"
 //TODO mention robot returning to its original state
 //TODO sound for hitting balls (ouch + ball sound)
@@ -119,4 +122,3 @@ function skipToLevel(level){
 		removeMaze();removePlug();removeGuidelines();removeAllStars();removeBalls();nextLevel();
 	}
 }
-
