@@ -25,8 +25,8 @@ function makeLevel4() {
 	gridY = 0;
 	drawMaze();
 	makeGrid();
-	Buttons();
 	disableTouch();
+	Buttons();
 }
 
 
@@ -81,6 +81,8 @@ function Buttons(){
       });
     layer.add(codeText);
     layer.add(buttonBorder);
+    stage.on("mousedown",buttonstuff);
+	stage.on("touchstart",buttonstuff);
 }
 
 
@@ -203,18 +205,28 @@ function loadImage(filepath,x,y,reference){
 			reference.button = imagObj;
 			buttonFunctionality(reference);
 		}
+		imagObj.setDimensions = setDimensions;
+		imagObj.setDimensions();
 	}
 	imag.src = filepath;
 }
 
 function buttonFunctionality(reference){
 	reference.button.name = reference.name;
-	reference.button.on("touchstart",control);
-	reference.button.on("mousedown",control);
+
+	/*reference.button.on("touchstart",control);
+	reference.button.on("mousedown",control);*/
 }
 
-function control(){
-		var n = this.name; //u d l r
+function buttonstuff(e){
+	if(isButton(e.pageX,e.pageY)=='u')control('u');
+	else if(isButton(e.pageX,e.pageY)=='l')control('l');
+	else if(isButton(e.pageX,e.pageY)=='r')control('r');
+	else if(isButton(e.pageX,e.pageY)=='d')control('d');
+}
+
+function control(n){ //u d l r
+		//var n = this.name; 
 		commandList.push(n);
 		//Add codelines
 		if(n=="u")addCodeLine("GO UP");
@@ -360,7 +372,7 @@ function playAnimation(commandsToExecute,movement){
 							commandsToExecute[movementState]="x";
 							return;
 						}
-						else if(soundCounter==200){
+						else if(soundCounter==250){
 							soundCounter=0;
 							removeLevel4();
 						}
@@ -414,4 +426,18 @@ function removeLevel4(){
 		layer.children[i].remove();
 	}
 	resetRobot();
+}
+
+function setDimensions(){
+	this.tleft = this.getX();
+	this.ttop = this.getY();
+	this.tright = this.tleft + this.getWidth();
+	this.tbottom = this.ttop + this.getHeight();
+}
+
+function isButton(x,y){
+	if(isPointWithin(x,y,upB.button.tleft,upB.button.tright,upB.button.ttop,upB.button.tbottom))return 'u';
+	else if(isPointWithin(x,y,downB.button.tleft,downB.button.tright,downB.button.ttop,downB.button.tbottom))return 'd';
+	else if(isPointWithin(x,y,leftB.button.tleft,leftB.button.tright,leftB.button.ttop,leftB.button.tbottom))return 'l';
+	else if(isPointWithin(x,y,rightB.button.tleft,rightB.button.tright,rightB.button.ttop,rightB.button.tbottom))return 'r';
 }

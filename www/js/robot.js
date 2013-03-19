@@ -135,6 +135,7 @@ function saveProgram(){
 
 //Loads the next level
 function nextLevel(){
+	removeMaze();removePlug();removeGuidelines();removeAllStars();removeBalls();
 	if(levelState==0)makeLevel1();
 	else if(levelState==1)makeLevel2();
 	else if(levelState==2)makeLevel3();

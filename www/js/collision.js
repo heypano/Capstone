@@ -36,3 +36,8 @@ function hitTest(l1, r1, t1, b1, l2, r2, t2, b2) {
 		else
 			return false;
 }
+
+function isPointWithin(x,y,l1,r1,t1,b1){
+	if (x >= l1 && x <= r1 && y >= t1 && y <= b1)return true;
+	else return false;
+}
