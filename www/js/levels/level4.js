@@ -81,8 +81,7 @@ function Buttons(){
       });
     layer.add(codeText);
     layer.add(buttonBorder);
-    stage.on("mousedown",buttonstuff);
-	stage.on("touchstart",buttonstuff);
+	enableButtonsForLevel4();
 }
 
 
@@ -219,10 +218,12 @@ function buttonFunctionality(reference){
 }
 
 function buttonstuff(e){
-	if(isButton(e.pageX,e.pageY)=='u')control('u');
-	else if(isButton(e.pageX,e.pageY)=='l')control('l');
-	else if(isButton(e.pageX,e.pageY)=='r')control('r');
-	else if(isButton(e.pageX,e.pageY)=='d')control('d');
+	var buttonType = isButton(e.pageX,e.pageY);
+	if(buttonType=='u')control('u');
+	else if(buttonType=='l')control('l');
+	else if(buttonType=='r')control('r');
+	else if(buttonType=='d')control('d');
+	//console.log("pressed buttonType "+buttonType);
 }
 
 function control(n){ //u d l r
@@ -235,10 +236,9 @@ function control(n){ //u d l r
 		else if(n=="r")addCodeLine("GO RIGHT");
 	if(commandList.length==6){
 		//Execute the animation
+		disableTouch();
 		gridMove();
-		//empty the commandList
-		delete commandList;
-		commandList = new Array();
+
 	}
 }
 
@@ -303,8 +303,11 @@ function playAnimation(commandsToExecute,movement){
 	//console.log(commandsToExecute,movement);
 	prevTime = 0;
 	movementState = 0;
+	console.log(commandsToExecute);
+	console.log(movement);
 	anim3 = new Kinetic.Animation(function(frame) {
-			var timePassed = prevTime - frame.time ;
+			var timePassed = frame.time - prevTime ;
+			if(timePassed < 0)timePassed = -timePassed;
 			if (timePassed > 20) {// Animation continues:
 				if(movementState>=commandsToExecute.length){//Out of things to do
 					resetAnim4();
@@ -314,19 +317,19 @@ function playAnimation(commandsToExecute,movement){
 
 				realRobX = robotObj.getX();
 				realRobY = robotObj.getY();
-				//console.log("("+realRobX+", "+realRobY+")");
+				//console.log("Real robot position: ("+realRobX+", "+realRobY+")");
 				prevTime = frame.time;
 				if(commandsToExecute[movementState]=="u"){
-					robotObj.setY(realRobY-1);
+					robotObj.setY(realRobY-2);
 				}
 				else if(commandsToExecute[movementState]=="d"){
-					robotObj.setY(realRobY+1);
+					robotObj.setY(realRobY+2);
 				}
 				else if(commandsToExecute[movementState]=="l"){
-					robotObj.setX(realRobX-1);
+					robotObj.setX(realRobX-2);
 				}
 				else if(commandsToExecute[movementState]=="r"){
-					robotObj.setX(realRobX+1);
+					robotObj.setX(realRobX+2);
 				}
 				else if(commandsToExecute[movementState]=="n"){
 					//PLAY SOUND
@@ -404,12 +407,17 @@ function resetAnim4(){
 	movementState =0;
 	anim3.stop();
 	resetRobot();
+	enableButtonsForLevel4();
+	//empty the commandList
+	delete commandList;
+	commandList = new Array();
 	clearCodeText();
 }
 
 function addCodeLine(line){
 	var cur = codeText.getText();
 	codeText.setText(cur+"\n"+line);
+	layer.drawScene();
 }
 
 function clearCodeText(){
@@ -440,4 +448,9 @@ function isButton(x,y){
 	else if(isPointWithin(x,y,downB.button.tleft,downB.button.tright,downB.button.ttop,downB.button.tbottom))return 'd';
 	else if(isPointWithin(x,y,leftB.button.tleft,leftB.button.tright,leftB.button.ttop,leftB.button.tbottom))return 'l';
 	else if(isPointWithin(x,y,rightB.button.tleft,rightB.button.tright,rightB.button.ttop,rightB.button.tbottom))return 'r';
+}
+
+function enableButtonsForLevel4(){
+	stage.on("mousedown",buttonstuff);
+	stage.on("touchstart",buttonstuff);
 }

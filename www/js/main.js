@@ -6,9 +6,10 @@
 //.theight
 
 //TODO LOW Separate things that happen for all levels 
-//TODO explain why access denied
+//TODO explain why access denied (I can't go right!)
 //TODO disable touch when robot moving level 5
 //TODO try to reproduce and fix bug level 5
+//TODO free moving level (surprise)
 //DONE for level 3 make sure drawing starts at green line
 //TODO make sure plug / stars don't get hit from the wrong chunk
 //DONE add time to show robot ON plug 
