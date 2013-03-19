@@ -46,3 +46,37 @@ canvas{
 	left: 200px;
 	display:none;
 }
+
+
+#tcontrols{
+	width:340px;
+	height:200px;
+	z-index:100;
+	position:relative;
+	top:500px;
+	left:3px;
+}
+
+#upB{
+	position:absolute;
+	top:10px;
+	left:128px;	
+}
+
+#downB{
+	position:absolute;
+	top:100px;
+	left:128px;
+}
+
+#leftB{
+	position:absolute;
+	top:100px;
+	left:28px;
+}
+
+#rightB{
+	position:absolute;
+	top:100px;
+	left:228px;
+}

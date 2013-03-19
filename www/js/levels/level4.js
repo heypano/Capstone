@@ -2,8 +2,6 @@ function makeLevel4() {
 	levelState = 4; //Keeps track of what level we are on
 	delete currentSound;
 	$('#pageTitle').html("Level 4");
-	currentSound = new Audio("sounds/drawaline.mp3");
-	robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;
 	soundCounter = 0;
 	//Add the Plug to the stage
@@ -25,24 +23,39 @@ function makeLevel4() {
 	gridY = 0;
 	drawMaze();
 	makeGrid();
-	Buttons();
 	disableTouch();
+	buttons();
+	currentSound = new Audio("sounds/drawaline.mp3");
+	robotObj.loadandplay("sounds/noidea.mp3");
 }
 
 
-function Buttons(){
-	leftB = new Object();
+function buttons(){
+	$('#stage canvas').after('<div id="tcontrols"></div>');
+	$("#tcontrols").append('<img src="img/upButton.png" id="upB"/>');
+	$("#tcontrols").append('<img src="img/downButton.png" id="downB"/>');
+	$("#tcontrols").append('<img src="img/leftButton.png" id="leftB"/>');
+	$("#tcontrols").append('<img src="img/rightButton.png" id="rightB"/>');
+	upB = document.getElementById("upB");
+	downB = document.getElementById("downB");
+	leftB = document.getElementById("leftB");
+	rightB = document.getElementById("rightB");
 	leftB.name = "l";
-	upB = new Object();
 	upB.name = "u";
-	downB = new Object();
 	downB.name = "d";
-	rightB = new Object();
 	rightB.name = "r";
-	loadImage("img/leftButton.png",30,600,leftB);
+	$(upB).on("mousedown",control);
+	$(upB).on("touchdown",control);
+	$(leftB).on("mousedown",control);
+	$(leftB).on("touchdown",control);
+	$(downB).on("mousedown",control);
+	$(downB).on("touchdown",control);
+	$(rightB).on("mousedown",control);
+	$(rightB).on("touchdown",control);
+	/*loadImage("img/leftButton.png",30,600,leftB);
 	loadImage("img/upButton.png",130,510,upB);
 	loadImage("img/downButton.png",130,600,downB);
-	loadImage("img/rightButton.png",230,600,rightB);
+	loadImage("img/rightButton.png",230,600,rightB);*/
 	buttonBorder = new Kinetic.Line({
         points: [5,450,350,450,350,725,350,450,695,450],
         stroke: '#ababab',
@@ -186,7 +199,7 @@ function connectorGrid(){
 
 
 
-function loadImage(filepath,x,y,reference){
+function loadImage(filepath,x,y){
 	var imag = new Image();
 	//imag.onload = (loadImg)(imag,x,y);
 	imag.onload = function(){
@@ -199,18 +212,8 @@ function loadImage(filepath,x,y,reference){
 		layer.drawScene();
 		imageArray["p"+imgCount]=imagObj;
 		imgCount++;
-		if(typeof reference != "undefined"){
-			reference.button = imagObj;
-			buttonFunctionality(reference);
-		}
 	}
 	imag.src = filepath;
-}
-
-function buttonFunctionality(reference){
-	reference.button.name = reference.name;
-	reference.button.on("touchstart",control);
-	reference.button.on("mousedown",control);
 }
 
 function control(){
@@ -319,7 +322,7 @@ function playAnimation(commandsToExecute,movement){
 				else if(commandsToExecute[movementState]=="n"){
 					//PLAY SOUND
 					if(soundCounter==0)robotObj.loadandplay("sounds/accessdenied.mp3");
-					else if(soundCounter==100){
+					else if(soundCounter==250){
 						movementState++;
 						soundCounter=0;
 						return;
