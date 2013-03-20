@@ -5,51 +5,69 @@
 //.twidth
 //.theight
 
-//TODO explain why access denied (I can't go right!)
-//DONE disable touch when robot moving level 5
-//TODO try to reproduce and fix bug level 5
-//TODO free moving level (surprise)
-//DONE for level 3 make sure drawing starts at green line
-//TODO make sure plug / stars don't get hit from the wrong chunk
-//DONE add time to show robot ON plug 
-//TODO animal sounds
-//TODO say "Argument Control Buttons"
-//TODO try to reproduce and fix bug level 5
-//TODO improve debug line usability
-//TODO highlight command being executed
-//TODO make balls say they're executing software (trail of numbers? if then else?)
-//TODO subtitles
-//TODO Move robot to top
-//TODO fix chunks in level before dodgeball level
-//TODO move bottom right star lower in level "2"
-//TODO mention robot returning to its original state
-//TODO sound for hitting balls (ouch + ball sound)
-//TODO different animated gif based on the level
-//TODO change condition to not hit plug too easily
+
+
+
+//VISUALS
+//TODO HIGH highlight command being executed (level 5)
+//TODO HIGH subtitles
+//TODO HIGH Move robot to top layer
+//TODO HIGH Add trail of number / if then else to balls
+//TODO HIGH different animated gif based on the level
+//TODO Clinky the robot title of game
 //TODO LOW Show image connecting robot to plug maybe replace image?
-//TODO add remove previous level
+
+//GAMEPLAY
+//TODO HIGH move bottom right star lower in level "2"
+//TODO HIGH Attempt counter for all levels
+//TODO HIGH try to reproduce and fix bug level 5
+//TODO HIGH free moving level (surprise)
+//TODO MEDIUM if get all stars give gift
+//DONE add time to show robot ON plug 
+
+//SOUND STUFF
+//TODO HIGH explain why access denied (I can't go right!)
+//TODO HIGH say "Argument Control Buttons" (level 5)
+//TODO HIGH make balls say they're executing software 
+//TODO HIGH mention robot returning to its original state
+//TODO HIGH sound for hitting balls (ouch + ball sound)
+//TODO HIGH Make "enough time passed " boolean function
+//TODO HIGH Make sure sounds don't play on top of each other
+//TODO HIGH "Can you find the mistake? Please help me debug my program"
+//TODO HIGH Wait for it to play
+//TODO HIGH Add sound for getting star
 //TODO HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
-//TODO Add sound for getting star
-//TODO Attempt counter for all levels
-//TODO make fucntion "Play program"
-//TODO add a lot of audio feedback for everything and wait for it to play
-//TODO Fix problem with finishing drawing outside of line
-//TODO "Can you find the mistake? Please help me debug my program"
-//TODO Make sure sounds don't play on top of each other
-//TODO Make collision with plug smoother
-//TODO Make robot talk when you click it (or flick it? or when you talk to it?)
-//TODO If touch up happens out of the field, start moving
-//TODO Why are there more than one layers
-//TODO Look at intersection of previous point -> newpoint line with existing maze lines instead of using chunks
-//TODO OR: limit chunks more
-//TODO: Make sure line started on robot
-//TODO: Make bounding boxes? maybe
-//TODO get robot coordinate variables (l1,r1,b1,t1) only once per iteration
-//TODO optimize code if getting slow
-//TODO if get all stars give gift
-//TODO add Animation before with robot saying hi
-//TODO Images should not be draggable, text should not be selectable -- not an actual problem for mobile
+//TODO HIGH animal sounds
+//TODO HIGH all speaker instructions
+
+//DRAWING
+//TODO HIGH If touch up happens out of the field, start moving
+//TODO HIGH Fix problem with finishing drawing outside of line
+//TODO HIGH Make sure line started on robot
+//DONE for level 3 make sure drawing starts at green line
+
+//MAZE
+//TODO HIGH fix chunks in level before dodgeball level
+//TODO HIGH limit chunks more
+//TODO HIGH make sure plug / stars don't get hit from the wrong chunk
+
+//COLLISION DETECTION
+//TODO MEDIUM Make collision with plug smoother
+//TODO MEDIUM Make bounding boxes? maybe
+
+//INTERACTION
+//TODO HIGH improve debug line usability
+//TODO MEDIUM Make robot talk when you click it (or flick it? or when you talk to it?)
+//TODO LOW Images should not be draggable, text should not be selectable -- not an actual problem for mobile
+//DONE disable touch when robot moving level 5
+
+//CODE STUFF
+//TODO LOW optimize code if getting slow
+//TODO LOW get robot coordinate variables (l1,r1,b1,t1) only once per iteration
+//TODO LOW add Animation before with robot saying hi
 //TODO LOW Separate things that happen for all levels 
+
+//TESTING
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
 
