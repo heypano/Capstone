@@ -24,10 +24,12 @@
 
 //SOUND STUFF
 //TODO HIGH Make sure sounds don't play on top of each other
-//TODO HIGH Add sound for getting star
-//TODO HIGH animal sounds
 //TODO HIGH Wait for it to play
+//TODO HIGH add star sound
+//TODO HIGH only load sound once maybe? Now that I have them all don't use load and play, just play
 //TODO HIGH Make "enough time passed " boolean function
+//DONE HIGH animal sounds
+//DONE HIGH Add sound for getting star
 //DONE HIGH all speaker instructions
 //DONE HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
 //DONE HIGH Clinky is a bit clumsy!
