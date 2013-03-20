@@ -5,9 +5,6 @@
 //.twidth
 //.theight
 
-
-
-
 //VISUALS
 //TODO HIGH highlight command being executed (level 5)
 //TODO HIGH subtitles
@@ -26,19 +23,20 @@
 //DONE add time to show robot ON plug 
 
 //SOUND STUFF
-//TODO HIGH explain why access denied (I can't go right!)
-//TODO HIGH say "Argument Control Buttons" (level 5)
-//TODO HIGH make balls say they're executing software 
-//TODO HIGH mention robot returning to its original state
-//TODO HIGH sound for hitting balls (ouch + ball sound)
-//TODO HIGH Make "enough time passed " boolean function
 //TODO HIGH Make sure sounds don't play on top of each other
-//TODO HIGH "Can you find the mistake? Please help me debug my program"
-//TODO HIGH Wait for it to play
 //TODO HIGH Add sound for getting star
-//TODO HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
 //TODO HIGH animal sounds
-//TODO HIGH all speaker instructions
+//TODO HIGH Wait for it to play
+//TODO HIGH Make "enough time passed " boolean function
+//DONE HIGH all speaker instructions
+//DONE HIGH Add sounds for EXECUTE COMMAND GO UP, EXECUTE COMMAND GO DOWN etc (everything)
+//DONE HIGH Clinky is a bit clumsy!
+//DONE HIGH "Can you find the mistake? Please help me debug my program"
+//DONE HIGH say "Argument Control Buttons" (level 5)
+//DONE HIGH make balls say they're executing software 
+//DONE HIGH sound for hitting balls (ouch + ball sound)
+//DONE HIGH mention robot returning to its original state
+//DONE HIGH explain why access denied (I can't go that way!)
 
 //DRAWING
 //TODO HIGH If touch up happens out of the field, start moving
@@ -70,6 +68,7 @@
 //TESTING
 //For robot voice
 //Audacity - delay (0.1, 0.01, 0.01, 3) - changepitch(6 semitones up)
+//For instructoir voice 3 semitones up
 
 levelState = 0; //Keeps track of what level we are on
 playerStars = 0; //Keeps track of how many stars a player has
