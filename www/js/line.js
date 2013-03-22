@@ -17,7 +17,7 @@ function startMove(event) {
 		layer.draw();
 	} else {
 		//Remove previous line
-		removeLine(line, points);
+		removeLine(line);
 		//Get new point
 		var newPoint = stage.getUserPosition();
 		if(levelState==2 && getChunk(newPoint.x,newPoint.y)<4)return;
@@ -106,7 +106,7 @@ function endMove(event) {
 }
 
 //Remove line
-function removeLine() {
+function removeLine(line) {
 	line.setStrokeWidth(2);
 	line.setStroke("black");
 	if (!points)
