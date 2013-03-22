@@ -24,6 +24,8 @@
 
 //SOUND STUFF
 //TODO Sounds left:
+//level 1 has 2 stars same place
+//Speaker stops working 
 //0introintro
 //castlespeak
 //shopspeak
