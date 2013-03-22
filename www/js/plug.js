@@ -33,6 +33,10 @@ function addPlugToStage() {
 		layer.drawScene();
 		plugWidth = plugImageObj.width;
 		plugHeight = plugImageObj.height;
+		plugObj.plugX = plugX;
+		plugObj.plugY = plugY;
+		plugObj.plugWidth = plugWidth;
+		plugObj.plugHeight = plugHeight;
 	}
 	plugImageObj.src = "img/plug.png";
 }
