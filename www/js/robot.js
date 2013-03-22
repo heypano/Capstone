@@ -1,4 +1,4 @@
-program = new Array(); //Contains all of the saved "programs"
+
 
 //Add robot to stage
 function addRobotToStage() {
@@ -41,8 +41,15 @@ function moveRobot() {
 	//These offsets are used to make the robot look like it's moving from it's center
 	var xoffset = robotObj.getWidth() / 2;
 	var yoffset = robotObj.getHeight() / 2;
+	//Save the position of the balls
+	if(levelState==3){
+			savedBall1x = ball1defx ;
+			savedBall2x = ball2defx ;
+			savedBall1y = ball1defy ;
+			savedBall2y = ball2defy ;
+	}
 	var anim = new Kinetic.Animation(function(frame) {
-		var collidesballs = collides(robotObj);
+		var collidesballs = collides(robotObj,plugX,plugY,plugWidth,plugHeight);
 		if (!points.length || pointNo >= points.length - 1 || (levelState == 3 && collidesballs == 4)) {//Animation end condition (scanned entire line or line doesn't exist)
 			if(collidesballs==4){
 				soundManager.playSound("l3","ouch");
@@ -50,7 +57,7 @@ function moveRobot() {
 			anim.stop();
 			$(soundManager).bind("endqueue",function(){
 				$(soundManager).unbind("endqueue");
-				removeLine();
+				removeLine(line);
 				attemptCounter++;
 				robotMoving = false;
 				if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
@@ -67,28 +74,32 @@ function moveRobot() {
 			robotObj.setY(points[pointNo].y - yoffset);
 			pointNo++;
 			starsHit();
-			var collidesR=collides(robotObj);
+			var collidesR=collides(robotObj,plugX,plugY,plugWidth,plugHeight);
 			if( collidesR == 3){ // If it hits the plug -- stop
 				anim.stop();
 				robotMoving = false;
 				soundManager.playSound("all","yay");
+				//Wait to make sure it got saved
+				$(window).bind("saveded",function(){
+					$(window).unbind("saveded");
+					$(soundManager).bind("endqueue",function(){
+						$(soundManager).unbind("endqueue");
+						//Save the "program"
+						removePlug();
+						removeAllStars();
+						removeMaze();
+						removeLine(line);
+						if(levelState==2)removeGuidelines();
+						if(levelState==3){
+							anim2.stop();
+							removeBalls();
+							}
+						nextLevel();
+						resetRobot();
+						layer.drawScene();
+						});
+				});
 				saveProgram();
-				$(soundManager).bind("endqueue",function(){
-					$(soundManager).unbind("endqueue");
-					//Save the "program"
-					removePlug();
-					removeAllStars();
-					removeMaze();
-					removeLine();
-					if(levelState==2)removeGuidelines();
-					if(levelState==3){
-						anim2.stop();
-						removeBalls();
-						}
-					nextLevel();
-					resetRobot();
-					layer.drawScene();
-					});
 			}
 		}
 	}, layer);
@@ -115,32 +126,6 @@ function resetRobot() {
 		
 	}
 	layer.drawScene();
-}
-
-//Saves program based on level
-function saveProgram(){
-	program[levelState] = new Object();
-	if(typeof points != 'undefined'){
-		program[levelState].points= points.clone();
-		}
-	else{
-		program[levelState].points= null;
-		}	
-	if(typeof mazeline != 'undefined'){
-		program[levelState].maze = mazeline.clone();
-		}
-	else{
-		program[levelState].maze = null;
-		}
-	if(typeof robotObj != 'undefined'){
-		program[levelState].robotObj = $.extend({}, robotObj); // Cloning object
-		}
-	else{
-		program[levelState].robotObj = null;
-		}
-	//TODO save plug
-	//TODO save balls?
-	//TODO save whatever else needs to be saveds
 }
 
 //Loads the next level
