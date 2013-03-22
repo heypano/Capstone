@@ -8,6 +8,8 @@
 //VISUALS
 //TODO HIGH highlight command being executed (level 5)
 //TODO HIGH subtitles
+//TODO HIGH title/subtitles for replay
+//TODO Add the dog somewhere
 //TODO HIGH Move robot to top layer
 //TODO HIGH Add trail of number / if then else to balls
 //TODO HIGH different animated gif based on the level
@@ -15,6 +17,7 @@
 //TODO LOW Show image connecting robot to plug maybe replace image?
 
 //GAMEPLAY
+//TODO HIGH Execute previous program again
 //TODO HIGH move bottom right star lower in level "2"
 //TODO HIGH Attempt counter for all levels
 //TODO HIGH try to reproduce and fix bug level 5
@@ -36,6 +39,7 @@
 //noideawheretogo
 //castlelove
 //4woof
+//TODO Sound for replay
 //TODO low: don't play things related to other levels
 //TODO Low: make ouch sound shorter\
 //TODO empty soundmanager on next level
@@ -80,6 +84,7 @@
 //DONE disable touch when robot moving level 5
 
 //CODE STUFF
+//TODO HIGH look at todos in other places
 //TODO LOW optimize code if getting slow
 //TODO LOW get robot coordinate variables (l1,r1,b1,t1) only once per iteration
 //TODO LOW add Animation before with robot saying hi
