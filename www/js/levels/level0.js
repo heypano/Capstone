@@ -1,7 +1,7 @@
 function makeLevel0(){
 	delete currentSound;
 	$('#pageTitle').html("Welcome!");
-	currentSound = new Audio("sounds/drawaline.mp3");
+	soundManager.playSound("l0","introbyrobot");
 	attemptCounter = 0;
 	//Draw the maze
 	drawMaze();

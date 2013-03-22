@@ -5,7 +5,8 @@ function makeLevel3() {
 	delete currentSound;
 	$('#pageTitle').html("Level 3");
 	currentSound = new Audio("sounds/drawaline.mp3");
-	robotObj.loadandplay("sounds/noidea.mp3");
+	//TODO robotObj.loadandplay("sounds/noidea.mp3");
+	soundManager.playSound("l3","moreprograms");
 	attemptCounter = 0;
 	//Balls
 	animatedBalls();

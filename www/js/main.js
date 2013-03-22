@@ -23,11 +23,27 @@
 //DONE add time to show robot ON plug 
 
 //SOUND STUFF
-//TODO HIGH Make sure sounds don't play on top of each other
-//TODO HIGH Wait for it to play
-//TODO HIGH add star sound
-//TODO HIGH only load sound once maybe? Now that I have them all don't use load and play, just play
-//TODO HIGH Make "enough time passed " boolean function
+//TODO Sounds left:
+//0introintro
+//castlespeak
+//shopspeak
+//allthestarsgift
+//ohnorunningout
+//oopswall
+//oops
+//noideawheretogo
+//castlelove
+//4woof
+//TODO low: don't play things related to other levels
+//TODO Low: make ouch sound shorter\
+//TODO empty soundmanager on next level
+//TODO empty queue when things are finished in general (e.g. level 4)
+//TODO fix "I think i should go back" to play before it goes back
+//DONE HIGH Make sure sounds don't play on top of each other
+//DONE HIGH only load sound once maybe? Now that I have them all don't use load and play, just play
+//DONE HIGH Make "enough time passed " boolean function
+//DONE HIGH Wait for it to play
+//DONE HIGH add star sound
 //DONE HIGH animal sounds
 //DONE HIGH Add sound for getting star
 //DONE HIGH all speaker instructions
@@ -104,7 +120,7 @@ $(document).ready(function() {
 	});
 	//Speaker
 	$("#speakerButton").click(function(){
-		currentSound.play();
+		soundManager.playSound("l"+levelState,"speaker");
 	});
 	layer.draw();
 	generalInit();

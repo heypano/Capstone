@@ -3,7 +3,8 @@ function makeLevel2() {
 	delete currentSound;
 	$('#pageTitle').html("Level 2");
 	currentSound = new Audio("sounds/drawaline.mp3");
-	robotObj.loadandplay("sounds/noidea.mp3");
+	//TODO robotObj.loadandplay("sounds/noidea.mp3");
+	soundManager.playSound("l2","mistakehelpmedebug");
 	attemptCounter = 0;
 	//Draw the maze
 	drawMaze();
@@ -63,6 +64,8 @@ function debugFind(){
 			if(x>=500 && x<=600){
 				debugged = true;
 				redLine.remove();
+				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
+				soundManager.playSound("l2","yourerightdebug");
 				resetRobot();
 				disableTouch();
 				enableDraw();

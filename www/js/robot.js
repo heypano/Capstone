@@ -18,13 +18,13 @@ function addRobotToStage() {
 		layer.drawScene();
 		robotObj.twidth = robotImageObj.width;
 		robotObj.theight = robotImageObj.height;
-		robotObj.loadandplay = function(sound){
+		/*robotObj.loadandplay = function(sound){
 			if(typeof robotObj.sound != undefined)delete robotObj.sound;
 			robotObj.sound = new Audio (sound);
 			robotObj.sound.play();
 			setTimeout(null,robotObj.sound.duration);
 		}
-		robotObj.loadandplay("sounds/outofpower.mp3");
+		robotObj.loadandplay("sounds/outofpower.mp3");*/
 		//$.trigger("robotloaded");
 	}
 	robotImageObj.src = "img/robot.png";
@@ -42,16 +42,25 @@ function moveRobot() {
 	var xoffset = robotObj.getWidth() / 2;
 	var yoffset = robotObj.getHeight() / 2;
 	var anim = new Kinetic.Animation(function(frame) {
-		if (!points.length || pointNo >= points.length - 1 || (levelState == 3 && collides(robotObj) == 4)) {//Animation end condition (scanned entire line or line doesn't exist)
-			resetRobot();
-			removeLine();
-			attemptCounter++;
-			anim.stop();
-			robotMoving = false;
-			if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
-					loadInstruction1();
+		var collidesballs = collides(robotObj);
+		if (!points.length || pointNo >= points.length - 1 || (levelState == 3 && collidesballs == 4)) {//Animation end condition (scanned entire line or line doesn't exist)
+			if(collidesballs==4){
+				soundManager.playSound("l3","ouch");
 			}
-			return;
+			anim.stop();
+			$(soundManager).bind("endqueue",function(){
+				$(soundManager).unbind("endqueue");
+				removeLine();
+				attemptCounter++;
+				robotMoving = false;
+				if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
+						loadInstruction1();
+				}
+				resetRobot();
+				return;
+				});		
+			soundManager.playSound("all","ithinkishouldgoback");
+			return;	
 		} else if (frame.time - prevTime > 20) {// Animation continues:
 			prevTime = frame.time;
 			robotObj.setX(points[pointNo].x - xoffset);
@@ -62,10 +71,10 @@ function moveRobot() {
 			if( collidesR == 3){ // If it hits the plug -- stop
 				anim.stop();
 				robotMoving = false;
-				robotObj.loadandplay("sounds/yay.mp3");
+				soundManager.playSound("all","yay");
 				saveProgram();
-				$(robotObj.sound).bind("ended",function(){
-					$(robotObj.sound).unbind("ended");
+				$(soundManager).bind("endqueue",function(){
+					$(soundManager).unbind("endqueue");
 					//Save the "program"
 					removePlug();
 					removeAllStars();
@@ -105,6 +114,7 @@ function resetRobot() {
 		};
 		
 	}
+	layer.drawScene();
 }
 
 //Saves program based on level
@@ -136,6 +146,7 @@ function saveProgram(){
 //Loads the next level
 function nextLevel(){
 	removeMaze();removePlug();removeGuidelines();removeAllStars();removeBalls();
+	soundManager.queue = new Queue();
 	if(levelState==0)makeLevel1();
 	else if(levelState==1)makeLevel2();
 	else if(levelState==2)makeLevel3();

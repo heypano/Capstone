@@ -34,6 +34,7 @@ function starsHit(){
 			//Remove from view
 			star.remove();
 			//delete star;
+			soundManager.playSound("all","star");
 			delete star;
 			return;
 		}
