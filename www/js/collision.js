@@ -1,6 +1,6 @@
 
 //Is obj Colliding with something (returns what otherwise null)
-function collides(obj1) {
+function collides(obj1,plugX,plugY,plugWidth,plugHeight) {
 	l1 = obj1.getX();
 	r1 = l1 + obj1.twidth;
 	t1 = obj1.getY();
@@ -13,7 +13,7 @@ function collides(obj1) {
 	}
 
 	//Collides with plug
-	if (hitTest(l1, r1, t1, b1, plugX, plugX + plugWidth, plugY, plugY + plugWidth)) {
+	if (hitTest(l1, r1, t1, b1, plugX, plugX + plugWidth, plugY, plugY + plugHeight)) {
 		return 3;
 		// TODO change this later -- 3 means plug
 	}
