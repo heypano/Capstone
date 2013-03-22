@@ -2,17 +2,13 @@
 
 //Draw maze
 function drawMaze() {
+	//Draw stars
+	addStars(levelState);
 	if(levelState==1){
 		mazeline = new Kinetic.Line({
 			points : [0, 0, 200, 0, 200, 500, 200, 0, 0, 0, 0, 732, 400, 732, 400, 200],
 			stroke : "black"
 		});
-		//Draw stars
-		addStar(250,50);
-		addStar(50,500);
-		addStar(50,250);
-		addStar(250,300);
-		addStar(500,100);
 		layer.add(mazeline);
 	}
 	else if(levelState==2){
@@ -20,29 +16,11 @@ function drawMaze() {
 			points : [0, 0, 0,200,500,200,500,400,200,400,200,600,500,600],
 			stroke : "black"
 		});
-		//Draw stars
-		addStar(50,500);
-		addStar(50,250);
-		addStar(250,620);
-		addStar(200,300);
-		addStar(600,500);
 		layer.add(mazeline);
 	}
 	else if (levelState ==3){
-		//Draw stars
-		addStar(80,500);
-		addStar(20,240);
-		addStar(180,220);
-		addStar(250,360);
-		addStar(612,500);		
 	}
 	else if (levelState ==4){
-		//Draw stars
-		addStar(200,100);
-		addStar(380,100);
-		addStar(180,220);
-		addStar(380,220);
-		addStar(530,220);		
 	}
 }
 
