@@ -5,7 +5,6 @@ function makeLevel4() {
 	$('#pageTitle').html("Level 4");
 	currentSound = new Audio("sounds/drawaline.mp3");
 	soundManager.playSound("l4", "toomanythings");
-	//TODO robotObj.loadandplay("sounds/noidea.mp3");
 	attemptCounter = 0;
 	soundCounter = 0;
 	//Add the Plug to the stage
@@ -31,7 +30,8 @@ function makeLevel4() {
 	Buttons();
 }
 
-function Buttons() {
+function Buttons(layer) {
+	if(typeof layer == "undefined")layer=window.layer;
 	leftB = new Object();
 	leftB.name = "l";
 	upB = new Object();
@@ -40,10 +40,10 @@ function Buttons() {
 	downB.name = "d";
 	rightB = new Object();
 	rightB.name = "r";
-	loadImage("img/leftButton.png", 30, 600, leftB);
-	loadImage("img/upButton.png", 130, 510, upB);
-	loadImage("img/downButton.png", 130, 600, downB);
-	loadImage("img/rightButton.png", 230, 600, rightB);
+	loadImage("img/leftButton.png", 30, 600, leftB, layer);
+	loadImage("img/upButton.png", 130, 510, upB, layer);
+	loadImage("img/downButton.png", 130, 600, downB, layer);
+	loadImage("img/rightButton.png", 230, 600, rightB, layer);
 	buttonBorder = new Kinetic.Line({
 		points : [5, 450, 350, 450, 350, 725, 350, 450, 695, 450],
 		stroke : '#ababab',
@@ -82,23 +82,25 @@ function Buttons() {
 	});
 	layer.add(codeText);
 	layer.add(buttonBorder);
-	enableButtonsForLevel4();
+	if(!replaying)enableButtonsForLevel4();
 }
 
-function makeGrid() {
-	loadImage("img/cat.png", 50, 220);
-	loadImage("img/treat1.png", 50, 370);
-	loadImage("img/cat.png", 580, 60);
-	loadImage("img/treat1.png", 240, 80);
-	loadImage("img/dogfood.png", 210, 220);
-	loadImage("img/treat2.png", 460, 80);
-	loadImage("img/cat.png", 420, 220);
-	loadImage("img/treat2.png", 270, 370);
-	loadImage("img/crocodile.png", 430, 350);
-	connectorGrid();
+function makeGrid(layer) {
+	if(typeof layer == "undefined")layer=window.layer;
+	loadImage("img/cat.png", 50, 220, null, layer);
+	loadImage("img/treat1.png", 50, 370, null, layer);
+	loadImage("img/cat.png", 580, 60, null, layer);
+	loadImage("img/treat1.png", 240, 80, null, layer);
+	loadImage("img/dogfood.png", 210, 220, null, layer);
+	loadImage("img/treat2.png", 460, 80, null, layer);
+	loadImage("img/cat.png", 420, 220, null, layer);
+	loadImage("img/treat2.png", 270, 370, null, layer);
+	loadImage("img/crocodile.png", 430, 350, null, layer);
+	makeConnectorGrid();
 }
 
-function connectorGrid() {
+function makeConnectorGrid(layer) {
+	if(typeof layer == "undefined")layer=window.layer;
 	connectorGrid = new Array();
 	connectorGrid.push(new Kinetic.Line({
 		points : [170, 100, 220, 100],
@@ -181,7 +183,8 @@ function connectorGrid() {
 	}
 }
 
-function loadImage(filepath, x, y, reference) {
+function loadImage(filepath, x, y, reference, layer) {
+	if(typeof layer == "undefined")layer=window.layer;
 	var imag = new Image();
 	//imag.onload = (loadImg)(imag,x,y);
 	imag.onload = function() {
@@ -194,7 +197,7 @@ function loadImage(filepath, x, y, reference) {
 		layer.drawScene();
 		imageArray["p" + imgCount] = imagObj;
 		imgCount++;
-		if ( typeof reference != "undefined") {
+		if ( typeof reference != "undefined" && reference!=null) {
 			reference.button = imagObj;
 			buttonFunctionality(reference);
 		}
@@ -305,10 +308,15 @@ function gridMove() {
 	playAnimation(commandsToExecute, movement);
 }
 
-function playAnimation(commandsToExecute, movement) {
+function playAnimation(commandsToExecute, movement, robotObj, layer) {
+	if(typeof robotObj == "undefined")robotObj=window.robotObj;
+	if(typeof layer == "undefined")layer=window.layer;
+	
 	//console.log(commandsToExecute,movement);
 	prevTime = 0;
 	movementState = 0;
+	lastCommandsToExecute = commandsToExecute;
+	lastMovement = movement;
 	//console.log(commandsToExecute);
 	//console.log(movement);
 	anim3 = new Kinetic.Animation(function(frame) {
@@ -386,9 +394,11 @@ function playAnimation(commandsToExecute, movement) {
 				if (isCloseTo(realRobX, 560) && isCloseTo(realRobY, 150)) { //plug
 					//If we reached the plug
 					soundManager.playSound("all", "yay");
+					saveProgram();
 					commandsToExecute[movementState] = "x";
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
+						anim3.stop();
 						removeLevel4();
 						return;
 						});
@@ -430,7 +440,8 @@ function resetAnim4() {
 	});
 }
 
-function addCodeLine(line) {
+function addCodeLine(line,layer) {
+	if(typeof layer == "undefined")layer=window.layer;
 	var cur = codeText.getText();
 	codeText.setText(cur + "\n" + line);
 	layer.drawScene();

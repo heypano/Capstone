@@ -48,20 +48,11 @@ function startDebug(){
 	stage.on("mousemove", debugFind);
 }
 
-state = 0 ; //We want the user to hit at least 3 points of the line
 function debugFind(){
 	var position = stage.getUserPosition();
 	var x = position.x;
 	var y = position.y;
 	if(y<=520 && y>=480 && x>=300 && x<=600){
-		if(state==0){
-			if(x<=400)state=1;
-		}
-		else if(state==1){
-			if(x>=400 && x<=500)state=2;
-		}
-		else{
-			if(x>=500 && x<=600){
 				debugged = true;
 				redLine.remove();
 				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
@@ -69,8 +60,6 @@ function debugFind(){
 				resetRobot();
 				disableTouch();
 				enableDraw();
-			}
-		}
 	}
 }
 

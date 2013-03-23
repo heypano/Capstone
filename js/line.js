@@ -4,9 +4,12 @@
 //points
 
 prevPoint = null;  //Global variable that keeps track of the previous point drawn on the line
+drawingDisabled=false //If drawing is disabled these will fail
+
 
 //Start drawing line (touch down)
 function startMove(event) {
+	if(drawingDisabled) return;
 	if (robotMoving) // If the robot is moving, do nothing
 		return;
 	if (moving) {
@@ -14,9 +17,10 @@ function startMove(event) {
 		layer.draw();
 	} else {
 		//Remove previous line
-		removeLine(line, points);
+		removeLine(line);
 		//Get new point
 		var newPoint = stage.getUserPosition();
+		if(levelState==2 && getChunk(newPoint.x,newPoint.y)<4)return;
 		//Put it in array
 		points.push(newPoint);
 		//Print the line
@@ -38,20 +42,36 @@ function continueMove(event) {
 		return;
 	if (moving) {
 		//Get new point
-		var newPoint = stage.getUserPosition();
+		newPoint = stage.getUserPosition();
 		if(!newPoint)return;
-		
-		
-		
-		
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
 			currentChunk = getChunk(prevPoint.x, prevPoint.y);
 		else
 			currentChunk = newChunk;
-		if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
-			return;
+		//console.log("Current Chunk: "+currentChunk+". New Chunk: "+newChunk);
+		if(levelState==0 || levelState==1){ //Level 0 and 1
+			if (newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
+			return;			
+		}
+		else if(levelState==2){
+			line.setStrokeWidth(10);
+			if(currentChunk<4 || newChunk<4)return; //No interaction at this point
+			if(currentChunk==4){ //Intersection
+				if(newChunk != 4 && newChunk != 5 && newChunk != 6 && newChunk != 3)return;
+				line.setStroke("green");
+			}
+			else if(currentChunk==5){//Deadend
+				if(newChunk!=5 && newChunk!=4) return;
+				line.setStroke("red");
+			}
+			else {
+				line.setStroke("green");
+				if(newChunk != currentChunk && newChunk != currentChunk - 1 && newChunk != currentChunk + 1)
+				return;
+			}
+		}
 		
 		prevPoint = newPoint;
 		//Put it in array
@@ -66,27 +86,46 @@ function continueMove(event) {
 	}
 }
 
-//Stop moving (touch down)
+//Stop moving (touch up)
 function endMove(event) {
+	if(drawingDisabled)return;
 	if (robotMoving)
 		return;
 	moving = false;
-	clearInterval(lineDrawTimer);
+	if(levelState==2){
+		line.setStrokeWidth(10);	
+	}
+	else{
+		line.setStroke("black");
+		line.setStrokeWidth(2);
+	} 
+	if(typeof lineDrawTimer != "undefined"){
+		clearInterval(lineDrawTimer);
+	}
 	moveRobot();
 }
 
 //Remove line
-function removeLine() {
+function removeLine(line) {
+	line.setStrokeWidth(2);
+	line.setStroke("black");
 	if (!points)
 		return;
 	// If points isn't defined
 	delete points;
+	
+	if(levelState==0 || levelState==1){startx=100;starty=100;}
+	else if(levelState==2){startx=600;starty=500;}
+	else{
+		startx=100;starty=100;
+	}
 	points = new Array({
-		x : 100,
-		y : 100
+		x : startx,
+		y : starty
 	});
 	//points.splice(1, points.length); //Empty the array
 	line.setPoints(points);
+	prevPoint=null;
 	//Clear the line
 	//layer.drawScene(); //Redraw stage
 }

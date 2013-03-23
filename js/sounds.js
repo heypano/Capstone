@@ -19,7 +19,6 @@ soundManager.playSound = function(domain,soundadd){
 			this.queue.enqueue(sound);
 		}
 		else{
-			console.log(this.queue.getLength());
 			if(this.queue.getLength()==0)$(soundManager).trigger("endqueue");
 		}
 	}
@@ -121,4 +120,11 @@ function addSounds(){
 	this.lcastle.speaker = new Audio("sounds/speaker/castle_speakerinstr.mp3");
 	this.lshop = new Object();
 	this.lshop.speaker = new Audio("sounds/speaker/shop_speakerinstr.mp3");
+}
+
+function shutUp(){
+	soundManager.queue = new Queue();
+	soundManager.currentSoundPlaying.pause();
+	soundManager.isPlaying = false;
+	$(soundManager).trigger("endqueue");
 }

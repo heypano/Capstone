@@ -59,7 +59,10 @@ function loadBall(){
 	ballHeight = ballImageObj1.height;
 }
 
-function animateBalls(){
+function animateBalls(layer,ballObj1,ballObj2){
+	if(typeof layer == "undefined")layer=window.layer;
+	if(typeof ballObj1 == "undefined")ballObj1=window.ballObj1;
+	if(typeof ballObj2 == "undefined")ballObj2=window.ballObj2;
 	ball1defx = 500;
 	ball2defx = 50;
 	ball1defy = 50;
