@@ -37,13 +37,49 @@ function playStuff(l){
 		tlayer.add(this.line);
 	}
 	else if(l<4){
+		if(l==3){
+			this.ballObj1.setX(savedBall1x);
+			this.ballObj2.setX(savedBall2x);
+			this.ballObj1.setY(savedBall1y);
+			this.ballObj2.setY(savedBall2y);
+			tlayer.add(this.ballObj1);
+			tlayer.add(this.ballObj2);
+		}
 		this.line.setPoints(this.points);
 		tlayer.add(this.line);
-		tlayer.add(this.mazeline);
+		if(this.mazeline)tlayer.add(this.mazeline);
+	}
+	else if(l==4){
+		for(key in this.imageArray){
+			tlayer.add(imageArray[key]);
+		}
+		Buttons(tlayer);
+		makeConnectorGrid(tlayer);
+		for(key in this.commandList){
+			var n = this.commandList[key];
+			if(typeof n == "function")continue;
+			if (n == "u") {
+				addCodeLine("GO UP",tlayer);
+				soundManager.playSound("l4", "executeup");
+			} else if (n == "d") {
+				addCodeLine("GO DOWN",tlayer);
+				soundManager.playSound("l4", "executedown");
+			} else if (n == "l") {
+				addCodeLine("GO LEFT",tlayer);
+				soundManager.playSound("l4", "executeleft");
+			} else if (n == "r") {
+				addCodeLine("GO RIGHT",tlayer);
+				soundManager.playSound("l4", "executeright");
+			}
+		}
+		playAnimation(this.commandsToExecute, this.movement, this.robotObj, tlayer);
 	}
 	tlayer.drawScene();
-	var anim = reanimate(tlayer,this.robotObj,this.points,l,this.plugObj.plugX,this.plugObj.plugY,this.plugObj.plugWidth,this.plugObj.plugHeight);
-	anim.start();
+	if(l!=4){
+		var anim = reanimate(tlayer,this.robotObj,this.points,l,this.plugObj.plugX,this.plugObj.plugY,this.plugObj.plugWidth,this.plugObj.plugHeight);
+		if(l==3)animateBalls(tlayer,this.ballObj1,this.ballObj2);
+		anim.start();
+	}
 }
 
 function removeTempLayer(){
@@ -96,6 +132,42 @@ function saveProgram(){
 		}
 	else{
 		program[levelState].plugObj = null;
+		}
+	if(typeof ballImageObj1 != 'undefined'){
+		program[levelState].ballObj1 = $.extend({}, ballObj1); // Cloning object
+		}
+	else{
+		program[levelState].ballObj1 = null;
+		}
+	if(typeof ballImageObj2 != 'undefined'){
+		program[levelState].ballObj2 = $.extend({}, ballObj2); // Cloning object
+		}
+	else{
+		program[levelState].ballObj2 = null;
+		}
+	if(typeof commandList != 'undefined'){
+		program[levelState].commandList = $.extend({}, commandList); // Cloning object
+		}
+	else{
+		program[levelState].commandList = null;
+		}
+	if(typeof commandList != 'undefined'){
+		program[levelState].imageArray = $.extend({}, imageArray); // Cloning object
+		}
+	else{
+		program[levelState].imageArray = null;
+		}
+	if(typeof lastCommandsToExecute != 'undefined'){
+		program[levelState].commandsToExecute = $.extend({}, imageArray); // Cloning object
+		}
+	else{
+		program[levelState].commandsToExecute = lastCommandsToExecute;
+		}
+	if(typeof lastMovement != 'undefined'){
+		program[levelState].movement = $.extend({}, lastMovement); // Cloning object
+		}
+	else{
+		program[levelState].movement = lastCommandsToExecute;
 		}
 
 	//Balls position

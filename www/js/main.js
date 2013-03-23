@@ -9,14 +9,19 @@
 //TODO HIGH highlight command being executed (level 5)
 //TODO HIGH subtitles
 //TODO HIGH title/subtitles for replay
-//TODO Add the dog somewhere
+//TODO HIGH Add the dog somewhere
 //TODO HIGH Move robot to top layer
 //TODO HIGH Add trail of number / if then else to balls
 //TODO HIGH different animated gif based on the level
-//TODO Clinky the robot title of game
+//TODO HIGH Clinky the robot title of game (intro page?)
 //TODO LOW Show image connecting robot to plug maybe replace image?
 
 //GAMEPLAY
+//TODO HIGH Make dodgeball level easier
+//TODO HIGH disable speakers while replaying
+//TODO HIGH List of programs page
+//TODO HIGH Castle
+//TODO HIGH Shop
 //TODO HIGH Execute previous program again
 //TODO HIGH move bottom right star lower in level "2"
 //TODO HIGH Attempt counter for all levels
@@ -39,7 +44,8 @@
 //noideawheretogo
 //castlelove
 //4woof
-//TODO Sound for replay
+//TODO HIGH take care of speed f
+//TODO Sound for replay (replaying)
 //TODO low: don't play things related to other levels
 //TODO Low: make ouch sound shorter\
 //TODO empty soundmanager on next level
@@ -78,9 +84,11 @@
 //TODO MEDIUM Make bounding boxes? maybe
 
 //INTERACTION
-//TODO HIGH improve debug line usability
+//TODO HIGH DONT LET PRESS BUTTONS IMMEDIATELY AFTER 6
+//TODO HIGH Test overall usability when done, act like a child
 //TODO MEDIUM Make robot talk when you click it (or flick it? or when you talk to it?)
 //TODO LOW Images should not be draggable, text should not be selectable -- not an actual problem for mobile
+//DONE HIGH improve debug line usability
 //DONE disable touch when robot moving level 5
 
 //CODE STUFF

@@ -43,10 +43,10 @@ function moveRobot() {
 	var yoffset = robotObj.getHeight() / 2;
 	//Save the position of the balls
 	if(levelState==3){
-			savedBall1x = ball1defx ;
-			savedBall2x = ball2defx ;
-			savedBall1y = ball1defy ;
-			savedBall2y = ball2defy ;
+			savedBall1x = ballObj1.getX();
+			savedBall2x = ballObj2.getX();
+			savedBall1y = ballObj1.getY();
+			savedBall2y = ballObj2.getY();
 	}
 	var anim = new Kinetic.Animation(function(frame) {
 		var collidesballs = collides(robotObj,plugX,plugY,plugWidth,plugHeight);
