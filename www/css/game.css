@@ -16,13 +16,13 @@
 	font-size:50px;
 }
 
-#speakerButton{
+#speakerButton, #castleButton{
 	margin-top:50px;
 	cursor:pointer;
 }
 
 #stars{
-	margin-top:20px;
+	margin-top:40px;
 }
 #stars img{
 	vertical-align: middle;

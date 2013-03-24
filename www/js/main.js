@@ -6,6 +6,7 @@
 //.theight
 
 //VISUALS
+//TODO HIGH Change color of line base3d on speed
 //TODO HIGH highlight command being executed (level 5)
 //TODO HIGH subtitles
 //TODO HIGH title/subtitles for replay
@@ -14,9 +15,12 @@
 //TODO HIGH Add trail of number / if then else to balls
 //TODO HIGH different animated gif based on the level
 //TODO HIGH Clinky the robot title of game (intro page?)
+//TODO HIGH Add arrows for commands
+//TODO HIGH Back Button
 //TODO LOW Show image connecting robot to plug maybe replace image?
 
 //GAMEPLAY
+//TODO HIGH do not touch button with fun level
 //TODO HIGH Make dodgeball level easier
 //TODO HIGH disable speakers while replaying
 //TODO HIGH List of programs page
@@ -44,7 +48,11 @@
 //noideawheretogo
 //castlelove
 //4woof
+//TODO RESTART sounds?
+//TODO not enough stars
+//TODO HIGH change castle speaker (shop doesn't exist anymore
 //TODO HIGH take care of speed f
+//TODO More castle sounds?
 //TODO Sound for replay (replaying)
 //TODO low: don't play things related to other levels
 //TODO Low: make ouch sound shorter\
@@ -84,6 +92,9 @@
 //TODO MEDIUM Make bounding boxes? maybe
 
 //INTERACTION
+//TODO Debug level drawing
+//TODO HIGH DISABLE BUTTONS WHEN THINGS ARE HAPPENING
+//TODO HIGH Don't let them click the speaker button super often
 //TODO HIGH DONT LET PRESS BUTTONS IMMEDIATELY AFTER 6
 //TODO HIGH Test overall usability when done, act like a child
 //TODO MEDIUM Make robot talk when you click it (or flick it? or when you talk to it?)
@@ -109,6 +120,7 @@ stageWidth = 700; //Global variable that keeps track of the stage width
 stageHeight = 730; //Global variable that keeps track of the stage height
 starsarray = new Array(); //Global array that keeps track of all the stars on the stage
 currentSound = null; //Global variable that keeps track of what sound should be played when the speaker button is pressed
+inCastle=false;
 attemptCounter = 0; //This counts how many times a certain thing has been attempted
 $(document).ready(function() {
 
@@ -135,7 +147,17 @@ $(document).ready(function() {
 	});
 	//Speaker
 	$("#speakerButton").click(function(){
-		soundManager.playSound("l"+levelState,"speaker");
+		if(!inCastle)soundManager.playSound("l"+levelState,"speaker");
+		else{
+			soundManager.playSound("lcastle","speaker");
+		}
+	});
+	//Speaker
+	$("#castleButton").click(function(){
+		if(!inCastle)makeCastle();
+		else{
+			removeCastle();
+		}
 	});
 	layer.draw();
 	generalInit();
@@ -164,10 +186,20 @@ function generalInit(){
 	addRobotToStage();
 	//Set touch events for line
 	enableDraw();
+
 }
 
 function skipToLevel(level){
 	for(var i=0;i<level;i++){
 		removeMaze();removePlug();removeGuidelines();removeAllStars();removeBalls();nextLevel();
 	}
+}
+
+function keylength(obj){
+  var count=0;
+  for(var i in obj)
+  {
+    count++;
+  }
+  return count;
 }

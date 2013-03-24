@@ -158,16 +158,16 @@ function saveProgram(){
 		program[levelState].imageArray = null;
 		}
 	if(typeof lastCommandsToExecute != 'undefined'){
-		program[levelState].commandsToExecute = $.extend({}, imageArray); // Cloning object
+		program[levelState].commandsToExecute = $.extend({}, lastCommandsToExecute); // Cloning object
 		}
 	else{
-		program[levelState].commandsToExecute = lastCommandsToExecute;
+		program[levelState].commandsToExecute = null;
 		}
 	if(typeof lastMovement != 'undefined'){
 		program[levelState].movement = $.extend({}, lastMovement); // Cloning object
 		}
 	else{
-		program[levelState].movement = lastCommandsToExecute;
+		program[levelState].movement = null;
 		}
 
 	//Balls position

@@ -138,3 +138,8 @@ function nextLevel(){
 	else if(levelState==3)makeLevel4();
 	moving=false;
 }
+
+function replaceRobotImage(image){
+	robotObj.setImage(image);
+	layer.draw();
+}

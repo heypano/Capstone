@@ -8,9 +8,9 @@ soundManager.addSounds = addSounds; //Initialization function
 soundManager.processSoundQueue = processSoundQueue; //Sound Queue stuff
 soundManager.addSounds();
 
-
 //This is the function that will be called
 soundManager.playSound = function(domain,soundadd){
+	if(inCastle && soundadd!="love")return;
 	//Enqueue the item
 	var sound = soundManager[domain][soundadd];
 	if(soundadd=="ithinkishouldgoback"){ //Only play I think I should go back once per level
@@ -36,7 +36,7 @@ soundManager.playSound = function(domain,soundadd){
 		this.queue.enqueue(sound);
 	}
 	//If a sound is playing don't do anything else
-	if(this.isPlaying!==false){
+	if(this.isPlaying == true){
 		return;
 	}
 	else{//If no sound is playing
@@ -45,8 +45,6 @@ soundManager.playSound = function(domain,soundadd){
 }
 
 function processSoundQueue(){
-	//Something is playing
-	soundManager.isPlaying = true;
 	var sound = soundManager.queue.dequeue();
 	if(sound!==undefined){ //If there is something left in the queue
 		soundManager.currentSoundPlaying = sound;
@@ -58,6 +56,8 @@ function processSoundQueue(){
 		else{
 			//console.log("not setting event listener for "+sound.src);
 		}
+		//Something is playing
+		soundManager.isPlaying = true;
 		soundManager.currentSoundPlaying.play();
 	}
 	else{//There is nothing left in the Queue
@@ -123,8 +123,6 @@ function addSounds(){
 }
 
 function shutUp(){
-	soundManager.queue = new Queue();
 	soundManager.currentSoundPlaying.pause();
-	soundManager.isPlaying = false;
-	$(soundManager).trigger("endqueue");
+	while(!soundManager.queue.isEmpty())soundManager.queue.dequeue();
 }
