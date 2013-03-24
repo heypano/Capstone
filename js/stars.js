@@ -71,6 +71,11 @@ function addStarPoint(){
 	$("#numStars").html(playerStars);
 }
 
+function setStarPoints(toP){
+	playerStars=toP;
+	$("#numStars").html(playerStars);
+}
+
 function addStars(l,tlayer,starsarray){
 	if(typeof tlayer == "undefined"){
 		tlayer = window.layer;

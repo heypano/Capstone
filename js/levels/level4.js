@@ -11,7 +11,6 @@ function makeLevel4() {
 	addPlugToStage();
 	//Stars
 	imageArray = new Object();
-	imgCount = 0;
 	/*imageArray.prototype.countAttrs = function(){
 	 var count = 0;
 	 for (var k in this){
@@ -183,8 +182,10 @@ function makeConnectorGrid(layer) {
 	}
 }
 
-function loadImage(filepath, x, y, reference, layer) {
+function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
 	if(typeof layer == "undefined")layer=window.layer;
+	if(typeof imageArray == "undefined")imageArray=window.imageArray;
+	if(typeof hide == "undefined")hide=false;
 	var imag = new Image();
 	//imag.onload = (loadImg)(imag,x,y);
 	imag.onload = function() {
@@ -194,15 +195,18 @@ function loadImage(filepath, x, y, reference, layer) {
 			image : imag,
 		});
 		layer.add(imagObj);
-		layer.drawScene();
-		imageArray["p" + imgCount] = imagObj;
-		imgCount++;
+		if(typeof sendto == "undefined"){
+			sendto=keylength(imageArray);
+		}
+		imageArray["p" + sendto] = imagObj;
 		if ( typeof reference != "undefined" && reference!=null) {
 			reference.button = imagObj;
 			buttonFunctionality(reference);
 		}
 		imagObj.setDimensions = setDimensions;
 		imagObj.setDimensions();
+		if(hide==true)imagObj.hide();
+		layer.drawScene();
 	}
 	imag.src = filepath;
 }
@@ -311,7 +315,7 @@ function gridMove() {
 function playAnimation(commandsToExecute, movement, robotObj, layer) {
 	if(typeof robotObj == "undefined")robotObj=window.robotObj;
 	if(typeof layer == "undefined")layer=window.layer;
-	
+	if(replaying)resetRobot();
 	//console.log(commandsToExecute,movement);
 	prevTime = 0;
 	movementState = 0;
@@ -354,7 +358,10 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 						});	
 						return;
 			}
-			starsHit();
+			if(!replaying)starsHit();
+			else{
+				starsHit(tlayer,thisstararray);
+			}
 			//When have we reached our destination
 			if (toGridX == 0 && toGridY == 0) {
 				if (isCloseTo(realRobX, 20) && isCloseTo(realRobY, 10)) {
@@ -365,7 +372,7 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 					soundManager.playSound("l4","yummy");
 					movementState++;
 				}
-			} else if (toGridX == 2 && toGridY == 0) {
+			} else if (toGridX == 2 && toGridY == 0) {7
 				if (isCloseTo(realRobX, 430) && isCloseTo(realRobY, 10)) { //treatstick
 					soundManager.playSound("l4","treat");
 					movementState++;
@@ -395,11 +402,13 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 					//If we reached the plug
 					soundManager.playSound("all", "yay");
 					saveProgram();
-					commandsToExecute[movementState] = "x";
+					//commandsToExecute[movementState] = "x";
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
 						anim3.stop();
+						gameCompleted=true;
 						removeLevel4();
+						
 						return;
 						});
 					return;	
@@ -456,11 +465,17 @@ function isCloseTo(x, y) {
 }
 
 function removeLevel4() {
+	/*
+	if(replaying){
+		removeTempLayer();
+		return;
+	}
 	var length = layer.children.length;
 	for (var i = length - 1; i > 2; i--) {//i=2 to skip rectangle,line and robot
 		layer.children[i].remove();
 	}
-	resetRobot();
+	resetRobot();*/
+	makeProgram();
 }
 
 function setDimensions() {
@@ -471,7 +486,26 @@ function setDimensions() {
 }
 
 function isButton(x, y) {
-	if (isPointWithin(x, y, upB.button.tleft, upB.button.tright, upB.button.ttop, upB.button.tbottom))
+	if(inCastle){
+		if(isPointWithin(x, y, castleImageArray.p11.tleft, castleImageArray.p11.tright, castleImageArray.p11.ttop, castleImageArray.p11.tbottom)){
+			return 'c';
+		}
+		else if(isPointWithin(x, y, castleImageArray.p10.tleft, castleImageArray.p10.tright, castleImageArray.p10.ttop, castleImageArray.p10.tbottom)){
+			return 'r';
+		}
+	}
+	else if(inProgram){
+		var limit = levelState;
+		if(gameCompleted)limit=5;
+		for(var i = 0; i<limit; i++){
+			if(isPointWithin(x, y, programImageArray["p"+i].tleft, programImageArray["p"+i].tright, programImageArray["p"+i].ttop, programImageArray["p"+i].tbottom)){
+				console.log(i);
+				return i;
+			}
+		}
+		return -1;
+	}
+	else if (isPointWithin(x, y, upB.button.tleft, upB.button.tright, upB.button.ttop, upB.button.tbottom))
 		return 'u';
 	else if (isPointWithin(x, y, downB.button.tleft, downB.button.tright, downB.button.ttop, downB.button.tbottom))
 		return 'd';

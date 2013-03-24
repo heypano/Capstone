@@ -12,6 +12,15 @@ function makeLevel1() {
 	addPlugToStage();
 	//The robot is not moving
 	moving = false;
+	$("#enterButton").show();
+	$("#enterButton").click(function(){
+		if(inProgram){
+			removeProgram();
+		}
+		else{
+			makeProgram();
+		}
+	});
 }
 
 
