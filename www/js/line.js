@@ -107,12 +107,10 @@ function endMove(event) {
 
 //Remove line
 function removeLine(line) {
+	if(typeof line == "undefined")line = window.line;
 	line.setStrokeWidth(2);
 	line.setStroke("black");
-	if (!points)
-		return;
-	// If points isn't defined
-	delete points;
+	if(typeof points!= "undefined")delete points;
 	
 	if(levelState==0 || levelState==1){startx=100;starty=100;}
 	else if(levelState==2){startx=600;starty=500;}

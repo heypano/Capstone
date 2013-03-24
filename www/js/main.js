@@ -5,33 +5,51 @@
 //.twidth
 //.theight
 
+//HIGHEST PRIORITY
+
+//TODO HIGH Make sure line started on robot
+//TODO HIGH check button transitions
+//TODO HIGH disable / remove buttons while replaying
+//TODO STOP INTERACTION IMMEDIATELY after hitting plug
+//TODO don't let hit buttons when on level 4 and moving -- OR When 6 commands
+//TODO HIGH highlight command being executed (level 5)
+//TODO HIGH Add the dog somewhere
+//TODO HIGH different animated gif based on the level
+//TODO HIGH Make dodgeball level easier
+//TODO HIGH disable speakers buttons while replaying
+//TODO HIGH handle number of times that speaker instructions are pressed
+//TODO HIGH fix chunks in level before dodgeball level
+//TODO HIGH Debug level drawing
+//TODO HIGH DISABLE BUTTONS WHEN THINGS ARE HAPPENING
+//TODO HIGH make sure plug / stars don't get hit from the wrong chunk
+//TODO HIGH Add arrows for commands
+//TODO HIGH title/subtitles for replay
+//TODO HIGH If touch up happens out of the field, start moving
+//TODO HIGH not enough stars sound
+//TODO Sound for replay (replaying)
+//TODO HIGH change castle speaker (shop doesn't exist anymore)
+//DONE HIGH List of programs page -- replay Button
+//DONE HIGH if no programs?
+
 //VISUALS
 //TODO HIGH Change color of line base3d on speed
-//TODO HIGH highlight command being executed (level 5)
 //TODO HIGH subtitles
-//TODO HIGH title/subtitles for replay
-//TODO HIGH Add the dog somewhere
 //TODO HIGH Move robot to top layer
 //TODO HIGH Add trail of number / if then else to balls
-//TODO HIGH different animated gif based on the level
 //TODO HIGH Clinky the robot title of game (intro page?)
-//TODO HIGH Add arrows for commands
 //TODO HIGH Back Button
 //TODO LOW Show image connecting robot to plug maybe replace image?
 
 //GAMEPLAY
 //TODO HIGH do not touch button with fun level
-//TODO HIGH Make dodgeball level easier
-//TODO HIGH disable speakers while replaying
-//TODO HIGH List of programs page
-//TODO HIGH Castle
-//TODO HIGH Shop
-//TODO HIGH Execute previous program again
 //TODO HIGH move bottom right star lower in level "2"
 //TODO HIGH Attempt counter for all levels
 //TODO HIGH try to reproduce and fix bug level 5
 //TODO HIGH free moving level (surprise)
 //TODO MEDIUM if get all stars give gift
+//TODO LOW Execute previous program again
+//DONE HIGH Castle
+//DONE HIGH Shop
 //DONE add time to show robot ON plug 
 
 //SOUND STUFF
@@ -49,16 +67,13 @@
 //castlelove
 //4woof
 //TODO RESTART sounds?
-//TODO not enough stars
-//TODO HIGH change castle speaker (shop doesn't exist anymore
 //TODO HIGH take care of speed f
 //TODO More castle sounds?
-//TODO Sound for replay (replaying)
 //TODO low: don't play things related to other levels
 //TODO Low: make ouch sound shorter\
 //TODO empty soundmanager on next level
 //TODO empty queue when things are finished in general (e.g. level 4)
-//TODO fix "I think i should go back" to play before it goes back
+//DONE HIGH fix "I think i should go back" to play before it goes back
 //DONE HIGH Make sure sounds don't play on top of each other
 //DONE HIGH only load sound once maybe? Now that I have them all don't use load and play, just play
 //DONE HIGH Make "enough time passed " boolean function
@@ -77,23 +92,16 @@
 //DONE HIGH explain why access denied (I can't go that way!)
 
 //DRAWING
-//TODO HIGH If touch up happens out of the field, start moving
-//TODO HIGH Fix problem with finishing drawing outside of line
-//TODO HIGH Make sure line started on robot
 //DONE for level 3 make sure drawing starts at green line
 
 //MAZE
-//TODO HIGH fix chunks in level before dodgeball level
 //TODO HIGH limit chunks more
-//TODO HIGH make sure plug / stars don't get hit from the wrong chunk
 
 //COLLISION DETECTION
 //TODO MEDIUM Make collision with plug smoother
 //TODO MEDIUM Make bounding boxes? maybe
 
 //INTERACTION
-//TODO Debug level drawing
-//TODO HIGH DISABLE BUTTONS WHEN THINGS ARE HAPPENING
 //TODO HIGH Don't let them click the speaker button super often
 //TODO HIGH DONT LET PRESS BUTTONS IMMEDIATELY AFTER 6
 //TODO HIGH Test overall usability when done, act like a child
@@ -121,6 +129,7 @@ stageHeight = 730; //Global variable that keeps track of the stage height
 starsarray = new Array(); //Global array that keeps track of all the stars on the stage
 currentSound = null; //Global variable that keeps track of what sound should be played when the speaker button is pressed
 inCastle=false;
+gameCompleted=false;
 attemptCounter = 0; //This counts how many times a certain thing has been attempted
 $(document).ready(function() {
 
@@ -159,6 +168,8 @@ $(document).ready(function() {
 			removeCastle();
 		}
 	});
+	
+	$("#enterButton").hide();
 	layer.draw();
 	generalInit();
 	makeLevel0();

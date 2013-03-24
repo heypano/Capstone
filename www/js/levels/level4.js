@@ -182,7 +182,7 @@ function makeConnectorGrid(layer) {
 	}
 }
 
-function loadImage(filepath, x, y, reference, layer, imageArray,hide) {
+function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
 	if(typeof layer == "undefined")layer=window.layer;
 	if(typeof imageArray == "undefined")imageArray=window.imageArray;
 	if(typeof hide == "undefined")hide=false;
@@ -195,7 +195,10 @@ function loadImage(filepath, x, y, reference, layer, imageArray,hide) {
 			image : imag,
 		});
 		layer.add(imagObj);
-		imageArray["p" + keylength(imageArray)] = imagObj;
+		if(typeof sendto == "undefined"){
+			sendto=keylength(imageArray);
+		}
+		imageArray["p" + sendto] = imagObj;
 		if ( typeof reference != "undefined" && reference!=null) {
 			reference.button = imagObj;
 			buttonFunctionality(reference);
@@ -403,6 +406,7 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
 						anim3.stop();
+						gameCompleted=true;
 						removeLevel4();
 						
 						return;
@@ -461,6 +465,7 @@ function isCloseTo(x, y) {
 }
 
 function removeLevel4() {
+	/*
 	if(replaying){
 		removeTempLayer();
 		return;
@@ -469,7 +474,8 @@ function removeLevel4() {
 	for (var i = length - 1; i > 2; i--) {//i=2 to skip rectangle,line and robot
 		layer.children[i].remove();
 	}
-	resetRobot();
+	resetRobot();*/
+	makeProgram();
 }
 
 function setDimensions() {
@@ -487,6 +493,17 @@ function isButton(x, y) {
 		else if(isPointWithin(x, y, castleImageArray.p10.tleft, castleImageArray.p10.tright, castleImageArray.p10.ttop, castleImageArray.p10.tbottom)){
 			return 'r';
 		}
+	}
+	else if(inProgram){
+		var limit = levelState;
+		if(gameCompleted)limit=5;
+		for(var i = 0; i<limit; i++){
+			if(isPointWithin(x, y, programImageArray["p"+i].tleft, programImageArray["p"+i].tright, programImageArray["p"+i].ttop, programImageArray["p"+i].tbottom)){
+				console.log(i);
+				return i;
+			}
+		}
+		return -1;
 	}
 	else if (isPointWithin(x, y, upB.button.tleft, upB.button.tright, upB.button.ttop, upB.button.tbottom))
 		return 'u';

@@ -1,5 +1,72 @@
 program = new Array(); //Contains all of the saved "programs"
 replaying = false;
+prlayer = new Kinetic.Layer();
+programImageArray = new Object();
+inProgram=false;
+loadImage("img/level0.png",50,300,null,prlayer,programImageArray,true,0);//0
+loadImage("img/level1.png",250,300,null,prlayer,programImageArray,true,1);
+loadImage("img/level2.png",450,300,null,prlayer,programImageArray,true,2);
+loadImage("img/level3.png",150,500,null,prlayer,programImageArray,true,3);
+loadImage("img/level4.png",350,500,null,prlayer,programImageArray,true,4);
+replayText = new Kinetic.Text({
+	x : 100,
+	y : 100,
+	text : "REPLAY PROGRAMS",
+	fontSize : 50,
+	fontWeight : 100,
+	fontFamily : 'Arial',
+	fill : 'Black'
+});
+prlayer.add(replayText);
+
+function makeProgram() {
+	//If the castle layer already exists, don't make it again, just reload it
+	shutUp();
+	disableTouch();
+	enableButtonsForProgram();
+	inProgram=true;
+	prlayer.add(rect);
+	if (!stage.isAncestorOf(prlayer)) {
+		stage.add(prlayer);
+	} else {
+	}
+	refreshProgramButtons();
+	if(gameCompleted)$("#enterButton").hide();
+	//soundManager.playSound("lprogram","love");
+	hideAllLayersExcept(stage,prlayer);
+}
+
+
+function enableButtonsForProgram(){
+	stage.on("mousedown", pbuttonstuff);
+	stage.on("touchstart", pbuttonstuff);
+}
+
+function pbuttonstuff(e){
+	var buttonType = isButton(e.pageX, e.pageY);
+	reproduceLevel(buttonType);
+}
+
+function refreshProgramButtons(){
+	for(var i=0;i<program.length;i++){
+		programImageArray["p"+i].show();
+	}
+	prlayer.draw();
+}
+
+function removeProgram(){
+	var layer;
+	shutUp();
+	if(inCastle)layer = window.clayer;
+	else layer = window.layer;
+	inProgram=false;
+	layer.add(rect);
+	hideAllLayersExcept(stage,layer);
+	disableTouch();
+	restoreLevelState(levelState);
+	layer.draw();
+}
+
 function reproduceLevel(l){
 	//TODO STOP SOUNDS?
 	if(typeof program[l] == 'undefined'){ // That means the program hasn't been saved
@@ -9,7 +76,8 @@ function reproduceLevel(l){
 	programInfo = program[l];
 	replaying = true;
 	//HIDE EVERYTHING TEMPORARILY
-	layer.hide();
+	prlayer.hide();
+	
 	//Disable touch
 	disableTouch();
 	//load a new layer
@@ -84,9 +152,12 @@ function playStuff(l){
 
 function removeTempLayer(){
 	layer.add(rect);
-	tlayer.remove();
-	delete tlayer;
-	layer.show();
+	if(typeof tlayer != "undefined"){
+		tlayer.remove();
+		delete tlayer;
+	}
+	prlayer.show();
+	enableButtonsForProgram();
 	replaying = false;
 	//Reenable touch or whatever
 }

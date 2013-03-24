@@ -56,10 +56,10 @@ function debugFind(){
 				debugged = true;
 				redLine.remove();
 				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
-				soundManager.playSound("l2","yourerightdebug");
-				resetRobot();
 				disableTouch();
 				enableDraw();
+				soundManager.playSound("l2","yourerightdebug");
+				resetRobot();
 	}
 }
 
