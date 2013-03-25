@@ -7,7 +7,8 @@
 
 //HIGHEST PRIORITY
 
-//TODO HIGH Make sure line started on robot
+//DONE HIGH Make sure line started on robot
+//DONE HIGH Debug level drawing IMMEDIATELY (before sound)
 //TODO HIGH check button transitions
 //TODO HIGH disable / remove buttons while replaying
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug
@@ -19,7 +20,6 @@
 //TODO HIGH disable speakers buttons while replaying
 //TODO HIGH handle number of times that speaker instructions are pressed
 //TODO HIGH fix chunks in level before dodgeball level
-//TODO HIGH Debug level drawing
 //TODO HIGH DISABLE BUTTONS WHEN THINGS ARE HAPPENING
 //TODO HIGH make sure plug / stars don't get hit from the wrong chunk
 //TODO HIGH Add arrows for commands

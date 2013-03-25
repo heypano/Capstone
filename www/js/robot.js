@@ -48,25 +48,42 @@ function moveRobot() {
 			savedBall1y = ballObj1.getY();
 			savedBall2y = ballObj2.getY();
 	}
+	var startingLevelState = levelState;
 	var anim = new Kinetic.Animation(function(frame) {
 		var collidesballs = collides(robotObj,plugX,plugY,plugWidth,plugHeight);
+		if(inCastle || inProgram || (startingLevelState!=levelState)){
+			anim.stop();
+			robotMoving = false;
+			return;		}
 		if (!points.length || pointNo >= points.length - 1 || (levelState == 3 && collidesballs == 4)) {//Animation end condition (scanned entire line or line doesn't exist)
+			
 			if(collidesballs==4){
 				soundManager.playSound("l3","ouch");
 			}
 			anim.stop();
-			$(soundManager).bind("endqueue",function(){
-				$(soundManager).unbind("endqueue");
+			if(levelState==2){ // Problem with debug level fix
+				robotMoving = false;
 				removeLine(line);
 				attemptCounter++;
-				robotMoving = false;
 				if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
 						loadInstruction1();
 				}
 				resetRobot();
-				return;
-				});		
-			soundManager.playSound("all","ithinkishouldgoback");
+			}else{
+				
+				$(soundManager).bind("endqueue",function(){
+					$(soundManager).unbind("endqueue");
+					removeLine(line);
+					attemptCounter++;
+					robotMoving = false;
+					if(attemptCounter>0 && attemptCounter%7==0){ //every 7th time
+							loadInstruction1();
+					}
+					resetRobot();
+					return;
+					});		
+				soundManager.playSound("all","ithinkishouldgoback");
+			}
 			return;	
 		} else if (frame.time - prevTime > 20) {// Animation continues:
 			prevTime = frame.time;

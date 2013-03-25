@@ -110,3 +110,7 @@ function restoreLevelState(toLevelState){
 	if(typeof line != "undefined")removeLine();
 	resetRobot();
 }
+
+function stopAllAnimations(){
+	
+}
