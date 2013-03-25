@@ -220,6 +220,7 @@ function buttonFunctionality(reference) {
 
 function buttonstuff(e) {
 	var buttonType = isButton(e.pageX, e.pageY);
+	if (commandList.length == 6) return;
 	if (buttonType == 'u')
 		control('u');
 	else if (buttonType == 'l')
@@ -232,7 +233,7 @@ function buttonstuff(e) {
 }
 
 function control(n) {//u d l r
-	//var n = this.name;
+	if (commandList.length == 6) return;
 	commandList.push(n);
 	//Add codelines
 	if (n == "u") {
