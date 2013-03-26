@@ -13,14 +13,10 @@ function makeLevel1() {
 	//The robot is not moving
 	moving = false;
 	$("#enterButton").show();
-	$("#enterButton").click(function(){
-		if(inProgram){
-			removeProgram();
-		}
-		else{
-			makeProgram();
-		}
-	});
+	disableTouch();
+	enableDraw();
+	robotObj.moveToTop();
+	layer.draw();
 }
 
 

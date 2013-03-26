@@ -18,6 +18,8 @@ function makeLevel2() {
 	enableDebug();
 	debugged = false;
 	moving = false;
+	robotObj.moveToTop();
+	layer.draw();
 }
 
 

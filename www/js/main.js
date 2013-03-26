@@ -9,25 +9,25 @@
 
 //DONE HIGH Make sure line started on robot
 //DONE HIGH Debug level drawing IMMEDIATELY (before sound)
-//TODO HIGH check button transitions
-//TODO HIGH disable / remove buttons while replaying
-//TODO STOP INTERACTION IMMEDIATELY after hitting plug
-//TODO don't let hit buttons when on level 4 and moving -- OR When 6 commands
-//TODO HIGH highlight command being executed (level 5)
-//TODO HIGH Add the dog somewhere
+//DONE HIGH disable / remove buttons while replaying
+//DONE HIGH STOP DRAWING IMMEDIATELY AFTER HITTING PLUG
+//DONE HIGH If touch up happens out of the field, start moving
+//DONE HIGH highlight command being executed (level 5)
+//DONE HIGH Make dodgeball level easier
+//DONE don't let hit buttons when on level 4 and moving -- OR When 6 commands
+//DONE HIGH Add the dog somewhere
+//DONE HIGH fix chunks in level before dodgeball level
+//DONE HIGH make sure plug / stars don't get hit from the wrong chunk
+//DONE HIGH handle number of times that speaker instructions are pressed
+//TODO HIGH Attempt counter for level 4
+//TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
+//TODO HIGH not enough stars sound
+//TODO HIGH Sound for replay (replaying)
 //TODO HIGH different animated gif based on the level
-//TODO HIGH Make dodgeball level easier
-//TODO HIGH disable speakers buttons while replaying
-//TODO HIGH handle number of times that speaker instructions are pressed
-//TODO HIGH fix chunks in level before dodgeball level
-//TODO HIGH DISABLE BUTTONS WHEN THINGS ARE HAPPENING
-//TODO HIGH make sure plug / stars don't get hit from the wrong chunk
 //TODO HIGH Add arrows for commands
 //TODO HIGH title/subtitles for replay
-//TODO HIGH If touch up happens out of the field, start moving
-//TODO HIGH not enough stars sound
-//TODO Sound for replay (replaying)
 //TODO HIGH change castle speaker (shop doesn't exist anymore)
+//TODO HIGH check button transitions
 //DONE HIGH List of programs page -- replay Button
 //DONE HIGH if no programs?
 
@@ -43,7 +43,6 @@
 //GAMEPLAY
 //TODO HIGH do not touch button with fun level
 //TODO HIGH move bottom right star lower in level "2"
-//TODO HIGH Attempt counter for all levels
 //TODO HIGH try to reproduce and fix bug level 5
 //TODO HIGH free moving level (surprise)
 //TODO MEDIUM if get all stars give gift
@@ -69,10 +68,7 @@
 //TODO RESTART sounds?
 //TODO HIGH take care of speed f
 //TODO More castle sounds?
-//TODO low: don't play things related to other levels
 //TODO Low: make ouch sound shorter\
-//TODO empty soundmanager on next level
-//TODO empty queue when things are finished in general (e.g. level 4)
 //DONE HIGH fix "I think i should go back" to play before it goes back
 //DONE HIGH Make sure sounds don't play on top of each other
 //DONE HIGH only load sound once maybe? Now that I have them all don't use load and play, just play
@@ -154,20 +150,7 @@ $(document).ready(function() {
 		stroke : 'black',
 		strokeWidth : 4
 	});
-	//Speaker
-	$("#speakerButton").click(function(){
-		if(!inCastle)soundManager.playSound("l"+levelState,"speaker");
-		else{
-			soundManager.playSound("lcastle","speaker");
-		}
-	});
-	//Speaker
-	$("#castleButton").click(function(){
-		if(!inCastle)makeCastle();
-		else{
-			removeCastle();
-		}
-	});
+	enableSideButtons();
 	
 	$("#enterButton").hide();
 	layer.draw();

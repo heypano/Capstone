@@ -9,4 +9,6 @@ function makeLevel0(){
 	addPlugToStage();
 	//The robot is not moving
 	moving = false;
+	//robotObj.moveToTop();
+	layer.draw();
 }

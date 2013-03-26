@@ -21,11 +21,10 @@ function makeCastle() {
 		loadImage("img/castlepart.png",500,300,null,clayer,castleImageArray,false,11);//11
 		castleImageKey=0;
 		robotImageKey=5;
+		stage.add(clayer);
+	}
 		clayer.add(rect);
 		clayer.draw();
-		stage.add(clayer);
-	} else {
-	}
 	soundManager.playSound("lcastle","love");
 	hideAllLayersExcept(stage,clayer);
 }
@@ -96,6 +95,7 @@ function hideAllLayersExcept(stage, layer) {
 }
 
 function restoreLevelState(toLevelState){
+	inCastle = false;
 	if(toLevelState==0 || toLevelState==1 || toLevelState==3){
 		enableDraw();
 	}
@@ -106,6 +106,7 @@ function restoreLevelState(toLevelState){
 	else if(toLevelState==4){
 		enableButtonsForLevel4();
 	}
+	
 	levelState = toLevelState;
 	if(typeof line != "undefined")removeLine();
 	resetRobot();

@@ -51,7 +51,10 @@ function continueMove(event) {
 	if (moving) {
 		//Get new point
 		newPoint = stage.getUserPosition();
-		if(!newPoint)return;
+		if(!newPoint){
+			endMove();
+			return;
+			}
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)

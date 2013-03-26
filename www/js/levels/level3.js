@@ -16,6 +16,8 @@ function makeLevel3() {
 	drawMaze();
 	disableTouch();
 	enableDraw();
+	robotObj.moveToTop();
+	layer.draw();
 }
 
 function animatedBalls(){

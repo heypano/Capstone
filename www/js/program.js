@@ -69,6 +69,8 @@ function removeProgram(){
 
 function reproduceLevel(l){
 	//TODO STOP SOUNDS?
+	console.log("Test "+l);
+	disableSideButtons();
 	if(typeof program[l] == 'undefined'){ // That means the program hasn't been saved
 		//TODO trigger something to say that it returned?
 		return;
@@ -159,6 +161,7 @@ function removeTempLayer(){
 	prlayer.show();
 	enableButtonsForProgram();
 	replaying = false;
+	enableSideButtons();
 	//Reenable touch or whatever
 }
 

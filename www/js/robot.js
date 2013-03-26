@@ -15,6 +15,7 @@ function addRobotToStage() {
 			image : robotImageObj,
 		});
 		layer.add(robotObj);
+		robotObj.moveToTop();
 		layer.drawScene();
 		robotObj.twidth = robotImageObj.width;
 		robotObj.theight = robotImageObj.height;
@@ -95,6 +96,8 @@ function moveRobot() {
 			if( collidesR == 3){ // If it hits the plug -- stop
 				anim.stop();
 				robotMoving = false;
+				disableTouch();
+				//disableSideButtons();
 				soundManager.playSound("all","yay");
 				//Wait to make sure it got saved
 				$(window).bind("saveded",function(){
@@ -106,6 +109,7 @@ function moveRobot() {
 						removeAllStars();
 						removeMaze();
 						removeLine(line);
+						enableSideButtons();
 						if(levelState==2)removeGuidelines();
 						if(levelState==3){
 							anim2.stop();
