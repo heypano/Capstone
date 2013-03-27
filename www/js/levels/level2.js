@@ -46,7 +46,7 @@ function removeGuidelines(){
 }
 
 function startDebug(){	
-	stage.on("touchdown", debugFind);
+	stage.on("touchstart", debugFind);
 	stage.on("mousedown", debugFind);
 }
 

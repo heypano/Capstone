@@ -283,7 +283,7 @@ function reanimate(layer,robotObj,points,levelState,plugX,plugY,plugWidth,plugHe
 			robotObj.setY(points[pointNo].y - yoffset);
 			pointNo++;
 			starsHit(layer,thisstararray);
-			var collidesR=collides(robotObj,plugX,plugY,plugWidth,plugHeight);
+			var collidesR=collides(robotObj,plugX,plugY,plugWidth,plugHeight,levelState);
 			if( collidesR == 3){ // If it hits the plug -- stop
 				anim.stop();
 				robotMoving = false;

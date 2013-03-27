@@ -1,6 +1,7 @@
 
 //Is obj Colliding with something (returns what otherwise null)
-function collides(obj1,plugX,plugY,plugWidth,plugHeight) {
+function collides(obj1,plugX,plugY,plugWidth,plugHeight,levelState) {
+	if(typeof levelState == "undefined")levelState = window.levelState;
 	l1 = obj1.getX();
 	r1 = l1 + obj1.twidth;
 	t1 = obj1.getY();
