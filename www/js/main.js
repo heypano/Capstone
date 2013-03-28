@@ -19,21 +19,28 @@
 //DONE HIGH fix chunks in level before dodgeball level
 //DONE HIGH make sure plug / stars don't get hit from the wrong chunk
 //DONE HIGH handle number of times that speaker instructions are pressed
+//TODO HIGH sound "Congratulations you have completed the game! You are a real programmer now"
+//TODO ML add a story about plug
+//TODO HIGH not enough stars sound
+//TODO replay hall
+//TODO Change icon for enter to mini icons
+//TODO HIGH change castle speaker (shop doesn't exist anymore)
+//TODO HIGH Sound for replay (replaying)
 //TODO HIGH insturctions level 4
+//TODO Castle hide buttons if Can't buy anything
 //TODO dodgeball level easier
-//TODO ML add a story about plug, what does it mean to write a program
+//TODO HIGH REPLAY title and subtitle
+//TODO optimize?...
+//TODO HIGH change length of execute command _
+//TODO HIDE buttons on replay
 //TODO Make line thicker for level 2
 //TODO HIGH Attempt counter for level 4
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
-//TODO HIGH not enough stars sound
-//TODO HIGH Sound for replay (replaying)
 //TODO HIGH different animated gif based on the level
 //TODO HIGH Add arrows for commands
 //TODO HIGH title/subtitles for replay
-//TODO HIGH change castle speaker (shop doesn't exist anymore)
 //TODO HIGH check button transitions
 //TODO ML Glossary?
-//TODO ML enter photo
 //DONE HIGH List of programs page -- replay Button
 //DONE HIGH if no programs?
 
