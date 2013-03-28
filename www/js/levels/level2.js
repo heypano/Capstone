@@ -1,7 +1,7 @@
 function makeLevel2() {
 	levelState = 2; //Keeps track of what level we are on
 	delete currentSound;
-	$('#pageTitle').html("Level 2");
+	if(!inCastle && !inProgram)$('#pageTitle').html("Level 2");
 	currentSound = new Audio("sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
 	soundManager.playSound("l2","mistakehelpmedebug");

@@ -30,6 +30,9 @@ function makeProgram() {
 		stage.add(prlayer);
 	} else {
 	}
+	speakerStuff("program");
+	$('#pageTitle').html("Replay");
+	$('#pageSubTitle').html("Replay your programs!");
 	refreshProgramButtons();
 	if(gameCompleted)$("#enterButton").hide();
 	//soundManager.playSound("lprogram","love");

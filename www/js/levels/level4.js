@@ -2,7 +2,7 @@ function makeLevel4() {
 	levelState = 4;
 	//Keeps track of what level we are on
 	delete currentSound;
-	$('#pageTitle').html("Level 4");
+	if(!inCastle && !inProgram)$('#pageTitle').html("Level 4");
 	currentSound = new Audio("sounds/drawaline.mp3");
 	soundManager.playSound("l4", "toomanythings");
 	attemptCounter = 0;
@@ -184,7 +184,7 @@ function makeConnectorGrid(layer) {
 	}
 }
 
-function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
+function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto, callback) {
 	if(typeof layer == "undefined")layer=window.layer;
 	if(typeof imageArray == "undefined")imageArray=window.imageArray;
 	if(typeof hide == "undefined")hide=false;
@@ -209,6 +209,9 @@ function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
 		imagObj.setDimensions();
 		if(hide==true)imagObj.hide();
 		layer.drawScene();
+		if(typeof callback != "undefined"){
+			callback();
+		}
 	}
 	imag.src = filepath;
 }
@@ -346,13 +349,13 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			//console.log("Real robot position: ("+realRobX+", "+realRobY+")");
 			prevTime = frame.time;
 			if (commandsToExecute[movementState] == "u") {
-				robotObj.setY(realRobY - 2);
+				robotObj.setY(realRobY - 4);
 			} else if (commandsToExecute[movementState] == "d") {
-				robotObj.setY(realRobY + 2);
+				robotObj.setY(realRobY + 4);
 			} else if (commandsToExecute[movementState] == "l") {
-				robotObj.setX(realRobX - 2);
+				robotObj.setX(realRobX - 4);
 			} else if (commandsToExecute[movementState] == "r") {
-				robotObj.setX(realRobX + 2);
+				robotObj.setX(realRobX + 4);
 			} else if (commandsToExecute[movementState] == "n") {
 				//PLAY SOUND
 						
@@ -414,11 +417,14 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			} else if (toGridX == 3 && toGridY == 1) {
 				if (isCloseTo(realRobX, 560) && isCloseTo(realRobY, 150)) { //plug
 					//If we reached the plug
-					soundManager.playSound("all", "yay");
+					soundManager.playSound("l4", "completed");
 					saveProgram();
 					//commandsToExecute[movementState] = "x";
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
+						for (var i=0;i<15;i++){
+							addStarPoint();
+						}
 						anim3.stop();
 						gameCompleted=true;
 						removeLevel4();

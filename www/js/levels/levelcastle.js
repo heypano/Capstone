@@ -3,6 +3,8 @@ function makeCastle() {
 	shutUp();
 	disableTouch();
 	enableButtonsForCastle();
+	$('#pageTitle').html("Castle");
+	$('#pageSubTitle').html("FUN!");
 	inCastle=true;
 	if ( typeof clayer == "undefined") {
 		clayer = new Kinetic.Layer();
@@ -17,16 +19,32 @@ function makeCastle() {
 		loadImage("img/robot3.png",60,500,null,clayer,castleImageArray,true,7);
 		loadImage("img/robot4.png",60,500,null,clayer,castleImageArray,true,8);
 		loadImage("img/robot5.png",60,500,null,clayer,castleImageArray,true,9);
-		loadImage("img/robotpart.png",500,50,null,clayer,castleImageArray,false,10);//10
-		loadImage("img/castlepart.png",500,300,null,clayer,castleImageArray,false,11);//11
+		loadImage("img/robotpart.png",500,50,null,clayer,castleImageArray,false,10,showParts);//10
+		loadImage("img/castlepart.png",500,300,null,clayer,castleImageArray,false,11,showParts);//11
 		castleImageKey=0;
 		robotImageKey=5;
 		stage.add(clayer);
+		soundManager.playSound("lcastle","speaker");
 	}
-		clayer.add(rect);
-		clayer.draw();
+	clayer.add(rect);
+	showParts();
+	clayer.draw();
 	soundManager.playSound("lcastle","love");
 	hideAllLayersExcept(stage,clayer);
+}
+
+function showParts(){
+	if(typeof castleImageArray.p10 == "undefined" || typeof castleImageArray.p11 == "undefined")return;
+	if(playerStars<3){
+		castleImageArray.p10.hide();
+		castleImageArray.p11.hide();
+		soundManager.playSound("lcastle","notenough");
+	}
+	else{
+		castleImageArray.p10.show();
+		castleImageArray.p11.show();
+	}
+	clayer.draw();
 }
 
 function removeCastle(){
@@ -49,6 +67,8 @@ function betterCastle(){
 	castleImageKey++;
 	castleImage = castleImageArray["p"+castleImageKey];
 	castleImage.show();
+	if(castleImageKey==4)castleImageArray.p11.hide();
+	soundManager.playSound("lcastle","yaycastle");
 	clayer.draw();
 }
 
@@ -59,6 +79,8 @@ function betterRobot(){
 	replaceRobotImage(castleImageArray["p"+robotImageKey].getImage());
 	robotImage = castleImageArray["p"+robotImageKey];
 	robotImage.show();
+	if(robotImageKey==9)castleImageArray.p10.hide();
+	soundManager.playSound("lcastle","yayrobot");
 	clayer.draw();
 }
 
@@ -74,9 +96,10 @@ function cbuttonstuff(e){
 
 function buyStuff(c){
 	if(playerStars>=3){
+		setStarPoints(playerStars-3);
 		if(c=='c')betterCastle();
 		else if(c=='r')betterRobot();
-		setStarPoints(playerStars-3);
+		showParts();
 	}
 	else{
 		//TODO Play sound for not enough
@@ -106,7 +129,8 @@ function restoreLevelState(toLevelState){
 	else if(toLevelState==4){
 		enableButtonsForLevel4();
 	}
-	
+	$('#pageTitle').html("Level "+toLevelState);
+	$('#pageSubTitle').html("Replay your programs!");
 	levelState = toLevelState;
 	if(typeof line != "undefined")removeLine();
 	resetRobot();
