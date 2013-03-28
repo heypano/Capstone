@@ -1,6 +1,7 @@
 
 //Is obj Colliding with something (returns what otherwise null)
-function collides(obj1,plugX,plugY,plugWidth,plugHeight) {
+function collides(obj1,plugX,plugY,plugWidth,plugHeight,levelState) {
+	if(typeof levelState == "undefined")levelState = window.levelState;
 	l1 = obj1.getX();
 	r1 = l1 + obj1.twidth;
 	t1 = obj1.getY();
@@ -14,8 +15,10 @@ function collides(obj1,plugX,plugY,plugWidth,plugHeight) {
 
 	//Collides with plug
 	if (hitTest(l1, r1, t1, b1, plugX, plugX + plugWidth, plugY, plugY + plugHeight)) {
+		//Make sure it doesn't get hit from the wrong chunk
+		if(levelState==2 && getChunk(r1,b1)!=11)return 0;
+		//plug is 3
 		return 3;
-		// TODO change this later -- 3 means plug
 	}
 
 	//Collides with ball

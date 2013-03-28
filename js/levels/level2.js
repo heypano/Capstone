@@ -18,6 +18,8 @@ function makeLevel2() {
 	enableDebug();
 	debugged = false;
 	moving = false;
+	robotObj.moveToTop();
+	layer.draw();
 }
 
 
@@ -44,20 +46,20 @@ function removeGuidelines(){
 }
 
 function startDebug(){	
-	stage.on("touchmove", debugFind);
-	stage.on("mousemove", debugFind);
+	stage.on("touchstart", debugFind);
+	stage.on("mousedown", debugFind);
 }
 
 function debugFind(){
 	var position = stage.getUserPosition();
 	var x = position.x;
 	var y = position.y;
-	if(y<=520 && y>=480 && x>=300 && x<=600){
+	if(y<=520 && y>=480 && x>=300 && x<=600 && !debugged){
 				debugged = true;
 				redLine.remove();
-				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
 				disableTouch();
 				enableDraw();
+				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
 				soundManager.playSound("l2","yourerightdebug");
 				resetRobot();
 	}

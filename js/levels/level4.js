@@ -27,6 +27,8 @@ function makeLevel4() {
 	makeGrid();
 	disableTouch();
 	Buttons();
+	loadImage("img/highlight.png", 364, 505, null, layer,imageArray,true,50);
+	loadInstruction5();
 }
 
 function Buttons(layer) {
@@ -220,6 +222,7 @@ function buttonFunctionality(reference) {
 
 function buttonstuff(e) {
 	var buttonType = isButton(e.pageX, e.pageY);
+	if (commandList.length == 6) return;
 	if (buttonType == 'u')
 		control('u');
 	else if (buttonType == 'l')
@@ -232,7 +235,7 @@ function buttonstuff(e) {
 }
 
 function control(n) {//u d l r
-	//var n = this.name;
+	if (commandList.length == 6) return;
 	commandList.push(n);
 	//Add codelines
 	if (n == "u") {
@@ -249,10 +252,11 @@ function control(n) {//u d l r
 		soundManager.playSound("l4", "executeright");
 	}
 	if (commandList.length == 6) {
+		disableSideButtons();
+		disableTouch();
 		$(soundManager).bind("endqueue",function(){
 			$(soundManager).unbind("endqueue");
 			//Execute the animation
-			disableTouch();
 			gridMove();
 		});
 
@@ -316,6 +320,8 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 	if(typeof robotObj == "undefined")robotObj=window.robotObj;
 	if(typeof layer == "undefined")layer=window.layer;
 	if(replaying)resetRobot();
+
+	robotObj.moveToTop();
 	//console.log(commandsToExecute,movement);
 	prevTime = 0;
 	movementState = 0;
@@ -323,6 +329,7 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 	lastMovement = movement;
 	//console.log(commandsToExecute);
 	//console.log(movement);
+	highlighttrick(1);
 	anim3 = new Kinetic.Animation(function(frame) {
 		var timePassed = frame.time - prevTime;
 		if (timePassed < 0)
@@ -334,7 +341,6 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			}
 			var toGridX = movement[movementState].x;
 			var toGridY = movement[movementState].y;
-
 			realRobX = robotObj.getX();
 			realRobY = robotObj.getY();
 			//console.log("Real robot position: ("+realRobX+", "+realRobY+")");
@@ -353,6 +359,7 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 					soundManager.playSound("l4", "cantgothatway");
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
+						highlighttrick(movementState+2);
 						movementState++;
 						return;
 						});	
@@ -365,36 +372,43 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			//When have we reached our destination
 			if (toGridX == 0 && toGridY == 0) {
 				if (isCloseTo(realRobX, 20) && isCloseTo(realRobY, 10)) {
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 1 && toGridY == 0) {
 				if (isCloseTo(realRobX, 210) && isCloseTo(realRobY, 10)) { //treatcircle
 					soundManager.playSound("l4","yummy");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 2 && toGridY == 0) {7
 				if (isCloseTo(realRobX, 430) && isCloseTo(realRobY, 10)) { //treatstick
 					soundManager.playSound("l4","treat");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 3 && toGridY == 0) {
 				if (isCloseTo(realRobX, 560) && isCloseTo(realRobY, 10)) { //cat
 					soundManager.playSound("l4","cat");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 0 && toGridY == 1) {					  
 				if (isCloseTo(realRobX, 20) && isCloseTo(realRobY, 150)) { //cat
 					soundManager.playSound("l4","cat");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 1 && toGridY == 1) {
 				if (isCloseTo(realRobX, 210) && isCloseTo(realRobY, 150)) { //dogfood
 					soundManager.playSound("l4","mmmmdogfood");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 2 && toGridY == 1) {
 				if (isCloseTo(realRobX, 430) && isCloseTo(realRobY, 150)) { //cat
 					soundManager.playSound("l4","cat");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 3 && toGridY == 1) {
@@ -408,7 +422,7 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 						anim3.stop();
 						gameCompleted=true;
 						removeLevel4();
-						
+						enableSideButtons();
 						return;
 						});
 					return;	
@@ -416,16 +430,19 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			} else if (toGridX == 0 && toGridY == 2) {
 				if (isCloseTo(realRobX, 20) && isCloseTo(realRobY, 280)) { //treatcircle
 					soundManager.playSound("l4","yummy");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 1 && toGridY == 2) {
 				if (isCloseTo(realRobX, 210) && isCloseTo(realRobY, 280)) { //treatstick
 					soundManager.playSound("l4","treat");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			} else if (toGridX == 2 && toGridY == 2) {
 				if (isCloseTo(realRobX, 430) && isCloseTo(realRobY, 280)) { //crocodile
 					soundManager.playSound("l4","crocodile");
+					highlighttrick(movementState+2);
 					movementState++;
 				}
 			}
@@ -453,11 +470,13 @@ function addCodeLine(line,layer) {
 	if(typeof layer == "undefined")layer=window.layer;
 	var cur = codeText.getText();
 	codeText.setText(cur + "\n" + line);
+	//highlighttrick(commandList.length);
 	layer.drawScene();
 }
 
 function clearCodeText() {
 	codeText.setText('');
+	
 }
 
 function isCloseTo(x, y) {
@@ -518,4 +537,17 @@ function isButton(x, y) {
 function enableButtonsForLevel4() {
 	stage.on("mousedown", buttonstuff);
 	stage.on("touchstart", buttonstuff);
+}
+
+
+function highlighttrick(l){
+	highlight = imageArray.p50;
+	if(l==-1){
+		highlight.hide();
+	}
+	else {
+		highlight.show();
+		highlight.setY(505+33*(l-1));
+	}
+	layer.draw();
 }

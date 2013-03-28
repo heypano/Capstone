@@ -9,17 +9,25 @@ drawingDisabled=false //If drawing is disabled these will fail
 
 //Start drawing line (touch down)
 function startMove(event) {
-	if(drawingDisabled) return;
-	if (robotMoving) // If the robot is moving, do nothing
+	if(drawingDisabled){
 		return;
+	} 
+	if (robotMoving){// If the robot is moving, do nothing
+		console.log("MNOO");
+		return;
+	} 
 	if (moving) {
 		moving = false;
 		layer.draw();
 	} else {
+		var newPoint = stage.getUserPosition();
+		//Only if line starts on robot
+		if(!startedOnRobot(robotObj,newPoint)){
+			return;	
+		}
 		//Remove previous line
 		removeLine(line);
 		//Get new point
-		var newPoint = stage.getUserPosition();
 		if(levelState==2 && getChunk(newPoint.x,newPoint.y)<4)return;
 		//Put it in array
 		points.push(newPoint);
@@ -43,7 +51,10 @@ function continueMove(event) {
 	if (moving) {
 		//Get new point
 		newPoint = stage.getUserPosition();
-		if(!newPoint)return;
+		if(!newPoint){
+			endMove();
+			return;
+			}
 		//Depending on whether this is the right chunk, draw the line or not
 		newChunk = getChunk(newPoint.x, newPoint.y);
 		if (prevPoint != null)
@@ -128,6 +139,14 @@ function removeLine(line) {
 	//layer.drawScene(); //Redraw stage
 }
 
+
+function startedOnRobot(robotObj,point){
+	var rl = robotObj.getX();
+	var rt = robotObj.getY();
+	var rr = rl + robotObj.twidth;
+	var rb = rt + robotObj.theight;
+	return isPointWithin(point.x,point.y,rl,rr,rt,rb);
+}
 
 /*
 //returns whether two line segments intersect or not
