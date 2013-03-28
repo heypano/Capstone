@@ -21,6 +21,7 @@
 //DONE HIGH handle number of times that speaker instructions are pressed
 //TODO HIGH insturctions level 4
 //TODO dodgeball level easier
+//TODO ML add a story about plug, what does it mean to write a program
 //TODO Make line thicker for level 2
 //TODO HIGH Attempt counter for level 4
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
@@ -31,6 +32,8 @@
 //TODO HIGH title/subtitles for replay
 //TODO HIGH change castle speaker (shop doesn't exist anymore)
 //TODO HIGH check button transitions
+//TODO ML Glossary?
+//TODO ML enter photo
 //DONE HIGH List of programs page -- replay Button
 //DONE HIGH if no programs?
 
