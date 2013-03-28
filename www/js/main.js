@@ -19,6 +19,8 @@
 //DONE HIGH fix chunks in level before dodgeball level
 //DONE HIGH make sure plug / stars don't get hit from the wrong chunk
 //DONE HIGH handle number of times that speaker instructions are pressed
+//TODO HIGH insturctions level 4
+//TODO dodgeball level easier
 //TODO HIGH Attempt counter for level 4
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
 //TODO HIGH not enough stars sound
