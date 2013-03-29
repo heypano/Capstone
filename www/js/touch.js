@@ -36,7 +36,7 @@ function enableSideButtons(){
 	$("#enterButton").unbind("click");
 	//Speaker
 	$("#speakerButton").click(function(){
-		var levelthing = levelState;
+		var levelThing = levelState;
 		if(inCastle)levelThing = "castle";
 		else if(inProgram)levelThing = "program";
 		speakerStuff(levelThing);
