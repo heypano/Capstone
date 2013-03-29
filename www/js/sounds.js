@@ -91,6 +91,7 @@ function addSounds(){
 	this.all.oops = new Audio("sounds/robot/00_oops.mp3");
 	this.all.oopsjusthitwall = new Audio("sounds/robot/00_oopsjusthitwall.mp3");
 	this.all.yay = new Audio("sounds/robot/0_yay.mp3");
+	this.all.welcome = new Audio("sounds/speaker/00_welcome.mp3");
 	this.l0 = new Object();
 	this.l0.introintro = new Audio("sounds/speaker/0_introintro.mp3");
 	this.l0.speaker = new Audio("sounds/speaker/0_speakerinstrstart.mp3");
@@ -130,7 +131,13 @@ function addSounds(){
 	this.lcastle.yaycastle = new Audio("sounds/robot/castle_yaycastle.mp3");
 	this.lprogram = new Object();
 	this.lprogram.speaker = new Audio("sounds/speaker/program_speakerinstr.mp3");
+	this.lglossary = new Object();
+	this.lglossary.program = new Audio("sounds/speaker/glossary_program.mp3");
+	this.lglossary.executing = new Audio("sounds/speaker/glossary_executing.mp3");
+	this.lglossary.parallel = new Audio("sounds/speaker/glossary_parallelalel.mp3");
+	this.lglossary.debug = new Audio("sounds/speaker/glossary_debug.mp3");
 }
+
 
 function shutUp(){
 	soundManager.currentSoundPlaying.pause();

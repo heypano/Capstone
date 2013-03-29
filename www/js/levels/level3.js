@@ -3,9 +3,12 @@
 function makeLevel3() {
 	levelState = 3; //Keeps track of what level we are on
 	delete currentSound;
-	if(!inCastle && !inProgram)$('#pageTitle').html("Level 3");
+	if(!inCastle && !inProgram){
+		$('#pageTitle').html("Level 3");	
+	}
 	currentSound = new Audio("sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
+	soundManager.playSound("lglossary","parallel");
 	soundManager.playSound("l3","moreprograms");
 	attemptCounter = 0;
 	//Balls
@@ -81,10 +84,10 @@ function animateBalls(layer,ballObj1,ballObj2){
 				bt2 = ballObj2.getY();
 				bb2 = bt2 + ballHeight;
 				prevTime = frame.time;
-				ballObj1.setX(bl1-3);
-				ballObj1.setY(bt1+3);
-				ballObj2.setX(bl2+1);
-				ballObj2.setY(bt2+1);
+				ballObj1.setX(bl1-1.5);
+				ballObj1.setY(bt1+1.5);
+				ballObj2.setX(bl2+0.3);
+				ballObj2.setY(bt2+0.3);
 				if(hitTest(bl1,br1,bt1,bb1,bl2,br2,bt2,bb2)){ //When the balls collide restart animation
 					ballObj1.setX(ball1defx);
 					ballObj1.setY(ball1defy);

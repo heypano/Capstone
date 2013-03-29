@@ -1,7 +1,9 @@
 function makeLevel0(){
 	delete currentSound;
-	if(!inCastle && !inProgram)$('#pageTitle').html("Welcome!");
-	
+	if(!inCastle && !inProgram){
+		$('#pageTitle').html("Welcome!");	
+	}
+	soundManager.playSound("lglossary","program");
 	soundManager.playSound("l0","introbyrobot");
 	attemptCounter = 0;
 	//Draw the maze

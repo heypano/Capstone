@@ -14,11 +14,11 @@ function makeCastle() {
 		loadImage("img/castle3.png",10,10,null,clayer,castleImageArray,true,2);
 		loadImage("img/castle4.png",10,10,null,clayer,castleImageArray,true,3);
 		loadImage("img/castle5.png",10,10,null,clayer,castleImageArray,true,4);
-		loadImage("img/robot1.png",60,500,null,clayer,castleImageArray,false,5);//5
-		loadImage("img/robot2.png",60,500,null,clayer,castleImageArray,true,6);
-		loadImage("img/robot3.png",60,500,null,clayer,castleImageArray,true,7);
-		loadImage("img/robot4.png",60,500,null,clayer,castleImageArray,true,8);
-		loadImage("img/robot5.png",60,500,null,clayer,castleImageArray,true,9);
+		loadImage("img/robot1.png",160,350,null,clayer,castleImageArray,false,5);//5
+		loadImage("img/robot2.png",160,350,null,clayer,castleImageArray,true,6);
+		loadImage("img/robot3.png",160,350,null,clayer,castleImageArray,true,7);
+		loadImage("img/robot4.png",160,350,null,clayer,castleImageArray,true,8);
+		loadImage("img/robot5.png",160,350,null,clayer,castleImageArray,true,9);
 		loadImage("img/robotpart.png",500,50,null,clayer,castleImageArray,false,10,showParts);//10
 		loadImage("img/castlepart.png",500,300,null,clayer,castleImageArray,false,11,showParts);//11
 		castleImageKey=0;
@@ -36,13 +36,13 @@ function makeCastle() {
 function showParts(){
 	if(typeof castleImageArray.p10 == "undefined" || typeof castleImageArray.p11 == "undefined")return;
 	if(playerStars<3){
-		castleImageArray.p10.hide();
-		castleImageArray.p11.hide();
+		if(castleImageArray.p10)castleImageArray.p10.hide();
+		if(castleImageArray.p11)castleImageArray.p11.hide();
 		soundManager.playSound("lcastle","notenough");
 	}
 	else{
-		castleImageArray.p10.show();
-		castleImageArray.p11.show();
+		if(robotImageKey<9)castleImageArray.p10.show();
+		if(castleImageKey<4)castleImageArray.p11.show();
 	}
 	clayer.draw();
 }
@@ -67,7 +67,9 @@ function betterCastle(){
 	castleImageKey++;
 	castleImage = castleImageArray["p"+castleImageKey];
 	castleImage.show();
-	if(castleImageKey==4)castleImageArray.p11.hide();
+	if(castleImageKey==4){
+		castleImageArray.p11.remove();
+	}
 	soundManager.playSound("lcastle","yaycastle");
 	clayer.draw();
 }
@@ -79,7 +81,9 @@ function betterRobot(){
 	replaceRobotImage(castleImageArray["p"+robotImageKey].getImage());
 	robotImage = castleImageArray["p"+robotImageKey];
 	robotImage.show();
-	if(robotImageKey==9)castleImageArray.p10.hide();
+	if(robotImageKey==9){
+		castleImageArray.p10.remove();
+	}
 	soundManager.playSound("lcastle","yayrobot");
 	clayer.draw();
 }
@@ -96,10 +100,14 @@ function cbuttonstuff(e){
 
 function buyStuff(c){
 	if(playerStars>=3){
-		setStarPoints(playerStars-3);
-		if(c=='c')betterCastle();
-		else if(c=='r')betterRobot();
+		if(c=='c' && castleImageKey<4)betterCastle();
+		else if(c=='r' && robotImageKey<9)betterRobot();
+		else{
+			showParts();
+			return;
+		}
 		showParts();
+		setStarPoints(playerStars-3);
 	}
 	else{
 		//TODO Play sound for not enough
@@ -130,7 +138,7 @@ function restoreLevelState(toLevelState){
 		enableButtonsForLevel4();
 	}
 	$('#pageTitle').html("Level "+toLevelState);
-	$('#pageSubTitle').html("Replay your programs!");
+	$('#pageSubTitle').html("Help the robot get to the plug!");
 	levelState = toLevelState;
 	if(typeof line != "undefined")removeLine();
 	resetRobot();

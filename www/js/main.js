@@ -4,7 +4,6 @@
 //stageWidth // stageHeight // stageX // stageY
 //.twidth
 //.theight
-
 //HIGHEST PRIORITY
 
 //DONE HIGH Make sure line started on robot
@@ -20,17 +19,16 @@
 //DONE HIGH make sure plug / stars don't get hit from the wrong chunk
 //DONE HIGH handle number of times that speaker instructions are pressed
 //DONE replay hall
-//TODO ML add a story about plug
+//TODO optimize?...(replace delete with = null)
 //TODO HIGH instructions level 4
-//TODO dodgeball level easier
-//TODO optimize?...
-//TODO HIDE buttons on replay
-//TODO Make line thicker for level 2
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
-//TODO HIGH different animated gif based on the level
-//TODO HIGH Add arrows for commands
 //TODO HIGH check button transitions
-//TODO ML Glossary?
+//DONE ML Glossary?
+//DONE Make line thicker for level 2
+//DONE HIGH different animated gif based on the level
+//DONE HIDE buttons on replay
+//DONE dodgeball level easier
+//DONE ML add a story about plug
 //DONE Change icon for enter to mini icons
 //DONE HIGH Attempt counter for level 4
 //DONE Castle hide buttons if Can't buy anything
@@ -49,17 +47,14 @@
 //TODO HIGH subtitles
 //TODO HIGH Move robot to top layer
 //TODO HIGH Add trail of number / if then else to balls
-//TODO HIGH Clinky the robot title of game (intro page?)
 //TODO HIGH Back Button
+//TODO HIGH Add arrows for commands
 //TODO LOW Show image connecting robot to plug maybe replace image?
 
 //GAMEPLAY
 //TODO HIGH do not touch button with fun level
-//TODO HIGH move bottom right star lower in level "2"
 //TODO HIGH try to reproduce and fix bug level 5
 //TODO HIGH free moving level (surprise)
-//TODO MEDIUM if get all stars give gift
-//TODO LOW Execute previous program again
 //DONE HIGH Castle
 //DONE HIGH Shop
 //DONE add time to show robot ON plug 
@@ -104,15 +99,12 @@
 //DONE for level 3 make sure drawing starts at green line
 
 //MAZE
-//TODO HIGH limit chunks more
 
 //COLLISION DETECTION
 //TODO MEDIUM Make collision with plug smoother
 //TODO MEDIUM Make bounding boxes? maybe
 
 //INTERACTION
-//TODO HIGH Don't let them click the speaker button super often
-//TODO HIGH DONT LET PRESS BUTTONS IMMEDIATELY AFTER 6
 //TODO HIGH Test overall usability when done, act like a child
 //TODO MEDIUM Make robot talk when you click it (or flick it? or when you talk to it?)
 //TODO LOW Images should not be draggable, text should not be selectable -- not an actual problem for mobile
@@ -166,13 +158,8 @@ $(document).ready(function() {
 	enableSideButtons();
 	
 	$("#enterButton").hide();
-	layer.draw();
-	generalInit();
-	makeLevel0();
-	//Redraw the layer
-	//Add the layer to the stage
-	stage.add(layer);
-	//removeLevel1();
+	
+	startOpening();
 });
 
 //Initalizes things that are useful for (almost) all pages

@@ -2,7 +2,9 @@ function makeLevel4() {
 	levelState = 4;
 	//Keeps track of what level we are on
 	delete currentSound;
-	if(!inCastle && !inProgram)$('#pageTitle').html("Level 4");
+	if(!inCastle && !inProgram){
+		$('#pageTitle').html("Level 4");	
+	}
 	currentSound = new Audio("sounds/drawaline.mp3");
 	soundManager.playSound("l4", "toomanythings");
 	attemptCounter = 0;
@@ -41,10 +43,12 @@ function Buttons(layer) {
 	downB.name = "d";
 	rightB = new Object();
 	rightB.name = "r";
-	loadImage("img/leftButton.png", 30, 600, leftB, layer);
-	loadImage("img/upButton.png", 130, 510, upB, layer);
-	loadImage("img/downButton.png", 130, 600, downB, layer);
-	loadImage("img/rightButton.png", 230, 600, rightB, layer);
+	if(!replaying){
+		loadImage("img/leftButton.png", 30, 600, leftB, layer,false,50);
+		loadImage("img/upButton.png", 130, 510, upB, layer,false,51);
+		loadImage("img/downButton.png", 130, 600, downB, layer,false,52);
+		loadImage("img/rightButton.png", 230, 600, rightB, layer,false,53);
+	}
 	buttonBorder = new Kinetic.Line({
 		points : [5, 450, 350, 450, 350, 725, 350, 450, 695, 450],
 		stroke : '#ababab',
@@ -319,10 +323,15 @@ function gridMove() {
 	playAnimation(commandsToExecute, movement);
 }
 
-function playAnimation(commandsToExecute, movement, robotObj, layer) {
+function playAnimation(commandsToExecute, movement, robotObj, layer,imageArray) {
 	if(typeof robotObj == "undefined")robotObj=window.robotObj;
 	if(typeof layer == "undefined")layer=window.layer;
-	if(replaying)resetRobot();
+	if(typeof imageArray == "undefined")imageArray = window.imageArray;
+	if(replaying){
+		resetRobot();
+		layer.draw();
+	}
+	$("#controls").hide();
 
 	robotObj.moveToTop();
 	//console.log(commandsToExecute,movement);
@@ -422,9 +431,12 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 					//commandsToExecute[movementState] = "x";
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
-						for (var i=0;i<15;i++){
-							addStarPoint();
+						if(!replaying){
+							for (var i=0;i<15;i++){
+								addStarPoint();
+							}
 						}
+						$("#controls").show();
 						anim3.stop();
 						gameCompleted=true;
 						removeLevel4();
@@ -464,6 +476,7 @@ function resetAnim4() {
 	$(soundManager).bind("endqueue",function(){
 		$(soundManager).unbind("endqueue");
 		resetRobot();
+		if(!replaying)$("#controls").show();
 		enableButtonsForLevel4();
 		//empty the commandList
 		delete commandList;

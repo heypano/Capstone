@@ -103,6 +103,7 @@ function playStuff(l){
 	//load the things (the stars for the level too but be careful not to regetthem!)
 	//Play the animation
 	//Exit
+	$("#controls").hide();
 	tlayer.add(this.robotObj);
 	tlayer.add(this.plugObj);
 	if(l==0){
@@ -145,7 +146,7 @@ function playStuff(l){
 				soundManager.playSound("l4", "executeright");
 			}
 		}
-		playAnimation(this.commandsToExecute, this.movement, this.robotObj, tlayer);
+		playAnimation(this.commandsToExecute, this.movement, this.robotObj, tlayer,this.imageArray);
 	}
 	tlayer.drawScene();
 	if(l!=4){
@@ -161,6 +162,7 @@ function removeTempLayer(){
 		tlayer.remove();
 		delete tlayer;
 	}
+	$("#controls").show();
 	prlayer.show();
 	enableButtonsForProgram();
 	replaying = false;

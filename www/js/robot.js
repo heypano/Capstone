@@ -97,7 +97,7 @@ function moveRobot() {
 				anim.stop();
 				robotMoving = false;
 				disableTouch();
-				//disableSideButtons();
+				disableSideButtons();
 				soundManager.playSound("all","yay");
 				//Wait to make sure it got saved
 				$(window).bind("saveded",function(){
