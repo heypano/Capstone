@@ -20,6 +20,9 @@
 //DONE HIGH handle number of times that speaker instructions are pressed
 //DONE replay hall
 //TODO optimize?...(replace delete with = null)
+//TODO make different picture for when IN castle or IN program
+//TODO change sound to use phrase execute first
+//TODO level 4 make it clear that there's 6 things there
 //TODO HIGH instructions level 4
 //TODO STOP INTERACTION IMMEDIATELY after hitting plug -- UNCOMMENT if( collidesR == 3)
 //TODO HIGH check button transitions
