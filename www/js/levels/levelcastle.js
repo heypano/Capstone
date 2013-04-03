@@ -26,6 +26,7 @@ function makeCastle() {
 		stage.add(clayer);
 		soundManager.playSound("lcastle","speaker");
 	}
+	$("#prettyButton").show();
 	clayer.add(rect);
 	showParts();
 	clayer.draw();
@@ -58,7 +59,9 @@ function removeCastle(){
 	disableTouch();
 	if(!gameCompleted){restoreLevelState(levelState);}
 	else makeProgram();
+	$("#prettyButton").hide();
 	layer.draw();
+	
 }
 
 function betterCastle(){

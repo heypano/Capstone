@@ -161,7 +161,15 @@ $(document).ready(function() {
 	enableSideButtons();
 	
 	$("#enterButton").hide();
-	
+	$("#prettyButton").hide();
+	$("#prettyButton").click(function() {
+		$("#prettyButton").hide();
+		if (inProgram) {
+			removeProgram();
+		} else if (inCastle) {
+			removeCastle();
+		}
+	});
 	startOpening();
 });
 

@@ -86,6 +86,16 @@ function Buttons(layer) {
 		fill : 'Black'
 	});
 	layer.add(codeText);
+	codeText2 = new Kinetic.Text({
+		x : 360,
+		y : 510,
+		text : "1)\n2)\n3)\n4)\n5)\n6)",
+		fontSize : 32,
+		fontWeight : 100,
+		fontFamily : 'Arial',
+		fill : 'Black'
+	});
+	layer.add(codeText2);
 	layer.add(buttonBorder);
 	if(!replaying)enableButtonsForLevel4();
 }
