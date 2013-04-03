@@ -36,18 +36,11 @@ function enableSideButtons(){
 	$("#enterButton").unbind("click");
 	//Speaker
 	$("#speakerButton").click(function(){
-		if(typeof $("#speakerButton")[0][levelState] == "undefined"){
-			$("#speakerButton")[0][levelState] = 1; // How many times has this been pressed
-		}
-		else{
-			$("#speakerButton")[0][levelState]++;
-		}
-		if(($("#speakerButton")[0][levelState]) <=2 ){ // Don't play things more than twice
-			if(!inCastle)soundManager.playSound("l"+levelState,"speaker");
-			else{
-				soundManager.playSound("lcastle","speaker");
-			}
-		}
+		var levelThing = levelState;
+		if(inCastle)levelThing = "castle";
+		else if(inProgram)levelThing = "program";
+		speakerStuff(levelThing);
+
 	});
 	//Speaker
 	$("#castleButton").click(function(){
@@ -70,4 +63,20 @@ function enableSideButtons(){
 			makeProgram();
 		}
 	});
+}
+
+function speakerStuff(levelThing){
+		if($("#speakerButton")[0][levelThing]>=3)$("#speakerButton").hide();
+		else $("#speakerButton").show();
+	
+		if(typeof $("#speakerButton")[0][levelThing] == "undefined"){
+			$("#speakerButton")[0][levelThing] = 1; // How many times has this been pressed
+		}
+		else{
+			$("#speakerButton")[0][levelThing]++;
+		}
+		if(($("#speakerButton")[0][levelThing]) <=3 ){ // Don't play things more than twice
+			soundManager.playSound("l"+levelThing,"speaker");
+		}
+		if($("#speakerButton")[0][levelThing]>=3)$("#speakerButton").hide();
 }

@@ -10,7 +10,13 @@ soundManager.addSounds();
 
 //This is the function that will be called
 soundManager.playSound = function(domain,soundadd){
-	if(inCastle && soundadd!="love")return;
+	if(inCastle){
+		if(domain!="lcastle")return;
+		else{
+			if(soundadd!="love" && soundadd!="speaker" && soundadd!="notenough" && soundadd!="yaycastle" && soundadd!="yayrobot")return;
+		}
+	}
+	
 	//Enqueue the item
 	var sound = soundManager[domain][soundadd];
 	if(soundadd=="ithinkishouldgoback"){ //Only play I think I should go back once per level
@@ -85,6 +91,7 @@ function addSounds(){
 	this.all.oops = new Audio("sounds/robot/00_oops.mp3");
 	this.all.oopsjusthitwall = new Audio("sounds/robot/00_oopsjusthitwall.mp3");
 	this.all.yay = new Audio("sounds/robot/0_yay.mp3");
+	this.all.welcome = new Audio("sounds/speaker/00_welcome.mp3");
 	this.l0 = new Object();
 	this.l0.introintro = new Audio("sounds/speaker/0_introintro.mp3");
 	this.l0.speaker = new Audio("sounds/speaker/0_speakerinstrstart.mp3");
@@ -114,13 +121,23 @@ function addSounds(){
 	this.l4.mmmmdogfood = new Audio("sounds/robot/4_mmmmdogfood.mp3");
 	this.l4.toomanythings = new Audio("sounds/robot/4_toomanythings.mp3");
 	this.l4.yummy = new Audio("sounds/robot/4_yummy.mp3");
+	this.l4.completed = new Audio("sounds/speaker/5_completed.mp3");
 	this.l4.speaker = new Audio("sounds/speaker/4_speakerinstrcommands.mp3");
 	this.lcastle = new Object();
 	this.lcastle.love = new Audio("sounds/robot/castle_love.mp3");
 	this.lcastle.speaker = new Audio("sounds/speaker/castle_speakerinstr.mp3");
-	this.lshop = new Object();
-	this.lshop.speaker = new Audio("sounds/speaker/shop_speakerinstr.mp3");
+	this.lcastle.notenough = new Audio("sounds/speaker/castle_notenoughstars.mp3");
+	this.lcastle.yayrobot = new Audio("sounds/robot/castle_yayrobot.mp3");
+	this.lcastle.yaycastle = new Audio("sounds/robot/castle_yaycastle.mp3");
+	this.lprogram = new Object();
+	this.lprogram.speaker = new Audio("sounds/speaker/program_speakerinstr.mp3");
+	this.lglossary = new Object();
+	this.lglossary.program = new Audio("sounds/speaker/glossary_program.mp3");
+	this.lglossary.executing = new Audio("sounds/speaker/glossary_executing.mp3");
+	this.lglossary.parallel = new Audio("sounds/speaker/glossary_parallelalel.mp3");
+	this.lglossary.debug = new Audio("sounds/speaker/glossary_debug.mp3");
 }
+
 
 function shutUp(){
 	soundManager.currentSoundPlaying.pause();

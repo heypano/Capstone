@@ -1,9 +1,12 @@
 function makeLevel2() {
 	levelState = 2; //Keeps track of what level we are on
 	delete currentSound;
-	$('#pageTitle').html("Level 2");
+	if(!inCastle && !inProgram){
+		$('#pageTitle').html("Level 2");
+	}
 	currentSound = new Audio("sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
+	soundManager.playSound("lglossary","debug");
 	soundManager.playSound("l2","mistakehelpmedebug");
 	attemptCounter = 0;
 	//Draw the maze
@@ -34,7 +37,7 @@ function guidelines(){
 		points : [600,500,300,500],
 		stroke : "red",
 	});
-	redLine.setStrokeWidth(10);
+	redLine.setStrokeWidth(20);
 	layer.add(greenLine);
 	layer.add(redLine);
 }
@@ -54,7 +57,7 @@ function debugFind(){
 	var position = stage.getUserPosition();
 	var x = position.x;
 	var y = position.y;
-	if(y<=520 && y>=480 && x>=300 && x<=600 && !debugged){
+	if(y<=560 && y>=440 && x>=300 && x<=600 && !debugged){
 				debugged = true;
 				redLine.remove();
 				disableTouch();

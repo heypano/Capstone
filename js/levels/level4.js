@@ -2,7 +2,9 @@ function makeLevel4() {
 	levelState = 4;
 	//Keeps track of what level we are on
 	delete currentSound;
-	$('#pageTitle').html("Level 4");
+	if(!inCastle && !inProgram){
+		$('#pageTitle').html("Level 4");	
+	}
 	currentSound = new Audio("sounds/drawaline.mp3");
 	soundManager.playSound("l4", "toomanythings");
 	attemptCounter = 0;
@@ -41,10 +43,12 @@ function Buttons(layer) {
 	downB.name = "d";
 	rightB = new Object();
 	rightB.name = "r";
-	loadImage("img/leftButton.png", 30, 600, leftB, layer);
-	loadImage("img/upButton.png", 130, 510, upB, layer);
-	loadImage("img/downButton.png", 130, 600, downB, layer);
-	loadImage("img/rightButton.png", 230, 600, rightB, layer);
+	if(!replaying){
+		loadImage("img/leftButton.png", 30, 600, leftB, layer,false,50);
+		loadImage("img/upButton.png", 130, 510, upB, layer,false,51);
+		loadImage("img/downButton.png", 130, 600, downB, layer,false,52);
+		loadImage("img/rightButton.png", 230, 600, rightB, layer,false,53);
+	}
 	buttonBorder = new Kinetic.Line({
 		points : [5, 450, 350, 450, 350, 725, 350, 450, 695, 450],
 		stroke : '#ababab',
@@ -82,6 +86,16 @@ function Buttons(layer) {
 		fill : 'Black'
 	});
 	layer.add(codeText);
+	codeText2 = new Kinetic.Text({
+		x : 360,
+		y : 510,
+		text : "1)\n2)\n3)\n4)\n5)\n6)",
+		fontSize : 32,
+		fontWeight : 100,
+		fontFamily : 'Arial',
+		fill : 'Black'
+	});
+	layer.add(codeText2);
 	layer.add(buttonBorder);
 	if(!replaying)enableButtonsForLevel4();
 }
@@ -184,7 +198,7 @@ function makeConnectorGrid(layer) {
 	}
 }
 
-function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
+function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto, callback) {
 	if(typeof layer == "undefined")layer=window.layer;
 	if(typeof imageArray == "undefined")imageArray=window.imageArray;
 	if(typeof hide == "undefined")hide=false;
@@ -209,6 +223,9 @@ function loadImage(filepath, x, y, reference, layer, imageArray, hide, sendto) {
 		imagObj.setDimensions();
 		if(hide==true)imagObj.hide();
 		layer.drawScene();
+		if(typeof callback != "undefined"){
+			callback();
+		}
 	}
 	imag.src = filepath;
 }
@@ -316,10 +333,15 @@ function gridMove() {
 	playAnimation(commandsToExecute, movement);
 }
 
-function playAnimation(commandsToExecute, movement, robotObj, layer) {
+function playAnimation(commandsToExecute, movement, robotObj, layer,imageArray) {
 	if(typeof robotObj == "undefined")robotObj=window.robotObj;
 	if(typeof layer == "undefined")layer=window.layer;
-	if(replaying)resetRobot();
+	if(typeof imageArray == "undefined")imageArray = window.imageArray;
+	if(replaying){
+		resetRobot();
+		layer.draw();
+	}
+	$("#controls").hide();
 
 	robotObj.moveToTop();
 	//console.log(commandsToExecute,movement);
@@ -346,13 +368,13 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			//console.log("Real robot position: ("+realRobX+", "+realRobY+")");
 			prevTime = frame.time;
 			if (commandsToExecute[movementState] == "u") {
-				robotObj.setY(realRobY - 2);
+				robotObj.setY(realRobY - 4);
 			} else if (commandsToExecute[movementState] == "d") {
-				robotObj.setY(realRobY + 2);
+				robotObj.setY(realRobY + 4);
 			} else if (commandsToExecute[movementState] == "l") {
-				robotObj.setX(realRobX - 2);
+				robotObj.setX(realRobX - 4);
 			} else if (commandsToExecute[movementState] == "r") {
-				robotObj.setX(realRobX + 2);
+				robotObj.setX(realRobX + 4);
 			} else if (commandsToExecute[movementState] == "n") {
 				//PLAY SOUND
 						
@@ -414,11 +436,17 @@ function playAnimation(commandsToExecute, movement, robotObj, layer) {
 			} else if (toGridX == 3 && toGridY == 1) {
 				if (isCloseTo(realRobX, 560) && isCloseTo(realRobY, 150)) { //plug
 					//If we reached the plug
-					soundManager.playSound("all", "yay");
+					soundManager.playSound("l4", "completed");
 					saveProgram();
 					//commandsToExecute[movementState] = "x";
 					$(soundManager).bind("endqueue",function(){
 						$(soundManager).unbind("endqueue");
+						if(!replaying){
+							for (var i=0;i<15;i++){
+								addStarPoint();
+							}
+						}
+						$("#controls").show();
 						anim3.stop();
 						gameCompleted=true;
 						removeLevel4();
@@ -458,6 +486,7 @@ function resetAnim4() {
 	$(soundManager).bind("endqueue",function(){
 		$(soundManager).unbind("endqueue");
 		resetRobot();
+		if(!replaying)$("#controls").show();
 		enableButtonsForLevel4();
 		//empty the commandList
 		delete commandList;
