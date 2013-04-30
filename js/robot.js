@@ -28,7 +28,7 @@ function addRobotToStage() {
 		robotObj.loadandplay("sounds/outofpower.mp3");*/
 		//$.trigger("robotloaded");
 	}
-	robotImageObj.src = "img/robot.png";
+	robotImageObj.src = "/Capstone/img/robot.png";
 }
 
 
