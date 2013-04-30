@@ -29,7 +29,7 @@ function makeLevel4() {
 	makeGrid();
 	disableTouch();
 	Buttons();
-	loadImage("/Capstone/img/Capstone//highlight.png", 364, 505, null, layer,imageArray,true,50);
+	loadImage("/Capstone/img/highlight.png", 364, 505, null, layer,imageArray,true,50);
 	loadInstruction5();
 }
 
@@ -44,10 +44,10 @@ function Buttons(layer) {
 	rightB = new Object();
 	rightB.name = "r";
 	if(!replaying){
-		loadImage("/Capstone/img/Capstone//leftButton.png", 30, 600, leftB, layer,false,50);
-		loadImage("/Capstone/img/Capstone//upButton.png", 130, 510, upB, layer,false,51);
-		loadImage("/Capstone/img/Capstone//downButton.png", 130, 600, downB, layer,false,52);
-		loadImage("/Capstone/img/Capstone//rightButton.png", 230, 600, rightB, layer,false,53);
+		loadImage("/Capstone/img/leftButton.png", 30, 600, leftB, layer,false,50);
+		loadImage("/Capstone/img/upButton.png", 130, 510, upB, layer,false,51);
+		loadImage("/Capstone/img/downButton.png", 130, 600, downB, layer,false,52);
+		loadImage("/Capstone/img/rightButton.png", 230, 600, rightB, layer,false,53);
 	}
 	buttonBorder = new Kinetic.Line({
 		points : [5, 450, 350, 450, 350, 725, 350, 450, 695, 450],
@@ -102,15 +102,15 @@ function Buttons(layer) {
 
 function makeGrid(layer) {
 	if(typeof layer == "undefined")layer=window.layer;
-	loadImage("/Capstone/img/Capstone//cat.png", 50, 220, null, layer);
-	loadImage("/Capstone/img/Capstone//treat1.png", 50, 370, null, layer);
-	loadImage("/Capstone/img/Capstone//cat.png", 580, 60, null, layer);
-	loadImage("/Capstone/img/Capstone//treat1.png", 240, 80, null, layer);
-	loadImage("/Capstone/img/Capstone//dogfood.png", 210, 220, null, layer);
-	loadImage("/Capstone/img/Capstone//treat2.png", 460, 80, null, layer);
-	loadImage("/Capstone/img/Capstone//cat.png", 420, 220, null, layer);
-	loadImage("/Capstone/img/Capstone//treat2.png", 270, 370, null, layer);
-	loadImage("/Capstone/img/Capstone//crocodile.png", 430, 350, null, layer);
+	loadImage("/Capstone/img/cat.png", 50, 220, null, layer);
+	loadImage("/Capstone/img/treat1.png", 50, 370, null, layer);
+	loadImage("/Capstone/img/cat.png", 580, 60, null, layer);
+	loadImage("/Capstone/img/treat1.png", 240, 80, null, layer);
+	loadImage("/Capstone/img/dogfood.png", 210, 220, null, layer);
+	loadImage("/Capstone/img/treat2.png", 460, 80, null, layer);
+	loadImage("/Capstone/img/cat.png", 420, 220, null, layer);
+	loadImage("/Capstone/img/treat2.png", 270, 370, null, layer);
+	loadImage("/Capstone/img/crocodile.png", 430, 350, null, layer);
 	makeConnectorGrid();
 }
 
