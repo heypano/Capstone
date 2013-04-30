@@ -4,7 +4,7 @@ function makeLevel2() {
 	if(!inCastle && !inProgram){
 		$('#pageTitle').html("Level 2");
 	}
-	currentSound = new Audio("sounds/drawaline.mp3");
+	currentSound = new Audio("/Capstone/sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
 	soundManager.playSound("lglossary","debug");
 	soundManager.playSound("l2","mistakehelpmedebug");
@@ -62,7 +62,7 @@ function debugFind(){
 				redLine.remove();
 				disableTouch();
 				enableDraw();
-				soundManager.l2.speaker = new Audio("sounds/speaker/2_speakerinstrdebug2.mp3");
+				soundManager.l2.speaker = new Audio("/Capstone/sounds/speaker/2_speakerinstrdebug2.mp3");
 				soundManager.playSound("l2","yourerightdebug");
 				resetRobot();
 	}

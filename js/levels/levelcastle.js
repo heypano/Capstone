@@ -9,18 +9,18 @@ function makeCastle() {
 	if ( typeof clayer == "undefined") {
 		clayer = new Kinetic.Layer();
 		castleImageArray = new Object();
-		loadImage("img/castle1.png",10,10,null,clayer,castleImageArray,false,0);//0
-		loadImage("img/castle2.png",10,10,null,clayer,castleImageArray,true,1);
-		loadImage("img/castle3.png",10,10,null,clayer,castleImageArray,true,2);
-		loadImage("img/castle4.png",10,10,null,clayer,castleImageArray,true,3);
-		loadImage("img/castle5.png",10,10,null,clayer,castleImageArray,true,4);
-		loadImage("img/robot1.png",160,350,null,clayer,castleImageArray,false,5);//5
-		loadImage("img/robot2.png",160,350,null,clayer,castleImageArray,true,6);
-		loadImage("img/robot3.png",160,350,null,clayer,castleImageArray,true,7);
-		loadImage("img/robot4.png",160,350,null,clayer,castleImageArray,true,8);
-		loadImage("img/robot5.png",160,350,null,clayer,castleImageArray,true,9);
-		loadImage("img/robotpart.png",500,50,null,clayer,castleImageArray,false,10,showParts);//10
-		loadImage("img/castlepart.png",500,300,null,clayer,castleImageArray,false,11,showParts);//11
+		loadImage("/Capstone/img/castle1.png",10,10,null,clayer,castleImageArray,false,0);//0
+		loadImage("/Capstone/img/castle2.png",10,10,null,clayer,castleImageArray,true,1);
+		loadImage("/Capstone/img/castle3.png",10,10,null,clayer,castleImageArray,true,2);
+		loadImage("/Capstone/img/castle4.png",10,10,null,clayer,castleImageArray,true,3);
+		loadImage("/Capstone/img/castle5.png",10,10,null,clayer,castleImageArray,true,4);
+		loadImage("/Capstone/img/robot1.png",160,350,null,clayer,castleImageArray,false,5);//5
+		loadImage("/Capstone/img/robot2.png",160,350,null,clayer,castleImageArray,true,6);
+		loadImage("/Capstone/img/robot3.png",160,350,null,clayer,castleImageArray,true,7);
+		loadImage("/Capstone/img/robot4.png",160,350,null,clayer,castleImageArray,true,8);
+		loadImage("/Capstone/img/robot5.png",160,350,null,clayer,castleImageArray,true,9);
+		loadImage("/Capstone/img/robotpart.png",500,50,null,clayer,castleImageArray,false,10,showParts);//10
+		loadImage("/Capstone/img/castlepart.png",500,300,null,clayer,castleImageArray,false,11,showParts);//11
 		castleImageKey=0;
 		robotImageKey=5;
 		stage.add(clayer);

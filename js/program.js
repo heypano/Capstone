@@ -4,12 +4,12 @@ replaying = false;
 prlayer = new Kinetic.Layer();
 programImageArray = new Object();
 inProgram = false;
-loadImage("img/level0.png", 50, 300, null, prlayer, programImageArray, true, 0);
+loadImage("/Capstone/img/level0.png", 50, 300, null, prlayer, programImageArray, true, 0);
 //0
-loadImage("img/level1.png", 250, 300, null, prlayer, programImageArray, true, 1);
-loadImage("img/level2.png", 450, 300, null, prlayer, programImageArray, true, 2);
-loadImage("img/level3.png", 150, 500, null, prlayer, programImageArray, true, 3);
-loadImage("img/level4.png", 350, 500, null, prlayer, programImageArray, true, 4);
+loadImage("/Capstone/img/level1.png", 250, 300, null, prlayer, programImageArray, true, 1);
+loadImage("/Capstone/img/level2.png", 450, 300, null, prlayer, programImageArray, true, 2);
+loadImage("/Capstone/img/level3.png", 150, 500, null, prlayer, programImageArray, true, 3);
+loadImage("/Capstone/img/level4.png", 350, 500, null, prlayer, programImageArray, true, 4);
 replayText = new Kinetic.Text({
 	x : 100,
 	y : 100,

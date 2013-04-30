@@ -14,7 +14,7 @@ function addStar(x,y,layer,starsarray){
 		layer.drawScene();
 		starsarray.push(starObj);
 	}
-	starImageObj.src = "img/star.png";
+	starImageObj.src = "/Capstone/img/star.png";
 }
 
 //Handles hitting stars -- this will run on every move

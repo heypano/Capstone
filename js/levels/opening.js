@@ -2,8 +2,8 @@ function startOpening(){
 	tempIntroLayer = new Kinetic.Layer();
 	tempIntroArray = new Object();
 	tempIntroLayer.add(rect);
-	loadImage("img/clinky.png",50,50,null,tempIntroLayer,tempIntroArray,false,0);
-	loadImage("img/robot-for-intro.png",200,240,null,tempIntroLayer,tempIntroArray,false,1,animateIntro);
+	loadImage("/Capstone/img/clinky.png",50,50,null,tempIntroLayer,tempIntroArray,false,0);
+	loadImage("/Capstone/img/robot-for-intro.png",200,240,null,tempIntroLayer,tempIntroArray,false,1,animateIntro);
 	tempIntroLayer.draw();
 	stage.add(tempIntroLayer);
 	$("#controls").hide();

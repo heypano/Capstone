@@ -38,7 +38,7 @@ function addPlugToStage() {
 		plugObj.plugWidth = plugWidth;
 		plugObj.plugHeight = plugHeight;
 	}
-	plugImageObj.src = "img/plug.png";
+	plugImageObj.src = "/Capstone/img/plug.png";
 }
 
 

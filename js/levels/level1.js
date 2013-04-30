@@ -4,7 +4,7 @@ function makeLevel1() {
 	if(!inCastle && !inProgram){
 		$('#pageTitle').html("Level 1");	
 	}
-	currentSound = new Audio("sounds/drawaline.mp3");
+	currentSound = new Audio("/Capstone/sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
 	soundManager.playSound("lglossary","executing");
 	soundManager.playSound("l1","mazeconfusing");

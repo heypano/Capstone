@@ -6,7 +6,7 @@ function makeLevel3() {
 	if(!inCastle && !inProgram){
 		$('#pageTitle').html("Level 3");	
 	}
-	currentSound = new Audio("sounds/drawaline.mp3");
+	currentSound = new Audio("/Capstone/sounds/drawaline.mp3");
 	//TODO robotObj.loadandplay("sounds/noidea.mp3");
 	soundManager.playSound("lglossary","parallel");
 	soundManager.playSound("l3","moreprograms");
@@ -30,8 +30,8 @@ function animatedBalls(){
 	ballImageObj1.onload = loadBall;
 	ballImageObj2.onload = loadBall;
 
-	ballImageObj1.src = "img/ball.png";
-	ballImageObj2.src = "img/ball.png";
+	ballImageObj1.src = "/Capstone/img/ball.png";
+	ballImageObj2.src = "/Capstone/img/ball.png";
 	
 }
 
