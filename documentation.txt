@@ -1,0 +1,31 @@
+Since this was made using phonegap, most of the code is in Javascript, therefore is under the www/js folder.
+
+The application loads with www/index.html.
+
+main.js contains most of the code that is initially executed
+	a stage and a layer is initalized
+	"layer" is the layer where everything but the castle, replay hall and replaying levels exist
+	
+levels/opening.js contains the first initializing functions
+
+all the javascript files under the folder levels mostly include level specific items
+
+collision.js defines the collision detection
+
+instructions.js defines animated gif interactions
+
+line.js defines the drawing interaction
+
+maze.js defines the mazes and limits
+
+plug.js defines the plug and its positioning
+
+program.js defines most of the replay hall interaction
+
+robot.js defines most of the robot's interactions
+
+sounds.js defines the sound queue and methods
+
+stars.js defines the stars and their interactions
+
+touch.js includes useful functions for enabling and disabling interactions.
